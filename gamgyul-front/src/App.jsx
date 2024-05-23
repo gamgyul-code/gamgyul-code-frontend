@@ -8,22 +8,24 @@ import LanguagePage from "./pages/LanguagePage";
 import MapPage from "./pages/MapPage/index";
 import CompletePage from "./pages/CompletePage";
 import { GlobalStyles } from "./style/global";
-import { LanguageProvider } from "./contexts/LanguageContext";
+import { LanguageProvider } from "./contexts/LanguageContext"; // LanguageProvider 추가
 
 function App() {
   return (
-    <div className="layout">
-      <GlobalStyles />
-      <Routes>
-        <Route path="/" element={<LocationFormPage />} />
-        <Route path="/location" element={<LocationDetailPage />} />
-        <Route path="/list" element={<LocationListPage />} />
-        <Route path="/detail" element={<MapDetailPage />} />
-        <Route path="/map" element={<MapPage />} />
-        <Route path="/complete" element={<CompletePage />} />
-        <Route path="/language" element={<LanguagePage />} />
-      </Routes>
-    </div>
+    <LanguageProvider>
+      <div className="layout">
+        <GlobalStyles />
+        <Routes>
+          <Route path="/" element={<LocationFormPage />} />
+          <Route path="/location" element={<LocationDetailPage />} />
+          <Route path="/list" element={<LocationListPage />} />
+          <Route path="/detail" element={<MapDetailPage />} />
+          <Route path="/map" element={<MapPage />} />
+          <Route path="/complete" element={<CompletePage />} />
+          <Route path="/language" element={<LanguagePage />} />
+        </Routes>
+      </div>
+    </LanguageProvider>
   );
 }
 
