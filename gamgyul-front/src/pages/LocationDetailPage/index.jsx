@@ -44,13 +44,17 @@ const LocationDetailPage = () => {
                 alt={`${location}_${selectLocation === location ? "active" : "inactive"}`}
                 onClick={() => handleOptionClick(location)}
               />
-              {/* <StyledOptionBtn
+            </>
+          ))}
+          {["loc1", "loc2", "loc3", "loc4", "loc5", "loc6"].map((location) => (
+            <>
+              <StyledOptionBtn
                 key={location}
                 isSelected={selectLocation === location}
                 onClick={() => handleOptionClick(location)}
               >
                 {location}
-              </StyledOptionBtn> */}
+              </StyledOptionBtn>
             </>
           ))}
         </StyledOptionList>
@@ -70,6 +74,20 @@ const StyledOptionList = styled.div`
 /** 선택 버튼 */
 const StyledOptionImg = styled.img`
   width: 33.3333%;
+  cursor: pointer;
+`;
+
+/** 선택 버튼 */
+const StyledOptionBtn = styled.button`
+  width: 33%;
+  height: 40px;
+  font-weight: 600;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 1px solid ${({ isSelected }) => (isSelected ? theme.color.primary : theme.color.grayscale_BF)};
+  background-color: ${({ isSelected }) => (isSelected ? theme.color.primary : theme.color.white)};
+  color: ${({ isSelected }) => (isSelected ? theme.color.white : theme.color.black)};
+  font-size: ${theme.fontSize.body1};
   cursor: pointer;
 `;
 

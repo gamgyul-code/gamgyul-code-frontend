@@ -52,7 +52,7 @@ const StyledOptionList = styled.div`
   }
 `;
 
-/** 선택 버튼 (hover 유무에 따른 변경 필요) */
+/** 선택 버튼 */
 const StyledOptionBtn = styled.button`
   width: 167px;
   height: 98px;
@@ -80,7 +80,7 @@ export const FormLayout = styled.div`
   padding: 0px 20px 58px 20px;
   height: calc(100vh - 58px);
   width: calc(100% - 40px);
-  background-color: gray;
+  background-color: ${theme.color.background};
   position: relative;
 `;
 
