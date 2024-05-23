@@ -13,22 +13,24 @@ const LocationFormPage = () => {
   return (
     <FormLayout>
       <div>할망 이미지 들어갈 공간</div>
-      <StyledTextBox>
-        <span>
-          Choose a theme
-          <br />
-          that you want to travel
-        </span>
-      </StyledTextBox>
+      <StyledBottomWrapper>
+        <StyledTextBox>
+          <span>
+            Choose a theme
+            <br />
+            that you want to travel
+          </span>
+        </StyledTextBox>
 
-      <StyledOptionList>
-        {["설문대 할망", "역사", "신화", "사랑"].map((theme) => (
-          <StyledOptionBtn key={theme} isSelected={selectTheme === theme} onClick={() => handleOptionClick(theme)}>
-            {theme}
-          </StyledOptionBtn>
-        ))}
-      </StyledOptionList>
-      <Button />
+        <StyledOptionList>
+          {["설문대 할망", "역사", "신화", "사랑"].map((theme) => (
+            <StyledOptionBtn key={theme} isSelected={selectTheme === theme} onClick={() => handleOptionClick(theme)}>
+              {theme}
+            </StyledOptionBtn>
+          ))}
+        </StyledOptionList>
+        <Button disabled={!selectTheme}>다음</Button>
+      </StyledBottomWrapper>
     </FormLayout>
   );
 };
@@ -68,13 +70,21 @@ const StyledOptionBtn = styled.button`
   }
 `;
 
+/** 이미지 제외 위치 고정 박스 */
+const StyledBottomWrapper = styled.div`
+  position: absolute;
+  bottom: 20px; /* 하단에서의 거리 */
+  width: calc(100% - 40px); /* FormLayout의 패딩을 고려한 너비 */
+  left: 20px; /* FormLayout의 왼쪽 패딩 */
+  right: 20px; /* FormLayout의 오른쪽 패딩 */
+`;
+
 /** 공통 FormLayout (내부여백) */
 export const FormLayout = styled.div`
   padding: 0px 20px 58px 20px;
   height: calc(100vh - 58px);
   width: calc(100% - 40px);
   background-color: gray;
-
   position: relative;
 `;
 

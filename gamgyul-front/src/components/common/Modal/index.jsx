@@ -8,7 +8,7 @@ const Modal = ({ onClose }) => {
       <StyledModal>
         <StyledBody1Text>스탬프를 획득했습니다</StyledBody1Text>
         <div>이미지 들어갈 공간</div>
-        <Button onClick={onClose}>확인</Button>
+        <button onClick={onClose}>확인</button>
       </StyledModal>
     </StyledOverlay>
   );
