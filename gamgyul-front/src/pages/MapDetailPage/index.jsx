@@ -3,6 +3,8 @@ import Button from "../../components/common/Button";
 import { FormLayout, StyledBottomWrapper } from "../LocationFormPage";
 import { theme } from "../../style/theme";
 import { useEffect, useState } from "react";
+import Modal from "../../components/common/Modal";
+import axios from "axios";
 
 const MapDetailPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,56 +22,64 @@ const MapDetailPage = () => {
 
   useEffect(() => {
     // api 통신
+    // axios({
+    //   method: "get",
+    //   url: "url",
+    //   responseType: "type",
+    // }).then(function (response) {
+    //   console.log(response);
+    // });
   });
 
   return (
-    <StyledFormLayout>
-      {/* 모달 테스트 */}
+    <>
       {isModalOpen && <Modal onClose={handleCloseModal} />}
-      <StyledPictureStamp>
-        <StyledLocationPicture />
-        <StyledLocationStamp />
-      </StyledPictureStamp>
-      <StyledContentWrapper>
-        <StyledSubTitleText style={{ display: "block", marginBottom: "16px" }}>장소 이름</StyledSubTitleText>
-        <StyledInfoItem>
-          <img src="images/LocationMap/" alt="아이콘" />
-          <StyledBody2Gray>제주 서귀포시 성산읍 동류알로 41</StyledBody2Gray>
-        </StyledInfoItem>
-        <StyledInfoItem>
-          <img src="images/LocationMap/" alt="아이콘" />
-          <StyledBody2Gray>제주 서귀포시 성산읍 동류알로 41</StyledBody2Gray>
-        </StyledInfoItem>
-        <StyledInfoItem>
-          <img src="images/LocationMap/" alt="아이콘" />
-          <StyledBody2Gray>제주 서귀포시 성산읍 동류알로 41</StyledBody2Gray>
-        </StyledInfoItem>
-        <StyledInfoItem>
-          <img src="images/LocationMap/" alt="아이콘" />
-          <StyledBody2Gray>제주 서귀포시 성산읍 동류알로 41</StyledBody2Gray>
-        </StyledInfoItem>
-        <StyledHrTag />
-        <StyledDetailWrap>
-          <StyledBody2Primary>설화 설명</StyledBody2Primary>
-          <StyledDetailText>
-            한라산이라는 이름에서 한(漢)은 은하수(銀河水)를 뜻하며, 라(拏)는 맞당길나[相牽引] 혹은 잡을나[捕]로서, 산이
-            높으므로 산정에 서면 은하수를 잡아당길 수 있다는 뜻이다. 예로부터 산 정상에 오르면 멀리 남쪽 하늘에 있는
-            노인성(老人星)을 볼 수 있었으며, 이 별을 본 사람은 장수하였다는 전설이 있다. 진산이란 보통 도읍의 뒤에
-            위치하여 그 지방을 편안하게 지켜주는 의미를 가진다. 한라산을 진산이라고 불렀던 까닭은 한반도로 밀려오는
-            남태평양의 큰 바람을 한라산이 막아주어 한반도의 안녕을 지켜 주기 때문이다. 두무악이란 머리가 없는 산을
-            의미하는데, 전설에 의하면 옛날에 한 사냥꾼이 산에서 사냥을 하다가 잘못하여 활끝으로 천제(天帝)의 배꼽을
-            건드렸는데, 이에 화가 난 천제가 한라산 꼭대기를 뽑아 멀리 던져 버렸다고 한다. 이 산정부가 던져진 곳은 지금의
-            산방산(山房山)이며, 뽑혀서 움푹 팬 곳은 백록담(白鹿潭)이 되었다고 한다. 원산이라는 이름은 산의 중앙이 제일
-            높아 무지개 모양으로 둥글고, 사방 주위가 아래로 차차 낮아져 원뿔 모양을 이루기 때문에 붙여졌다. 맑은 날
-            해남이나 진도에서 한라산을 바라보면 산 전체가 완만한 원뿔로 보인다. [네이버 지식백과] 한라산 [漢拏山]
-            (한국민족문화대백과, 한국학중앙연구원)
-          </StyledDetailText>
-        </StyledDetailWrap>
-        <StyledBtnWrapper>
-          <Button>View nearby travel destinations</Button>
-        </StyledBtnWrapper>
-      </StyledContentWrapper>
-    </StyledFormLayout>
+      <StyledFormLayout>
+        <StyledPictureStamp>
+          <StyledLocationPicture />
+          <StyledLocationStamp />
+        </StyledPictureStamp>
+        <StyledContentWrapper>
+          <StyledSubTitleText style={{ display: "block", marginBottom: "16px" }}>장소 이름</StyledSubTitleText>
+          <StyledInfoItem>
+            <img src="images/LocationMap/" alt="아이콘" />
+            <StyledBody2Gray>Special Self-Governing Province of Jeju</StyledBody2Gray>
+          </StyledInfoItem>
+          <StyledInfoItem>
+            <img src="images/LocationMap/" alt="아이콘" />
+            <StyledBody2Gray>No information</StyledBody2Gray>
+          </StyledInfoItem>
+          <StyledInfoItem>
+            <img src="images/LocationMap/" alt="아이콘" />
+            <StyledBody2Gray>No information</StyledBody2Gray>
+          </StyledInfoItem>
+          <StyledInfoItem>
+            <img src="images/LocationMap/" alt="아이콘" />
+            <StyledBody2Gray>No information</StyledBody2Gray>
+          </StyledInfoItem>
+          <StyledHrTag />
+          <StyledDetailWrap>
+            <StyledBody2Primary>설화 설명</StyledBody2Primary>
+            <StyledDetailText>
+              한라산이라는 이름에서 한(漢)은 은하수(銀河水)를 뜻하며, 라(拏)는 맞당길나[相牽引] 혹은 잡을나[捕]로서,
+              산이 높으므로 산정에 서면 은하수를 잡아당길 수 있다는 뜻이다. 예로부터 산 정상에 오르면 멀리 남쪽 하늘에
+              있는 노인성(老人星)을 볼 수 있었으며, 이 별을 본 사람은 장수하였다는 전설이 있다. 진산이란 보통 도읍의
+              뒤에 위치하여 그 지방을 편안하게 지켜주는 의미를 가진다. 한라산을 진산이라고 불렀던 까닭은 한반도로
+              밀려오는 남태평양의 큰 바람을 한라산이 막아주어 한반도의 안녕을 지켜 주기 때문이다. 두무악이란 머리가 없는
+              산을 의미하는데, 전설에 의하면 옛날에 한 사냥꾼이 산에서 사냥을 하다가 잘못하여 활끝으로 천제(天帝)의
+              배꼽을 건드렸는데, 이에 화가 난 천제가 한라산 꼭대기를 뽑아 멀리 던져 버렸다고 한다. 이 산정부가 던져진
+              곳은 지금의 산방산(山房山)이며, 뽑혀서 움푹 팬 곳은 백록담(白鹿潭)이 되었다고 한다. 원산이라는 이름은 산의
+              중앙이 제일 높아 무지개 모양으로 둥글고, 사방 주위가 아래로 차차 낮아져 원뿔 모양을 이루기 때문에
+              붙여졌다. 맑은 날 해남이나 진도에서 한라산을 바라보면 산 전체가 완만한 원뿔로 보인다. [네이버
+              지식백과] 한라산 [漢拏山] (한국민족문화대백과, 한국학중앙연구원)
+            </StyledDetailText>
+          </StyledDetailWrap>
+          <StyledBtnWrapper>
+            <Button onClick={handleButtonClick}>View nearby travel destinations</Button>
+          </StyledBtnWrapper>
+        </StyledContentWrapper>
+      </StyledFormLayout>
+    </>
   );
 };
 
@@ -158,7 +168,7 @@ const StyledDetailWrap = styled.div`
 `;
 
 const StyledInfoItem = styled.div`
-  margin-bottom: 4px;
+  margin-bottom: 10px;
   *:nth-child(2) {
     margin-left: 16px;
   }
