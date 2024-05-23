@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { theme } from "../../../style/theme";
 
 const Button = ({ type, size, onClick, children, color, className, ...props }) => {
   return (
