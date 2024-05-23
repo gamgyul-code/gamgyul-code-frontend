@@ -36,7 +36,7 @@ const LocationFormPage = () => {
 };
 
 /** 텍스트 스타일링 */
-const StyledTextBox = styled.div`
+export const StyledTextBox = styled.div`
   font-size: ${theme.fontSize.subtitle};
   text-align: center;
   margin: 0 auto;
@@ -52,7 +52,7 @@ const StyledOptionList = styled.div`
   }
 `;
 
-/** 선택 버튼 (hover 유무에 따른 변경 필요) */
+/** 선택 버튼 */
 const StyledOptionBtn = styled.button`
   width: 167px;
   height: 98px;
@@ -64,14 +64,10 @@ const StyledOptionBtn = styled.button`
   color: ${({ isSelected }) => (isSelected ? theme.color.white : theme.color.black)};
   font-size: ${theme.fontSize.body1};
   cursor: pointer;
-
-  &:hover {
-    background-color: ${({ isSelected }) => (isSelected ? theme.color.primary : theme.color.grayscale_C4)};
-  }
 `;
 
 /** 이미지 제외 위치 고정 박스 */
-const StyledBottomWrapper = styled.div`
+export const StyledBottomWrapper = styled.div`
   position: absolute;
   bottom: 20px; /* 하단에서의 거리 */
   width: calc(100% - 40px); /* FormLayout의 패딩을 고려한 너비 */
@@ -84,7 +80,7 @@ export const FormLayout = styled.div`
   padding: 0px 20px 58px 20px;
   height: calc(100vh - 58px);
   width: calc(100% - 40px);
-  background-color: gray;
+  background-color: ${theme.color.background};
   position: relative;
 `;
 

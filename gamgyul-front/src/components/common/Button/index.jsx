@@ -10,8 +10,8 @@ const Button = ({ type, size, onClick, children, color, className, disabled, ...
 };
 
 const StyledButton = styled.button`
-  width: 353px;
-  height: 64px;
+  width: 100%;
+  height: ${({ type }) => (type === "small" ? "40px" : "64px")};
   border-radius: 10px;
   border: 0;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};

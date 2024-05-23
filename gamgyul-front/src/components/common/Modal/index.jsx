@@ -1,3 +1,4 @@
+import { StyledBody2Gray } from "../../../pages/MapDetailPage";
 import { theme } from "../../../style/theme";
 import Button from "../Button";
 import { styled } from "styled-components";
@@ -6,9 +7,14 @@ const Modal = ({ onClose }) => {
   return (
     <StyledOverlay>
       <StyledModal>
-        <StyledBody1Text>스탬프를 획득했습니다</StyledBody1Text>
-        <div>이미지 들어갈 공간</div>
-        <button onClick={onClose}>확인</button>
+        <StyledBody1Text>You got a stamp!</StyledBody1Text>
+        <StyledStampWrap>
+          <img src="images/Stamp/stamp.svg" />
+          <StyledBody2Gray>영실기암</StyledBody2Gray>
+        </StyledStampWrap>
+        <Button type="small" onClick={onClose}>
+          Next
+        </Button>
       </StyledModal>
     </StyledOverlay>
   );
@@ -44,6 +50,22 @@ const StyledModal = styled.div`
   border-radius: 10px;
   background-color: ${theme.color.white};
   box-shadow: 0px 3.39px 16.94px 0px #0000001a;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const StyledStampWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  *:nth-child(1) {
+    width: 128px;
+    height: 128px;
+    margin-bottom: 8px;
+  }
 `;
 
 export default Modal;
