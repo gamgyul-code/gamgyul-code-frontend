@@ -1,0 +1,5 @@
+namespace: gamgyul-front
+resources:
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
