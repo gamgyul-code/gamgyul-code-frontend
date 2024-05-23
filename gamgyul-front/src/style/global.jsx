@@ -6,6 +6,11 @@ export const GlobalStyles = createGlobalStyle`
         padding: 0;
         text-decoration: none;
         margin: 0;
+        font-weight: 500;
+
+        /* 스크롤 안 보이게 하기 */
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
 
         /* 기본 고정 폰트 지정 */
         font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;;
