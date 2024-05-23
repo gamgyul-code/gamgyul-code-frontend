@@ -1,51 +1,85 @@
 import { useState, useEffect } from "react";
-import Modal from "../../components/common/Modal";
-import { FormLayout } from "../LocationFormPage";
-import Button from "../../components/common/Button";
+import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
 import styled from "styled-components";
-const { Tmapv2 } = window;
+import { FormLayout } from "../LocationFormPage";
+import Modal from "../../components/common/Modal";
+import Button from "../../components/common/Button";
 
 const MapPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const positions = [
+    {
+      title: "카카오",
+      latlng: { lat: 33.450705, lng: 126.570677 },
+    },
+    {
+      title: "생태연못",
+      latlng: { lat: 33.450936, lng: 126.569477 },
+    },
+    {
+      title: "텃밭",
+      latlng: { lat: 33.450879, lng: 126.56994 },
+    },
+    {
+      title: "근린공원",
+      latlng: { lat: 33.451393, lng: 126.570738 },
+    },
+  ];
 
   useEffect(() => {
-    initTmap();
+    const container = document.getElementById("map");
+    const options = {
+      center: new kakao.maps.LatLng(33.450701, 126.570667),
+      level: 3,
+    };
+    const map = new kakao.maps.Map(container, options);
+
+    // 컴포넌트가 unmount될 때 지도 인스턴스 제거
+    return () => {
+      map.remove();
+    };
   }, []);
-
-  /** Tmap api 테스트 */
-
-  function initTmap() {
-    const map = new Tmapv2.Map("map_div", {
-      center: new Tmapv2.LatLng(37.566481622437934, 126.98502302169841), // 지도 초기 좌표
-      width: "100%",
-      height: "100%",
-      zoom: 15,
-    });
-    map.setZoom(14);
-  }
 
   /** 모달 임시 클릭 (달성 조건 추가 필요) */
   const handleButtonClick = () => {
     setIsModalOpen(true);
   };
 
-  /** 모달 닫기 */
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  // test
+  const handleTest = (data) => {
+    console.log(data);
   };
 
   return (
     <FormLayout>
-      {/* 모달 테스트 */}
-      {isModalOpen && <Modal onClose={handleCloseModal} />}
-      MapPage
-      <button onClick={handleButtonClick}>모달 테스트</button>
-      <StyledMap id="map_div" />
+      <StyledMap
+        id="map"
+        center={{
+          lat: 33.450701,
+          lng: 126.570667,
+        }}
+        level={3}
+      >
+        {positions.map((position, index) => (
+          <MapMarker
+            key={`${position.title}-${position.latlng}`}
+            position={position.latlng} // 마커를 표시할 위치
+            onClick={() => handleTest(position.latlng)}
+            image={{
+              src: "/images/Map/Pin.png", // 마커이미지의 주소입니다
+              size: {
+                width: 24,
+                height: 35,
+              }, // 마커이미지의 크기입니다
+            }}
+            title={position.title} // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+          />
+        ))}
+      </StyledMap>
     </FormLayout>
   );
 };
 
-const StyledMap = styled.div`
+const StyledMap = styled(Map)`
   position: absolute;
   top: 0;
   bottom: 0;
