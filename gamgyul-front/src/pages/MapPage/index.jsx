@@ -8,6 +8,8 @@ import { StyledBody2Gray, StyledSubTitleText } from "../MapDetailPage";
 import { Link } from "react-router-dom";
 
 const MapPage = () => {
+  const dataId = window.localStorage.getItem("placeId");
+  console.log(dataId);
   const positions = [
     {
       title: "카카오",

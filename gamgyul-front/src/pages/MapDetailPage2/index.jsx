@@ -23,14 +23,18 @@ const MapDetailPage2 = () => {
 
   useEffect(() => {
     // api 통신
-    // axios({
-    //   method: "get",
-    //   url: "url",
-    //   responseType: "type",
-    // }).then(function (response) {
-    //   console.log(response);
-    // });
-  });
+    axios
+      .get("https://k0bcc2aad5ee3a.user-app.krampoline.com/api/readings/{placeId}")
+      .then((response) => {
+        // 요청이 성공했을 때 실행될 코드입니다.
+        console.log(response);
+        setMapDetailData(response.data);
+      })
+      .catch((error) => {
+        // 요청이 실패했을 때 실행될 코드입니다.
+        console.error("요청이 실패했습니다:", error);
+      });
+  }, []);
 
   return (
     <>

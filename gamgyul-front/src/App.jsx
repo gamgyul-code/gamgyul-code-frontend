@@ -7,7 +7,6 @@ import CompletePage from "./pages/CompletePage";
 import { GlobalStyles } from "./style/global";
 import { LanguageProvider } from "./contexts/LanguageContext"; // LanguageProvider 추가
 import MapDetailPage2 from "./pages/MapDetailPage2/index";
-
 function App() {
   return (
     <LanguageProvider>
