@@ -7,13 +7,13 @@ const Modal = ({ onClose }) => {
   return (
     <StyledOverlay>
       <StyledModal>
-        <StyledBody1Text>스탬프를 획득했습니다</StyledBody1Text>
+        <StyledBody1Text>You got a stamp!</StyledBody1Text>
         <StyledStampWrap>
           <img src="images/Stamp/stamp.svg" />
           <StyledBody2Gray>영실기암</StyledBody2Gray>
         </StyledStampWrap>
         <Button type="small" onClick={onClose}>
-          확인
+          Next
         </Button>
       </StyledModal>
     </StyledOverlay>

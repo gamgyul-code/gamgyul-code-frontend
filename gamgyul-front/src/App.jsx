@@ -5,6 +5,7 @@ import LocationDetailPage from "./pages/LocationDetailPage";
 import LocationListPage from "./pages/LocationListPage";
 import MapDetailPage from "./pages/MapDetailPage";
 import MapPage from "./pages/MapPage/index";
+import CompletePage from "./pages/CompletePage";
 import { GlobalStyles } from "./style/global";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/list" element={<LocationListPage />} />
         <Route path="/detail" element={<MapDetailPage />} />
         <Route path="/map" element={<MapPage />} />
+        <Route path="/complete" element={<CompletePage />} />
       </Routes>
     </div>
   );

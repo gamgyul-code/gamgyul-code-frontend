@@ -66,7 +66,7 @@ const MapPage = () => {
             position={position.latlng} // 마커를 표시할 위치
             onClick={() => handleTest(position.latlng)}
             image={{
-              src: "/images/Map/Pin.png", // 마커이미지의 주소입니다
+              src: "/images/Map/ActivePin.svg", // 마커이미지의 주소입니다
               size: {
                 width: 45,
                 height: 66,
@@ -78,13 +78,13 @@ const MapPage = () => {
       </StyledMap>
       <StyledBottomSheet>
         <StyledContentsWrap>
-          <div style={{ backgroundColor: "red", width: "100px", height: "100px" }}>이미지</div>
+          <StyledContentImg />
           <StyledLocationDetail>
             <StyledSubTitleText>장소 이름</StyledSubTitleText>
             <StyledBody2Gray>제주의 사랑 이야기가 담긴 장소 5개를 여행하며 어쩌구 저쩌구</StyledBody2Gray>
           </StyledLocationDetail>
         </StyledContentsWrap>
-        <Button type="small">설명보기</Button>
+        <Button type="small">View Description</Button>
       </StyledBottomSheet>
     </FormLayout>
   );
@@ -131,6 +131,14 @@ const StyledLocationDetail = styled.div`
   *:nth-child(2) {
     margin-top: 6px;
   }
+`;
+
+/** content 이미지 스타일링 */
+const StyledContentImg = styled.img`
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  border-radius: 10px;
 `;
 
 export default MapPage;

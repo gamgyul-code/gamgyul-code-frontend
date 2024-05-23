@@ -3,7 +3,7 @@ export const theme = {
     primary: "#36BF9F",
     sub: "",
     point: "",
-    background: "#cccccc",
+    background: "#ffffff",
     black: "#1c1c1c",
     white: "#ffffff",
     grayscale_21: "#212121",
@@ -12,6 +12,7 @@ export const theme = {
     grayscale_9D: "#9D9D9D",
     grayscale_C4: "#C4C4C4",
     grayscale_73: "#737373",
+    grayscale_F8: "#F8F8F8",
   },
   fontSize: {
     header: "2rem",
