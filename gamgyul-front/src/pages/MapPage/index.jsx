@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
 import styled from "styled-components";
 import { FormLayout } from "../LocationFormPage";
-import Modal from "../../components/common/Modal";
 import Button from "../../components/common/Button";
+import { theme } from "../../style/theme";
+import { StyledBody2Gray, StyledSubTitleText } from "../MapDetailPage";
 
 const MapPage = () => {
   const positions = [
@@ -67,24 +68,69 @@ const MapPage = () => {
             image={{
               src: "/images/Map/Pin.png", // 마커이미지의 주소입니다
               size: {
-                width: 24,
-                height: 35,
+                width: 45,
+                height: 66,
               }, // 마커이미지의 크기입니다
             }}
             title={position.title} // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
           />
         ))}
       </StyledMap>
+      <StyledBottomSheet>
+        <StyledContentsWrap>
+          <div style={{ backgroundColor: "red", width: "100px", height: "100px" }}>이미지</div>
+          <StyledLocationDetail>
+            <StyledSubTitleText>장소 이름</StyledSubTitleText>
+            <StyledBody2Gray>제주의 사랑 이야기가 담긴 장소 5개를 여행하며 어쩌구 저쩌구</StyledBody2Gray>
+          </StyledLocationDetail>
+        </StyledContentsWrap>
+        <Button type="small">설명보기</Button>
+      </StyledBottomSheet>
     </FormLayout>
   );
 };
 
+/** Map 스타일링 */
 const StyledMap = styled(Map)`
   position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
+  z-indx: 990;
+`;
+
+const StyledBottomSheet = styled.div`
+  width: 100%;
+  height: 249px;
+  border-radius: 20px 20px 0 0;
+  position: absolute;
+  background-color: ${theme.color.white};
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  padding: 30px 20px 59px 20px;
+  box-sizing: border-box;
+  box-shadow: 0px 3.39px 16.94px 0px #0000001a;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const StyledContentsWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StyledLocationDetail = styled.div`
+  width: 233px;
+  display: flex;
+  flex-direction: column;
+
+  *:nth-child(2) {
+    margin-top: 6px;
+  }
 `;
 
 export default MapPage;
