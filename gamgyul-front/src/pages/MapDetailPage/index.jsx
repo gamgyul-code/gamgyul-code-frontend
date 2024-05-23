@@ -42,19 +42,19 @@ const MapDetailPage = () => {
         <StyledContentWrapper>
           <StyledSubTitleText style={{ display: "block", marginBottom: "16px" }}>장소 이름</StyledSubTitleText>
           <StyledInfoItem>
-            <img src="images/LocationMap/" alt="아이콘" />
+            <StyledIcon src="images/Icon/location.svg" alt="위치 아이콘" />
             <StyledBody2Gray>Special Self-Governing Province of Jeju</StyledBody2Gray>
           </StyledInfoItem>
           <StyledInfoItem>
-            <img src="images/LocationMap/" alt="아이콘" />
+            <StyledIcon src="images/Icon/call.svg" alt="전화 아이콘" />
             <StyledBody2Gray>No information</StyledBody2Gray>
           </StyledInfoItem>
           <StyledInfoItem>
-            <img src="images/LocationMap/" alt="아이콘" />
+            <StyledIcon src="images/Icon/alarm.svg" alt="시간 아이콘" />
             <StyledBody2Gray>No information</StyledBody2Gray>
           </StyledInfoItem>
           <StyledInfoItem>
-            <img src="images/LocationMap/" alt="아이콘" />
+            <StyledIcon src="images/Icon/money.svg" alt="이용료 아이콘" />
             <StyledBody2Gray>No information</StyledBody2Gray>
           </StyledInfoItem>
           <StyledHrTag />
@@ -169,6 +169,9 @@ const StyledDetailWrap = styled.div`
 
 const StyledInfoItem = styled.div`
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+
   *:nth-child(2) {
     margin-left: 16px;
   }
@@ -176,6 +179,12 @@ const StyledInfoItem = styled.div`
 
 const StyledBody2Primary = styled(StyledBody2Gray)`
   color: ${theme.color.primary};
+`;
+
+/** 아이콘 스타일링 */
+const StyledIcon = styled.img`
+  width: 24px;
+  height: 24px;
 `;
 
 export default MapDetailPage;
