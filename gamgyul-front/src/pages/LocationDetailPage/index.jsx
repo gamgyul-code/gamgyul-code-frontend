@@ -37,14 +37,21 @@ const LocationDetailPage = () => {
         </StyledTextBox>
 
         <StyledOptionList>
-          {["위치1", "위치2", "위치3", "위치4", "위치5", "위치6"].map((location) => (
-            <StyledOptionBtn
-              key={location}
-              isSelected={selectLocation === location}
-              onClick={() => handleOptionClick(location)}
-            >
-              {location}
-            </StyledOptionBtn>
+          {["loc1", "loc2", "loc3", "loc4", "loc5", "loc6"].map((location) => (
+            <>
+              <StyledOptionImg
+                src={`/images/LocationMap/${location}_${selectLocation === location ? "active" : "inactive"}.png`}
+                alt={`${location}_${selectLocation === location ? "active" : "inactive"}`}
+                onClick={() => handleOptionClick(location)}
+              />
+              {/* <StyledOptionBtn
+                key={location}
+                isSelected={selectLocation === location}
+                onClick={() => handleOptionClick(location)}
+              >
+                {location}
+              </StyledOptionBtn> */}
+            </>
           ))}
         </StyledOptionList>
         <Button disabled={!selectLocation}>다음</Button>
@@ -61,14 +68,8 @@ const StyledOptionList = styled.div`
 `;
 
 /** 선택 버튼 */
-const StyledOptionBtn = styled.button`
-  width: 33%;
-  height: 98px;
-  font-weight: 600;
-  border: 1px solid ${({ isSelected }) => (isSelected ? theme.color.primary : theme.color.grayscale_BF)};
-  background-color: ${({ isSelected }) => (isSelected ? theme.color.primary : theme.color.white)};
-  color: ${({ isSelected }) => (isSelected ? theme.color.white : theme.color.black)};
-  font-size: ${theme.fontSize.body1};
+const StyledOptionImg = styled.img`
+  width: 33.3333%;
   cursor: pointer;
 `;
 
