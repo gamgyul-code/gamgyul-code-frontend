@@ -74,6 +74,8 @@ export const FormLayout = styled.div`
   height: calc(100vh - 58px);
   width: calc(100% - 40px);
   background-color: gray;
+
+  position: relative;
 `;
 
 export default LocationFormPage;
