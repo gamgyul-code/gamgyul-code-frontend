@@ -2,6 +2,7 @@ import { StyledBody2Gray } from "../../../pages/MapDetailPage";
 import { theme } from "../../../style/theme";
 import Button from "../Button";
 import { styled } from "styled-components";
+import { Link } from "react-router-dom";
 
 const Modal = ({ onClose }) => {
   return (
@@ -12,9 +13,11 @@ const Modal = ({ onClose }) => {
           <img src="images/Stamp/stamp.svg" />
           <StyledBody2Gray>영실기암</StyledBody2Gray>
         </StyledStampWrap>
-        <Button type="small" onClick={onClose}>
-          Next
-        </Button>
+        <Link to="/complete">
+          <Button type="small" onClick={onClose}>
+            Next
+          </Button>
+        </Link>
       </StyledModal>
     </StyledOverlay>
   );

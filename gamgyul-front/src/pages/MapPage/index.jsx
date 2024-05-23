@@ -5,6 +5,7 @@ import { FormLayout } from "../LocationFormPage";
 import Button from "../../components/common/Button";
 import { theme } from "../../style/theme";
 import { StyledBody2Gray, StyledSubTitleText } from "../MapDetailPage";
+import { Link } from "react-router-dom";
 
 const MapPage = () => {
   const positions = [
@@ -35,9 +36,10 @@ const MapPage = () => {
     const map = new kakao.maps.Map(container, options);
 
     // 컴포넌트가 unmount될 때 지도 인스턴스 제거
-    return () => {
+    return;
+    /* () => {
       map.remove();
-    };
+    }; */
   }, []);
 
   /** 모달 임시 클릭 (달성 조건 추가 필요) */
@@ -84,7 +86,9 @@ const MapPage = () => {
             <StyledBody2Gray>제주의 사랑 이야기가 담긴 장소 5개를 여행하며 어쩌구 저쩌구</StyledBody2Gray>
           </StyledLocationDetail>
         </StyledContentsWrap>
-        <Button type="small">View Description</Button>
+        <Link to="/detail2">
+          <Button type="small">View Description</Button>
+        </Link>
       </StyledBottomSheet>
     </FormLayout>
   );

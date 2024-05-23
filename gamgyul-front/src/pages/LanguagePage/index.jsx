@@ -24,7 +24,7 @@ const LanguagePage = () => {
         </StyledSelect>
       </div>
       <StyledBottomWrapper>
-        <Link to="/next-page">
+        <Link to="/detail">
           <Button>NEXT</Button>
         </Link>
       </StyledBottomWrapper>

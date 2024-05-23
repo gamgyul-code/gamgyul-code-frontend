@@ -7,7 +7,7 @@ import Modal from "../../components/common/Modal";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const MapDetailPage = () => {
+const MapDetailPage2 = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mapDetailData, setMapDetailData] = useState(null);
 
@@ -76,10 +76,7 @@ const MapDetailPage = () => {
             </StyledDetailText>
           </StyledDetailWrap>
           <StyledBtnWrapper>
-            <Link to="/map">
-              <Button>View nearby travel destinations</Button>
-              {/* <Button onClick={handleButtonClick}>Get a stamp</Button> */}
-            </Link>
+            <Button onClick={handleButtonClick}>Get a stamp</Button>
           </StyledBtnWrapper>
         </StyledContentWrapper>
       </StyledFormLayout>
@@ -191,4 +188,4 @@ const StyledIcon = styled.img`
   height: 24px;
 `;
 
-export default MapDetailPage;
+export default MapDetailPage2;
