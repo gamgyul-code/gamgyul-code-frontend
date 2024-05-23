@@ -90,7 +90,6 @@ const StyledBottomWrapper = styled.div`
   width: calc(100% - 40px); /* FormLayout의 패딩을 고려한 너비 */
   padding: 10px 0;
   text-align: center;
-  margin-bottom: 20px;
 `;
 
 export default LanguagePage;
