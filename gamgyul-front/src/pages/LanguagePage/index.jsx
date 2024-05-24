@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useState } from "react";
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import background from "../../assets/background/background.png";
@@ -6,26 +6,43 @@ import Button from "./../../components/common/Button/index";
 import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { theme } from "./../../style/theme";
+import axios from "axios";
 
 const LanguagePage = () => {
-  const { language, changeLanguage } = useContext(LanguageContext);
+  // const { language, changeLanguage } = useContext(LanguageContext);
+  const [language, setLanguage] = useState("EN");
 
   const handleLanguageChange = (event) => {
-    changeLanguage(event.target.value);
+    setLanguage(event.target.value);
   };
+
+  const handleSendLanguage = () => {
+    console.log(language)
+    axios
+      .post(`https://k0bcc2aad5ee3a.user-app.krampoline.com/api/languages/set?language=${language}`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <StyledLanguage>
       <StlyedSpan>Select Language</StlyedSpan>
       <div>
         <StyledSelect value={language} onChange={handleLanguageChange}>
-          <option value="en">English (영어)</option>
-          <option value="ko">한국어</option>
+          <option value="EN">English (영어)</option>
+          <option value="KO">한국어</option>
+          <option value="JP">日本語 (일본어)</option>
+          <option value="CN">中國語 (중국어)</option>
           {/* 필요에 따라 다른 언어 추가 */}
         </StyledSelect>
       </div>
       <StyledBottomWrapper>
         <Link to="/detail">
-          <Button>NEXT</Button>
+          <Button onClick={handleSendLanguage}>NEXT</Button>
         </Link>
       </StyledBottomWrapper>
     </StyledLanguage>

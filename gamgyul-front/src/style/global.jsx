@@ -21,7 +21,6 @@ export const GlobalStyles = createGlobalStyle`
       max-width: 393px;
       margin-left: auto;
       margin-right: auto;
-      background-color: #9c2626;
     }
 
     .FormLayout {
