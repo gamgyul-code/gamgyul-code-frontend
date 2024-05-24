@@ -13,11 +13,11 @@ function App() {
       <div className="layout">
         <GlobalStyles />
         <Routes>
-          <Route path="/" element={<LanguagePage />} />
-          <Route path="/detail" element={<MapDetailPage />} />
-          <Route path="/detail2" element={<MapDetailPage2 />} />
-          <Route path="/map" element={<MapPage />} />
-          <Route path="/complete" element={<CompletePage />} />
+          <Route path="/frontend/" element={<LanguagePage />} />
+          <Route path="/frontend/detail" element={<MapDetailPage />} />
+          <Route path="/frontend/detail2" element={<MapDetailPage2 />} />
+          <Route path="/frontend/map" element={<MapPage />} />
+          <Route path="/frontend/complete" element={<CompletePage />} />
         </Routes>
       </div>
     </LanguageProvider>
