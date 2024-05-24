@@ -6,33 +6,44 @@ import Button from "../../components/common/Button";
 import { theme } from "../../style/theme";
 import { StyledBody2Gray, StyledSubTitleText } from "../MapDetailPage";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const MapPage = () => {
   const dataId = window.localStorage.getItem("placeId");
-  console.log(dataId);
+  const [tempDataId, setTempDataId] = useState(dataId);
+  const [itemData, setItemData] = useState();
   const positions = [
     {
-      title: "카카오",
-      latlng: { lat: 33.450705, lng: 126.570677 },
+      id: 1,
+      title: "영실기암",
+      latlng: { lat: 33.3545211, lng: 126.570677 },
     },
     {
-      title: "생태연못",
-      latlng: { lat: 33.450936, lng: 126.569477 },
+      id: 2,
+      title: "한라산 국립공원",
+      latlng: { lat: 33.3917738, lng: 126.4945012 },
     },
     {
-      title: "텃밭",
-      latlng: { lat: 33.450879, lng: 126.56994 },
+      id: 3,
+      title: "제주 돌문화공원",
+      latlng: { lat: 33.4373391, lng: 126.6668484 },
     },
     {
-      title: "근린공원",
-      latlng: { lat: 33.451393, lng: 126.570738 },
+      id: 4,
+      title: "고근산",
+      latlng: { lat: 33.2707366, lng: 126.5126032 },
+    },
+    {
+      id: 5,
+      title: "당케포구",
+      latlng: { lat: 33.3264171, lng: 126.8468674 },
     },
   ];
 
   useEffect(() => {
     const container = document.getElementById("map");
     const options = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667),
+      center: new kakao.maps.LatLng(33.3917738, 126.4945012),
       level: 3,
     };
     const map = new kakao.maps.Map(container, options);
@@ -44,14 +55,41 @@ const MapPage = () => {
     }; */
   }, []);
 
-  /** 모달 임시 클릭 (달성 조건 추가 필요) */
-  const handleButtonClick = () => {
-    setIsModalOpen(true);
+  useEffect(() => {
+    if (tempDataId) {
+      fetchMapIntro(tempDataId);
+    }
+  }, [tempDataId]);
+
+  // API 요청 함수
+  const fetchMapIntro = (id) => {
+    axios
+      .get(`https://k0bcc2aad5ee3a.user-app.krampoline.com/api/readings/mapIntro/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        // 여기서 응답 데이터를 처리하고 원하는 동작을 수행하세요.
+        setItemData(response.data);
+      })
+      .catch((error) => {
+        console.error("API 요청이 실패했습니다:", error);
+      });
   };
 
   // test
   const handleTest = (data) => {
-    console.log(data);
+    window.localStorage.setItem("placeId", data);
+    setTempDataId(data);
+    fetchMapIntro(data);
+  };
+
+  const MAX_INTRO_TEXT_LENGTH = 30; // 최대 표시 길이
+
+  // itemData.introText를 표시할 때 길이 제한을 두고 자르는 함수
+  const truncateIntroText = (text) => {
+    if (text.length > MAX_INTRO_TEXT_LENGTH) {
+      return text.slice(0, MAX_INTRO_TEXT_LENGTH) + "...";
+    }
+    return text;
   };
 
   return (
@@ -59,39 +97,57 @@ const MapPage = () => {
       <StyledMap
         id="map"
         center={{
-          lat: 33.450701,
-          lng: 126.570667,
+          lat: 33.3917738,
+          lng: 126.4945012,
         }}
         level={3}
       >
-        {positions.map((position, index) => (
-          <MapMarker
-            key={`${position.title}-${position.latlng}`}
-            position={position.latlng} // 마커를 표시할 위치
-            onClick={() => handleTest(position.latlng)}
-            image={{
-              src: "/images/Map/ActivePin.svg", // 마커이미지의 주소입니다
-              size: {
-                width: 45,
-                height: 66,
-              }, // 마커이미지의 크기입니다
-            }}
-            title={position.title} // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-          />
-        ))}
+        {positions.map((position, index) => {
+          console.log(position);
+          return (
+            <MapMarker
+              key={position.title}
+              position={position.latlng}
+              onClick={() => handleTest(position.id)}
+              image={{
+                src: "/images/Map/ActivePin.svg",
+                size: {
+                  width: 45,
+                  height: 66,
+                },
+              }}
+              title={position.title}
+            />
+          );
+        })}
       </StyledMap>
-      <StyledBottomSheet>
-        <StyledContentsWrap>
-          <StyledContentImg />
-          <StyledLocationDetail>
-            <StyledSubTitleText>장소 이름</StyledSubTitleText>
-            <StyledBody2Gray>제주의 사랑 이야기가 담긴 장소 5개를 여행하며 어쩌구 저쩌구</StyledBody2Gray>
-          </StyledLocationDetail>
-        </StyledContentsWrap>
-        <Link to="/detail2">
-          <Button type="small">View Description</Button>
-        </Link>
-      </StyledBottomSheet>
+      {itemData ? (
+        <StyledBottomSheet>
+          <StyledContentsWrap>
+            <StyledContentImg src={itemData.placePictureUrl} />
+            <StyledLocationDetail>
+              <StyledSubTitleText>{itemData.name}</StyledSubTitleText>
+              <StyledBody2Gray>{truncateIntroText(itemData.introText)}</StyledBody2Gray>
+            </StyledLocationDetail>
+          </StyledContentsWrap>
+          <Link to="/detail2">
+            <Button type="small">View Description</Button>
+          </Link>
+        </StyledBottomSheet>
+      ) : (
+        <StyledBottomSheet>
+          <StyledContentsWrap>
+            <StyledContentImg />
+            <StyledLocationDetail>
+              <StyledSubTitleText>Hallasan National Park</StyledSubTitleText>
+              <StyledBody2Gray>Hallasan, one of Korea's three...</StyledBody2Gray>
+            </StyledLocationDetail>
+          </StyledContentsWrap>
+          <Link to="/detail2">
+            <Button type="small">View Description</Button>
+          </Link>
+        </StyledBottomSheet>
+      )}
     </FormLayout>
   );
 };
@@ -143,7 +199,6 @@ const StyledLocationDetail = styled.div`
 const StyledContentImg = styled.img`
   width: 100px;
   height: 100px;
-  background-color: red;
   border-radius: 10px;
 `;
 
