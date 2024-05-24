@@ -7,7 +7,8 @@ import Modal from "../../components/common/Modal";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const MapDetailPage = () => {
+const MapDetailPage2 = () => {
+  const dataId = window.localStorage.getItem("placeId");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mapDetailData, setMapDetailData] = useState(null);
 
@@ -24,13 +25,11 @@ const MapDetailPage = () => {
   useEffect(() => {
     // api 통신
     axios
-      .get("https://k0bcc2aad5ee3a.user-app.krampoline.com/api/readings/intro")
+      .get(`https://k0bcc2aad5ee3a.user-app.krampoline.com/api/readings/${dataId}`)
       .then((response) => {
         // 요청이 성공했을 때 실행될 코드입니다.
         console.log(response);
         setMapDetailData(response.data);
-        const dataId = response.data.id;
-        window.localStorage.setItem("placeId", dataId);
       })
       .catch((error) => {
         // 요청이 실패했을 때 실행될 코드입니다.
@@ -86,9 +85,7 @@ const MapDetailPage = () => {
             <StyledDetailText>{mapDetailData?.caution}</StyledDetailText>
           </StyledDetailWrap>
           <StyledBtnWrapper>
-            <Link to="/map">
-              <Button>View nearby travel destinations</Button>
-            </Link>
+            <Button onClick={handleButtonClick}>Get a stamp</Button>
           </StyledBtnWrapper>
         </StyledContentWrapper>
       </StyledFormLayout>
@@ -200,4 +197,4 @@ const StyledIcon = styled.img`
   height: 24px;
 `;
 
-export default MapDetailPage;
+export default MapDetailPage2;
