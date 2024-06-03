@@ -4,19 +4,14 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>할망비전</title>
     <script
       type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=93d308253c43f42f495db9839058f865&libraries=services,clusterer"
+      src='//dapi.kakao.com/v2/maps/sdk.js?appkey=<%= kakaoMapId %>&libraries=services,clusterer'
     ></script>
-    <!-- <script>
-      const script = document.createElement('script');
-      script.src = "https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=" + import.meta.env.VITE_TMAP_TOKEN;
-      document.head.appendChild(script);
-    </script> -->
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="src/main.jsx"></script>
   </body>
 </html>

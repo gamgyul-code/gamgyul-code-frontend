@@ -39,6 +39,7 @@ const MapPage = () => {
       latlng: { lat: 33.3264171, lng: 126.8468674 },
     },
   ];
+  
 
   useEffect(() => {
     const container = document.getElementById("map");
