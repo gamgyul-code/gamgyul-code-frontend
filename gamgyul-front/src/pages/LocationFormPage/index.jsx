@@ -1,87 +1,111 @@
-import Button from "../../components/common/Button";
-import { styled } from "styled-components";
-import { theme } from "../../style/theme";
 import { useState } from "react";
+import { styled } from "styled-components";
+import Button from "../../components/common/Button";
+import { theme } from "../../style/theme";
+import { FormLayout, StyledBottomWrapper, StyledTextBox } from "../ThemeFormPage";
 
 const LocationFormPage = () => {
-  const [selectTheme, setSelectTheme] = useState("");
+  const [selectLocation, setSelectLocation] = useState("");
 
-  const handleOptionClick = (theme) => {
-    setSelectTheme(theme);
+  const handleOptionClick = (location) => {
+    setSelectLocation(location);
   };
 
   return (
     <FormLayout>
-      <div>할망 이미지 들어갈 공간</div>
-      <StyledBottomWrapper>
-        <StyledTextBox>
+      <StyledLocationTextBox>
+        <img src="images/Background/halmangImg.svg" />
+        <StyledLocationText>
           <span>
-            Choose a theme
+            Choose a location
             <br />
-            that you want to travel
+            for your trip
           </span>
-        </StyledTextBox>
-
+        </StyledLocationText>
+      </StyledLocationTextBox>
+      <StyledBottomWrapper>
+        {selectLocation === "" ? (
+          <StyledOptionImg src={`/images/LocationMap/map_default.png`} alt={`map_default`} />
+        ) : (
+          <StyledOptionImg src={`/images/LocationMap/${selectLocation}.png`} alt={`${selectLocation}`} />
+        )}
         <StyledOptionList>
-          {["설문대 할망", "역사", "신화", "사랑"].map((theme) => (
-            <StyledOptionBtn key={theme} isSelected={selectTheme === theme} onClick={() => handleOptionClick(theme)}>
-              {theme}
-            </StyledOptionBtn>
-          ))}
+          <StyledOptionBtnWrapper>
+            {[
+              "West Jeju City",
+              "Jeju City",
+              "East Jeju City",
+              "West Seogwipo City",
+              "Seogwipo City",
+              "East Seoqwipo City",
+            ].map((location) => (
+              <StyledOptionBtn
+                key={location}
+                isSelected={selectLocation === location}
+                onClick={() => handleOptionClick(location)}
+              >
+                {location}
+              </StyledOptionBtn>
+            ))}
+          </StyledOptionBtnWrapper>
         </StyledOptionList>
-        <Button disabled={!selectTheme}>다음</Button>
+        <Button disabled={!selectLocation}>다음</Button>
       </StyledBottomWrapper>
     </FormLayout>
   );
 };
 
-/** 텍스트 스타일링 */
-export const StyledTextBox = styled.div`
-  font-size: ${theme.fontSize.subtitle};
-  text-align: center;
-  margin: 0 auto;
+/** StyledTextBox LocationForm 스타일링 */
+const StyledLocationText = styled(StyledTextBox)`
+  text-align: left;
 `;
 
 /** 선택 버튼 list wrapper */
 const StyledOptionList = styled.div`
   width: 100%;
   margin-top: 49px;
+  margin-bottom: 20px;
+`;
 
-  & > *:nth-child(odd) {
-    margin-right: 19px;
-  }
+/** 선택 버튼 */
+const StyledOptionImg = styled.img`
+  width: 100%;
 `;
 
 /** 선택 버튼 */
 const StyledOptionBtn = styled.button`
-  width: 167px;
-  height: 98px;
+  width: 106px;
+  height: 79px;
   font-weight: 600;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   border: 1px solid ${({ isSelected }) => (isSelected ? theme.color.primary : theme.color.grayscale_BF)};
   background-color: ${({ isSelected }) => (isSelected ? theme.color.primary : theme.color.white)};
   color: ${({ isSelected }) => (isSelected ? theme.color.white : theme.color.black)};
-  font-size: ${theme.fontSize.body1};
+  font-size: ${theme.fontSize.body3};
   cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-/** 이미지 제외 위치 고정 박스 */
-export const StyledBottomWrapper = styled.div`
-  position: absolute;
-  bottom: 20px; /* 하단에서의 거리 */
-  width: calc(100% - 40px); /* FormLayout의 패딩을 고려한 너비 */
-  left: 20px; /* FormLayout의 왼쪽 패딩 */
-  right: 20px; /* FormLayout의 오른쪽 패딩 */
+const StyledOptionBtnWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
-/** 공통 FormLayout (내부여백) */
-export const FormLayout = styled.div`
-  padding: 0px 20px 58px 20px;
-  height: calc(100vh - 58px);
-  width: calc(100% - 40px);
-  background-color: ${theme.color.background};
-  position: relative;
+/** LocationForm TextBox 스타일링 */
+const StyledLocationTextBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 69px;
+
+  & > *:nth-child(1) {
+    width: 93px;
+  }
 `;
 
 export default LocationFormPage;

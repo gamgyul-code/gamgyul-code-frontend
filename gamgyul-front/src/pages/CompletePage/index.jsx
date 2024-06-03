@@ -1,23 +1,25 @@
 import { useState } from "react";
 import { styled } from "styled-components";
-import { FormLayout } from "../LocationFormPage";
+import { FormLayout } from "../ThemeFormPage";
 import Button from "../../components/common/Button";
 import { StyledBtnWrapper, StyledSubTitleText } from "../MapDetailPage";
 import { Link } from "react-router-dom";
 
 const CompletePage = () => {
   return (
-    <StyledBackgroundImg>
-      <StyledCompleteText>
-        Congratulation !<br />
-        You completed your trip!
-      </StyledCompleteText>
-      <StyledBtnWrapper>
-        <Link to="/">
-          <Button>Let's go on our next trip</Button>
-        </Link>
-      </StyledBtnWrapper>
-    </StyledBackgroundImg>
+    <FormLayout>
+      <StyledBackgroundImg>
+        <StyledCompleteText>
+          Congratulation !<br />
+          You completed your trip!
+        </StyledCompleteText>
+        <StyledBtnWrapper>
+          <Link to="/">
+            <Button>Let's go on our next trip</Button>
+          </Link>
+        </StyledBtnWrapper>
+      </StyledBackgroundImg>
+    </FormLayout>
   );
 };
 
