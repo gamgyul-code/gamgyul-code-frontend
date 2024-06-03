@@ -19,5 +19,6 @@ export const theme = {
     subtitle: "1.5rem",
     body1: "1.25rem",
     body2: "1rem",
+    body3: "0.75rem",
   },
 };
