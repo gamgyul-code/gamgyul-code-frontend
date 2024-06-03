@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "../../components/common/Button";
-import { FormLayout, StyledBottomWrapper } from "../LocationFormPage";
+import { FormLayout, StyledBottomWrapper } from "../ThemeFormPage";
 import { theme } from "../../style/theme";
 import { useEffect, useState } from "react";
 import Modal from "../../components/common/Modal";
