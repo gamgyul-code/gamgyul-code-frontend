@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { styled } from "styled-components";
-import { FormLayout } from "../LocationFormPage";
+import { FormLayout } from "../ThemeFormPage";
 import Button from "../../components/common/Button";
 import { StyledBtnWrapper, StyledSubTitleText } from "../MapDetailPage";
 import { Link } from "react-router-dom";

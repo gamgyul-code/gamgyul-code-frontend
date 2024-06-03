@@ -1,7 +1,7 @@
 import DropDown from "../../components/common/DropDown";
 import styled from "styled-components";
 import Button from "./../../components/common/Button/index";
-import { FormLayout } from "../LocationFormPage";
+import { FormLayout } from "../ThemeFormPage";
 import { theme } from "../../style/theme";
 const LocationListPage = () => {
   return (

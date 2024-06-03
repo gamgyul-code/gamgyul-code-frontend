@@ -1,12 +1,14 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import MapDetailPage from "./pages/MapDetailPage";
+import MapDetailPage2 from "./pages/MapDetailPage2/index";
 import LanguagePage from "./pages/LanguagePage";
 import MapPage from "./pages/MapPage/index";
 import CompletePage from "./pages/CompletePage";
+import ThemeFormPage from "./pages/ThemeFormPage";
+import LocationFormPage from "./pages/LocationFormPage";
 import { GlobalStyles } from "./style/global";
 import { LanguageProvider } from "./contexts/LanguageContext"; // LanguageProvider 추가
-import MapDetailPage2 from "./pages/MapDetailPage2/index";
 function App() {
   return (
     <LanguageProvider>
@@ -18,6 +20,10 @@ function App() {
           <Route path="/detail2" element={<MapDetailPage2 />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/complete" element={<CompletePage />} />
+
+          {/* 추가 페이지 (임시) */}
+          <Route path="/theme" element={<ThemeFormPage />} />
+          <Route path="/location" element={<LocationFormPage />} />
         </Routes>
       </div>
     </LanguageProvider>

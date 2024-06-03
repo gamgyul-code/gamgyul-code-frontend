@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
 import styled from "styled-components";
-import { FormLayout } from "../LocationFormPage";
+import { FormLayout } from "../ThemeFormPage";
 import Button from "../../components/common/Button";
 import { theme } from "../../style/theme";
 import { StyledBody2Gray, StyledSubTitleText } from "../MapDetailPage";
