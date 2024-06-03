@@ -12,18 +12,19 @@ const ThemeFormPage = () => {
 
   return (
     <FormLayout>
-      <div>할망 이미지 들어갈 공간</div>
+      <StyledBackgroundWrap>
+        <img src="images/Background/halmangImg.svg" />
+      </StyledBackgroundWrap>
+      <StyledThemeText>
+        <span>
+          Choose a theme
+          <br />
+          that you want to travel
+        </span>
+      </StyledThemeText>
       <StyledBottomWrapper>
-        <StyledTextBox>
-          <span>
-            Choose a theme
-            <br />
-            that you want to travel
-          </span>
-        </StyledTextBox>
-
         <StyledOptionList>
-          {["설문대 할망", "역사", "신화", "사랑"].map((theme) => (
+          {["Seolmundae halmang", "History", "Myth", "Love"].map((theme) => (
             <StyledOptionBtn key={theme} isSelected={selectTheme === theme} onClick={() => handleOptionClick(theme)}>
               {theme}
             </StyledOptionBtn>
@@ -35,6 +36,7 @@ const ThemeFormPage = () => {
   );
 };
 
+
 /** 텍스트 스타일링 */
 export const StyledTextBox = styled.div`
   font-size: ${theme.fontSize.subtitle};
@@ -42,10 +44,17 @@ export const StyledTextBox = styled.div`
   margin: 0 auto;
 `;
 
+/** Theme 텍스트 스타일링 */
+const StyledThemeText = styled(StyledTextBox)`
+  margin-top: 30px;
+`
+
 /** 선택 버튼 list wrapper */
 const StyledOptionList = styled.div`
   width: 100%;
   margin-top: 49px;
+  display: flex;
+  flex-wrap: wrap;
 
   & > *:nth-child(odd) {
     margin-right: 19px;
@@ -64,6 +73,11 @@ const StyledOptionBtn = styled.button`
   color: ${({ isSelected }) => (isSelected ? theme.color.white : theme.color.black)};
   font-size: ${theme.fontSize.body1};
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 `;
 
 /** 이미지 제외 위치 고정 박스 */
@@ -82,6 +96,17 @@ export const FormLayout = styled.div`
   width: calc(100% - 40px);
   background-color: ${theme.color.background};
   position: relative;
+`;
+
+const StyledBackgroundWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  * {
+    width: 220px;
+    margin-top: 78px;
+  }
 `;
 
 export default ThemeFormPage;
