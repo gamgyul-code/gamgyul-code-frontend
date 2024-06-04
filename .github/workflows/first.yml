@@ -1,0 +1,22 @@
+name: Front Deployment
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: react build & deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout Github Action
+        uses: actions/checkout@v3
+	  
+      # .env에 있던 환경변수들을 등록해주는 단계
+      - name: .env setting
+        run: |
+          echo "VITE_KAKAO_TOKEN=${{ secrets.VITE_KAKAO_TOKEN }}" >> .env
