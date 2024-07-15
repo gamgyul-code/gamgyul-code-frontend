@@ -16,11 +16,11 @@ export const GlobalStyles = createGlobalStyle`
         font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;;
     }
 
+    
     .layout {
       height: 100vh;
-      max-width: 393px;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 375px;
+      margin: 0 auto;
     }
 
     .FormLayout {
