@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
+import HomePage from "./pages/HomePage";
 import MapDetailPage from "./pages/MapDetailPage";
 import MapDetailPage2 from "./pages/MapDetailPage2/index";
 import LanguagePage from "./pages/LanguagePage";
@@ -16,6 +17,7 @@ function App() {
         <GlobalStyles />
         <Routes>
           <Route path="/" element={<LanguagePage />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/detail" element={<MapDetailPage />} />
           <Route path="/detail2" element={<MapDetailPage2 />} />
           <Route path="/map" element={<MapPage />} />
