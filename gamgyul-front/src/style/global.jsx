@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { theme } from "./theme";
 
 export const GlobalStyles = createGlobalStyle`
   @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
@@ -7,6 +8,7 @@ export const GlobalStyles = createGlobalStyle`
       text-decoration: none;
       margin: 0;
       font-weight: 500;
+      color: ${theme.color.black};
 
       /* 스크롤 안 보이게 하기 */
       -ms-overflow-style: none; /* IE and Edge */
