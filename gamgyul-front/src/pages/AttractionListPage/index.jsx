@@ -26,6 +26,10 @@ const AttractionListPage = () => {
       <Container>
         <StyledListSection>
           <ul>
+            {/* {data.map((element, index) => {
+              return <AttractionItem />;
+            })} */}
+
             <AttractionItem />
             <AttractionItem />
             <AttractionItem />

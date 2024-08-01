@@ -1,16 +1,44 @@
 import styled from "styled-components";
 import { theme } from "../../../style/theme";
+import { useEffect, useState } from "react";
 
 /** 관광지 아이템 컴포넌트 (분리 필요) */
-const AttractionItem = ({}) => {
+const AttractionItem = ({ isChecked, onCheckChange }) => {
+  const [bookmark, setBookmark] = useState("off");
+  const [isModal, setIsModal] = useState(false);
   //   const type = "DELETE";
-  //   const type = "CHECK";
+  // const type = "CHECK";
   const type = "BASIC";
+
+  useEffect(() => {}, []);
+
+  /** 북마크 버튼 클릭 => 이후 api 요청 추가 */
+  const handleBookmarkClick = (bookmark) => {
+    if (bookmark === "off") {
+      setBookmark("on");
+    } else {
+      setBookmark("off");
+    }
+  };
+  /** 체크박스 클릭 핸들러 */
+  const handleCheckClick = () => {
+    // onCheckChange(id);
+    console.log("임시 체크박스 클릭 핸들러입니다.");
+  };
+
+  /** 삭제 버튼 클릭 => 이후 추가 */
+  const handleDeleteClick = () => {
+    console.log("삭제 버튼을 클릭했습니다.");
+  };
 
   return (
     <StyledAtrctItem>
       <div>
-        {type === "CHECK" && <div>체크</div>}
+        {type === "CHECK" && (
+          <StyledCheckBtn>
+            <img src={`/images/Icon/check_${bookmark}.svg`} alt="북마크버튼" onClick={() => handleCheckClick()} />
+          </StyledCheckBtn>
+        )}
         <figure>
           <img src="" alt="관광지 이미지" />
           <figcaption>
@@ -19,7 +47,19 @@ const AttractionItem = ({}) => {
           </figcaption>
         </figure>
       </div>
-      {type === "DELETE" ? <button>삭제</button> : <button>북마크</button>}
+      {type === "DELETE" ? (
+        <StyledIconBtn>
+          <img src={`/images/Icon/delete.svg`} alt="삭제버튼" onClick={() => handleDeleteClick()} />
+        </StyledIconBtn>
+      ) : (
+        <StyledIconBtn>
+          <img
+            src={`/images/Icon/bookmark_${bookmark}.svg`}
+            alt="북마크버튼"
+            onClick={() => handleBookmarkClick(bookmark)}
+          />
+        </StyledIconBtn>
+      )}
     </StyledAtrctItem>
   );
 };
@@ -58,12 +98,31 @@ const StyledAtrctItem = styled.li`
     font-weight: 400;
   }
 
-  img {
+  figure > img {
     width: 70px;
     height: 70px;
     border-radius: 17.5px;
     background-color: black;
     margin-right: 16px;
+  }
+`;
+
+const StyledIconBtn = styled.button`
+  width: 24px;
+  height: 24px;
+  border: none;
+  background-color: inherit;
+`;
+
+const StyledCheckBtn = styled.button`
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-color: inherit;
+  margin-right: 16px;
+  & > img {
+    width: 100%;
+    hegiht: 100%;
   }
 `;
 
