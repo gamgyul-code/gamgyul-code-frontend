@@ -2,8 +2,11 @@ import styled from "styled-components";
 import { HOME_PAGE_TEXT } from "../../constants/String";
 import { theme } from "../../style/theme";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
+import { Link, useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
   // 예시 작업 (이후에 상태관리 or 로컬스토리지 저장으로 변경)
   // const language = window.localStorage.getItem("lanType");
   const language = "KR";
@@ -11,8 +14,14 @@ const HomePage = () => {
 
   /** 루트 & 관광지 리스트 클릭 */
   const handleListClick = (props) => {
-    // props -> [데이터, 타입(route, atrct)] (타입에 따라 넘어가는 페이지가 다름)
-    console.log(props[0]);
+    // props -> [데이터, 타입(ROUTE, ATRCT)] (타입에 따라 넘어가는 페이지가 다름)
+    const [data, type] = props;
+    console.log(data);
+    if (type === "ATRCT") {
+      navigate(`/attractions/${data.id}`);
+    } else if (type === "ROUTE") {
+      console.log("루트로 이동할 예정입니다.");
+    }
   };
 
   /** 예시 데이터 */
@@ -56,19 +65,19 @@ const HomePage = () => {
             <StyledCategoryName>{text.THEME_ATRCT}</StyledCategoryName>
             <nav>
               <ul>
-                <li onClick={() => handleListClick(["SEOLMUNDAE", "ATRCT"])}>
+                <li onClick={() => handleListClick([{ id: "seolmundae", name: "SEOLMUNDAE" }, "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_SEOLMUNDAE}</p>
                 </li>
-                <li onClick={() => handleListClick(["LOVE", "ATRCT"])}>
+                <li onClick={() => handleListClick([{ id: "love", name: "LOVE" }, "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_LOVE}</p>
                 </li>
-                <li onClick={() => handleListClick(["HISTORY", "ATRCT"])}>
+                <li onClick={() => handleListClick([{ id: "history", name: "HISTORY" }, "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_HISTORY}</p>
                 </li>
-                <li onClick={() => handleListClick(["MYTH", "ATRCT"])}>
+                <li onClick={() => handleListClick([{ id: "myth", name: "MYTH" }, "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_MYTH}</p>
                 </li>
@@ -84,7 +93,11 @@ const HomePage = () => {
             <ul>
               {data.REGION_ATRCT.map((element, index) => {
                 return (
-                  <RouterLiItem key={`folktale-${index}`} data={element} onClick={() => handleListClick([element, "ROUTE"])} />
+                  <RouterLiItem
+                    key={`folktale-${index}`}
+                    data={element}
+                    onClick={() => handleListClick([element, "ROUTE"])}
+                  />
                 );
               })}
             </ul>
@@ -96,7 +109,13 @@ const HomePage = () => {
           <nav>
             <ul>
               {data.REGION_ATRCT.map((element, index) => {
-                return <RouterLiItem key={`region-${index}`} data={element} onClick={() => handleListClick([element, "ATRCT"])} />;
+                return (
+                  <RouterLiItem
+                    key={`region-${index}`}
+                    data={element}
+                    onClick={() => handleListClick([element, "ATRCT"])}
+                  />
+                );
               })}
             </ul>
           </nav>
@@ -109,11 +128,11 @@ const HomePage = () => {
 export default HomePage;
 
 /** 각 라우터별 li 아이템 컴포넌트 (분리 필요) */
-const RouterLiItem = (props) => {
+const RouterLiItem = ({ onClick, data }) => {
   return (
-    <StyledLiRouter onClick={props.onClick}>
-      <img src="" alt={props.data.img} />
-      <p>{props.data.name}</p>
+    <StyledLiRouter onClick={onClick}>
+      <img src="" alt={data.img} />
+      <p>{data.name}</p>
     </StyledLiRouter>
   );
 };
