@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { HOME_PAGE_TEXT } from "../../constants/String";
-import { FormLayout } from "../ThemeFormPage";
 import { theme } from "../../style/theme";
-import { Container, HomeLayout } from "./HomePage.style";
+import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
 
 const HomePage = () => {
   // 예시 작업 (이후에 상태관리 or 로컬스토리지 저장으로 변경)
@@ -12,7 +11,8 @@ const HomePage = () => {
 
   /** 루트 & 관광지 리스트 클릭 */
   const handleListClick = (props) => {
-    console.log(props);
+    // props -> [데이터, 타입(route, atrct)] (타입에 따라 넘어가는 페이지가 다름)
+    console.log(props[0]);
   };
 
   /** 예시 데이터 */
@@ -39,7 +39,7 @@ const HomePage = () => {
 
   return (
     <>
-      <HomeLayout>
+      <BasicLayout>
         {/* 홈페이지의 상단 이미지 + 소개 내용 */}
         <StyledHomeHeader>
           <img src="" alt="" />
@@ -56,19 +56,19 @@ const HomePage = () => {
             <StyledCategoryName>{text.THEME_ATRCT}</StyledCategoryName>
             <nav>
               <ul>
-                <li>
+                <li onClick={() => handleListClick(["SEOLMUNDAE", "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_SEOLMUNDAE}</p>
                 </li>
-                <li>
+                <li onClick={() => handleListClick(["LOVE", "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_LOVE}</p>
                 </li>
-                <li>
+                <li onClick={() => handleListClick(["HISTORY", "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_HISTORY}</p>
                 </li>
-                <li>
+                <li onClick={() => handleListClick(["MYTH", "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_MYTH}</p>
                 </li>
@@ -84,7 +84,7 @@ const HomePage = () => {
             <ul>
               {data.REGION_ATRCT.map((element, index) => {
                 return (
-                  <RouterLiItem key={`folktale-${index}`} data={element} onClick={() => handleListClick(element)} />
+                  <RouterLiItem key={`folktale-${index}`} data={element} onClick={() => handleListClick([element, "ROUTE"])} />
                 );
               })}
             </ul>
@@ -96,12 +96,12 @@ const HomePage = () => {
           <nav>
             <ul>
               {data.REGION_ATRCT.map((element, index) => {
-                return <RouterLiItem key={`region-${index}`} data={element} onClick={() => handleListClick(element)} />;
+                return <RouterLiItem key={`region-${index}`} data={element} onClick={() => handleListClick([element, "ATRCT"])} />;
               })}
             </ul>
           </nav>
         </StyledRouteAtrct>
-      </HomeLayout>
+      </BasicLayout>
     </>
   );
 };
