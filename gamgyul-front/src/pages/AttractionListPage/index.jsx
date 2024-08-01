@@ -1,12 +1,12 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { theme } from "../../style/theme";
 import AttractionItem from "../../components/common/AttractionItem";
+import BackNaviBtn from "../../components/common/BackNaviBtn";
 
 const AttractionListPage = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {}, []);
@@ -14,7 +14,7 @@ const AttractionListPage = () => {
   return (
     <BasicLayout>
       <StyledAtrctHeader>
-        <StyledBackBtn onClick={() => navigate(-1)}>뒤로가기버튼</StyledBackBtn>
+        <BackNaviBtn />
         <img src="" alt="" />
         <Container>
           <div>
@@ -74,15 +74,4 @@ const StyledAtrctHeader = styled.header`
   }
 `;
 
-/** 뒤로가기 버튼 (분리 필요) */
-const StyledBackBtn = styled.button`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: ${theme.color.white};
-  position: absolute;
-  top: 54px;
-  left: 20px;
-  z-index: 999;
-`;
 export default AttractionListPage;
