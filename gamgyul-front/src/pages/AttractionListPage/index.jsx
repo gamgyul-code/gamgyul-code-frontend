@@ -47,7 +47,7 @@ const StyledAtrctHeader = styled.header`
   position: relative;
   background-color: #fbbdd3;
 
-  img {
+  & > img {
     width: 100%;
     height: 100%;
     object-fit: cover;

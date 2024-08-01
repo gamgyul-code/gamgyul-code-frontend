@@ -13,11 +13,19 @@ const BackNaviBtn = ({ onClick }) => {
     }
   };
 
-  return <StyledBackBtn onClick={handleClick}>뒤로가기버튼</StyledBackBtn>;
+  return (
+    <StyledBackBtn onClick={handleClick}>
+      <img src="/images/Icon/backward.svg" alt="뒤로가기" />
+    </StyledBackBtn>
+  );
 };
 
 /** 뒤로가기 버튼 스타일링 */
 const StyledBackBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -26,5 +34,12 @@ const StyledBackBtn = styled.button`
   top: 54px;
   left: 20px;
   z-index: 999;
+  border: 1px solid #f6faed;
+  box-shadow: 0px 2px 3px 0px #0000001a;
+
+  & > img {
+    width: 30px;
+    height: 30px;
+  }
 `;
 export default BackNaviBtn;
