@@ -12,11 +12,11 @@ export const theme = {
     gray3: "#E5E5EA",
   },
   fontSize: {
-    header: "1.75rem",
-    subtitle: "1.5rem",
+    header: "2.8rem",
+    subtitle: "2.4rem",
     body1: "1.25rem",
-    body2: "1rem",
-    body3: "0.875rem",
-    caption: "0.75rem",
+    body2: "1.6rem",
+    body3: "1.4rem",
+    caption: "1.2rem",
   },
 };
