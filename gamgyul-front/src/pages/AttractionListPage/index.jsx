@@ -13,32 +13,34 @@ const AttractionListPage = () => {
 
   return (
     <BasicLayout>
-      <StyledAtrctHeader>
-        <BackNaviBtn />
-        <img src="" alt="" />
-        <Container>
-          <div>
+      <AttractionListContainer>
+        <StyledAtrctHeader>
+          <BackNaviBtn />
+          <img src="" alt="" />
+          <Container>
             <h2>{id}과 여행하는 제주</h2>
             <p>제주를 대표하는 과 관련된 장소를 여행해보세요.</p>
-          </div>
-        </Container>
-      </StyledAtrctHeader>
-      <Container>
-        <StyledListSection>
-          <ul>
-            {/* {data.map((element, index) => {
+          </Container>
+        </StyledAtrctHeader>
+        <Container>
+          <StyledListSection>
+            <ul>
+              {/* {data.map((element, index) => {
               return <AttractionItem />;
             })} */}
 
-            <AttractionItem />
-            <AttractionItem />
-            <AttractionItem />
-          </ul>
-        </StyledListSection>
-      </Container>
+              <AttractionItem />
+              <AttractionItem />
+              <AttractionItem />
+            </ul>
+          </StyledListSection>
+        </Container>
+      </AttractionListContainer>
     </BasicLayout>
   );
 };
+
+const AttractionListContainer = styled.div``;
 
 const StyledListSection = styled.section`
   margin-top: 10px;
