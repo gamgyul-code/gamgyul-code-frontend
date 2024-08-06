@@ -4,7 +4,7 @@ export const theme = {
     sub1: "#B6E4CB",
     sub2: "#DFEFC6",
     stroke: "#1A9B6C",
-    background: "#ffffff",
+    background: "#F6FAED",
     black: "#2C2C2E",
     white: "#ffffff",
     gray1: "#636366",

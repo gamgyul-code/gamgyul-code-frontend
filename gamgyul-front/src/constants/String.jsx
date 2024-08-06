@@ -6,6 +6,10 @@ export const HOME_PAGE_TEXT = {
     THEME_ATRCT: "Theme-based tourist attraction", // 테마별 설화 관광지
     FOLKTALE_ROUTE: "Folktale tour route", // 설화 여행 루트
     REGION_ATRCT: "Tourist attractions by Region", // 지역별 제주 관광지
+    CATEGORY_SEOLMUNDAE: "Seolmundae Grandmother", // 설문대 할망
+    CATEGORY_LOVE: "Love", // 사랑
+    CATEGORY_HISTORY: "History", // 역사
+    CATEGORY_MYTH: "Myth", // 신화
   },
   KR: {
     HEADER_MAIN: "설문대 할망과\n설화 여행을 떠나요!",
@@ -13,6 +17,10 @@ export const HOME_PAGE_TEXT = {
     THEME_ATRCT: "테마별 설화 관광지",
     FOLKTALE_ROUTE: "설화 여행 루트",
     REGION_ATRCT: "지역별 제주 관광지",
+    CATEGORY_SEOLMUNDAE: "설문대 할망",
+    CATEGORY_LOVE: "사랑",
+    CATEGORY_HISTORY: "역사",
+    CATEGORY_MYTH: "신화",
   },
   JP: {
     HEADER_MAIN: "",
