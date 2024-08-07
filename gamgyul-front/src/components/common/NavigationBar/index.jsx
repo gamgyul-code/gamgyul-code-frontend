@@ -16,19 +16,19 @@ const NavigationBar = () => {
         <NaviBtn
           src={activeTab === "map" ? "/src/assets/NavigationBar/mapOn.svg" : "/src/assets/NavigationBar/mapOff.svg"}
         />
-        <NaviText active={activeTab === "map"}>Map</NaviText>
+        <NaviText $active={activeTab === "map"}>Map</NaviText>
       </NavbarLink>
       <NavbarLink to="/detail" onClick={() => handleTabClick("home")}>
         <NaviBtn
           src={activeTab === "home" ? "/src/assets/NavigationBar/homeOn.svg" : "/src/assets/NavigationBar/homeOff.svg"}
         />
-        <NaviText active={activeTab === "home"}>Home</NaviText>
+        <NaviText $active={activeTab === "home"}>Home</NaviText>
       </NavbarLink>
       <NavbarLink to="/detail2" onClick={() => handleTabClick("trip")}>
         <NaviBtn
           src={activeTab === "trip" ? "/src/assets/NavigationBar/tripOn.svg" : "/src/assets/NavigationBar/tripOff.svg"}
         />
-        <NaviText active={activeTab === "trip"}>My Trip</NaviText>
+        <NaviText $active={activeTab === "trip"}>My Trip</NaviText>
       </NavbarLink>
     </NaviContainer>
   );
@@ -39,7 +39,7 @@ const NaviContainer = styled.div`
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 375px;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   background-color: #f6faed;
@@ -63,11 +63,13 @@ const NaviText = styled.p`
   text-align: center;
   font-weight: 600;
   font-size: ${theme.fontSize.body2};
-  color: ${({ active }) => (active ? theme.color.primary : theme.color.gray1)};
+  color: ${({ $active }) => ($active ? theme.color.primary : theme.color.gray1)};
 `;
 
 const NavbarLink = styled(Link)`
   margin-top: 10px;
+  width: 125px;
+  height: 125px;
 `;
 
 export default NavigationBar;
