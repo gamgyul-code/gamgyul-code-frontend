@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { theme } from "../../../style/theme";
+import { applyFontStyles } from "../../../utils/fontStyles";
 
 const NavigationBar = () => {
   const [activeTab, setActiveTab] = useState("map");
@@ -59,10 +60,9 @@ const NaviBtn = styled.img`
 `;
 
 const NaviText = styled.p`
+  ${applyFontStyles(theme.font.body2)}
   font-size: 12px;
   text-align: center;
-  font-weight: 600;
-  font-size: ${theme.fontSize.body2};
   color: ${({ $active }) => ($active ? theme.color.primary : theme.color.gray1)};
 `;
 

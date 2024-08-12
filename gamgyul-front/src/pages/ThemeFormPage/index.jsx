@@ -2,6 +2,7 @@ import Button from "../../components/common/Button";
 import { styled } from "styled-components";
 import { theme } from "../../style/theme";
 import { useState } from "react";
+import { applyFontStyles } from "../../utils/fontStyles";
 
 const ThemeFormPage = () => {
   const [selectTheme, setSelectTheme] = useState("");
@@ -36,10 +37,9 @@ const ThemeFormPage = () => {
   );
 };
 
-
 /** 텍스트 스타일링 */
 export const StyledTextBox = styled.div`
-  font-size: ${theme.fontSize.subtitle};
+  ${applyFontStyles(theme.font.subtitle)}
   text-align: center;
   margin: 0 auto;
 `;
@@ -47,7 +47,7 @@ export const StyledTextBox = styled.div`
 /** Theme 텍스트 스타일링 */
 const StyledThemeText = styled(StyledTextBox)`
   margin-top: 30px;
-`
+`;
 
 /** 선택 버튼 list wrapper */
 const StyledOptionList = styled.div`
@@ -63,15 +63,14 @@ const StyledOptionList = styled.div`
 
 /** 선택 버튼 */
 const StyledOptionBtn = styled.button`
+  ${applyFontStyles(theme.font.body1)}
   width: 167px;
   height: 98px;
-  font-weight: 600;
   border-radius: 10px;
   margin-bottom: 20px;
   border: 1px solid ${({ isSelected }) => (isSelected ? theme.color.primary : theme.color.grayscale_BF)};
   background-color: ${({ isSelected }) => (isSelected ? theme.color.primary : theme.color.white)};
   color: ${({ isSelected }) => (isSelected ? theme.color.white : theme.color.black)};
-  font-size: ${theme.fontSize.body1};
   cursor: pointer;
 
   display: flex;

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { theme } from "../../style/theme";
 import AttractionItem from "../../components/common/AttractionItem";
 import BackNaviBtn from "../../components/common/BackNaviBtn";
+import { applyFontStyles } from "../../utils/fontStyles";
 
 const AttractionListPage = () => {
   const { id } = useParams();
@@ -66,16 +67,13 @@ const StyledAtrctHeader = styled.header`
     transform: translateX(-50%);
   }
   div > h2 {
-    font-size: ${theme.fontSize.subtitle};
+    ${applyFontStyles(theme.font.subtitle)}
     color: ${theme.color.black};
-    line-height: 36px;
-    font-weight: 600;
     white-space: pre-line;
   }
   div > p {
-    font-size: ${theme.fontSize.body3};
+    ${applyFontStyles(theme.font.body3)}
     color: ${theme.color.black};
-    font-weight: 400;
     margin-top: 4px;
   }
 `;
