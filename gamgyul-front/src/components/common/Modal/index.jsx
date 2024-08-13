@@ -3,6 +3,7 @@ import { theme } from "../../../style/theme";
 import Button from "../Button";
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
+import { applyFontStyles } from "../../../utils/fontStyles";
 
 const Modal = ({ onClose }) => {
   return (
@@ -25,8 +26,7 @@ const Modal = ({ onClose }) => {
 
 /** body1 텍스트 스타일링 */
 export const StyledBody1Text = styled.span`
-  font-size: ${theme.fontSize.body1};
-  font-weight: 600;
+  ${applyFontStyles(theme.font.body1)}
 `;
 
 /** 오버레이 스타일링 */

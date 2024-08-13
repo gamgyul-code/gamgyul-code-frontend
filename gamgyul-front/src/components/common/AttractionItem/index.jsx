@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { theme } from "../../../style/theme";
 import { useEffect, useState } from "react";
+import { applyFontStyles } from "../../../utils/fontStyles";
 
 /** 관광지 아이템 컴포넌트 (분리 필요) */
 const AttractionItem = ({ isChecked, onCheckChange }) => {
@@ -74,13 +75,11 @@ const AtrctItemInfo = styled.section`
   }
 
   h3 {
-    font-size: ${theme.fontSize.body2};
-    font-weight: 600;
+    ${applyFontStyles(theme.font.body2)}
   }
   p {
-    font-size: ${theme.fontSize.body3};
+    ${applyFontStyles(theme.font.body3)}
     color: ${theme.color.gray1};
-    font-weight: 400;
   }
 
   figure > img {

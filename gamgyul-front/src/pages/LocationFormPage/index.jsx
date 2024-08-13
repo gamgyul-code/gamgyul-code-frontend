@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import Button from "../../components/common/Button";
 import { theme } from "../../style/theme";
 import { FormLayout, StyledBottomWrapper, StyledTextBox } from "../ThemeFormPage";
+import { applyFontStyles } from "../../utils/fontStyles";
 
 const LocationFormPage = () => {
   const [selectLocation, setSelectLocation] = useState("");
@@ -74,15 +75,14 @@ const StyledOptionImg = styled.img`
 
 /** 선택 버튼 */
 const StyledOptionBtn = styled.button`
+  ${applyFontStyles(theme.font.body3)}
   width: 106px;
   height: 79px;
-  font-weight: 600;
   border-radius: 10px;
   margin-bottom: 16px;
   border: 1px solid ${({ isSelected }) => (isSelected ? theme.color.primary : theme.color.grayscale_BF)};
   background-color: ${({ isSelected }) => (isSelected ? theme.color.primary : theme.color.white)};
   color: ${({ isSelected }) => (isSelected ? theme.color.white : theme.color.black)};
-  font-size: ${theme.fontSize.body3};
   cursor: pointer;
 
   display: flex;
