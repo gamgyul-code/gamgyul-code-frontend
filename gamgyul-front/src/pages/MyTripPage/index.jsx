@@ -5,11 +5,13 @@ import styled from "styled-components";
 import { applyFontStyles } from "../../utils/fontStyles";
 import { theme } from "../../style/theme";
 import { TabButton } from "../../components/common/Button/TabButton.style";
+import Button from "../../components/common/Button";
+import NavigationBar from "../../components/common/NavigationBar";
 
 const MyTripPage = () => {
   const [activeTab, setActiveTab] = useState("places");
   return (
-    <BasicLayout>
+    <MyTripLayout>
       <MyTripContainer>
         <StyledMyTripHeader>
           <Container>
@@ -35,49 +37,66 @@ const MyTripPage = () => {
           </nav>
         </StyledMyTripHeader>
 
-        <section>
-          <Container>
-            {activeTab === "places" && (
-              <>
+        <Container>
+          {activeTab === "places" && (
+            <StyledPlacesSection>
+              <AttractionItem type="CHECK" />
+              <AttractionItem type="CHECK" />
+              <AttractionItem type="CHECK" />
+              <AttractionItem type="CHECK" />
+              <AttractionItem type="CHECK" />
+              <MyTripButton isShadow={true}>내 경로 만들기</MyTripButton>
+            </StyledPlacesSection>
+          )}
+          {activeTab === "routes" && (
+            <>
+              <section>
+                <h3>저장한 경로</h3>
                 <AttractionItem />
                 <AttractionItem />
                 <AttractionItem />
+              </section>
+              <section>
+                <h3>내가 만든 경로</h3>
                 <AttractionItem />
                 <AttractionItem />
-                <button>내 경로 만들기</button>
-              </>
-            )}
-            {activeTab === "routes" && (
-              <>
-                <section>
-                  <h3>저장한 경로</h3>
-                  <AttractionItem />
-                  <AttractionItem />
-                  <AttractionItem />
-                </section>
-                <section>
-                  <h3>내가 만든 경로</h3>
-                  <AttractionItem />
-                  <AttractionItem />
-                  <AttractionItem />
-                </section>
-              </>
-            )}
-          </Container>
-        </section>
+                <AttractionItem />
+              </section>
+            </>
+          )}
+        </Container>
       </MyTripContainer>
-    </BasicLayout>
+      <NavigationBar />
+    </MyTripLayout>
   );
 };
 
 const MyTripContainer = styled.div``;
 
+const StyledPlacesSection = styled.section`
+  margin: 8px 0 80px 0;
+`;
+
 const StyledMyTripHeader = styled.header`
   padding-top: 54px;
+  background-color: ${theme.color.background};
   h2 {
     ${applyFontStyles(theme.font.header)}
     margin: 24px 0 10px 0;
   }
+`;
+
+const MyTripLayout = styled(BasicLayout)`
+  background-color: ${theme.color.white};
+`;
+
+const MyTripButton = styled(Button)`
+  position: fixed;
+  bottom: 99px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: calc(100% - 40px);
 `;
 
 export default MyTripPage;
