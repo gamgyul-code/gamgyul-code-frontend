@@ -4,12 +4,9 @@ import { useEffect, useState } from "react";
 import { applyFontStyles } from "../../../utils/fontStyles";
 
 /** 관광지 아이템 컴포넌트 (분리 필요) */
-const AttractionItem = ({ isChecked, onCheckChange }) => {
+const AttractionItem = ({ isChecked, onCheckChange, type }) => {
   const [bookmark, setBookmark] = useState("off");
   const [isModal, setIsModal] = useState(false);
-  // const type = "DELETE";
-  // const type = "CHECK";
-  const type = "BASIC";
 
   useEffect(() => {}, []);
 
