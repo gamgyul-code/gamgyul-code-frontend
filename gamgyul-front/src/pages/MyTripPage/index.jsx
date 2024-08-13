@@ -2,17 +2,38 @@ import { useState } from "react";
 import AttractionItem from "../../components/common/AttractionItem";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
 import styled from "styled-components";
+import { applyFontStyles } from "../../utils/fontStyles";
+import { theme } from "../../style/theme";
+import { TabButton } from "../../components/common/Button/TabButton.style";
 
 const MyTripPage = () => {
   const [activeTab, setActiveTab] = useState("places");
   return (
     <BasicLayout>
       <MyTripContainer>
-        <h2>내 여행</h2>
-        <nav aria-label="내 여행 (장소 / 경로)">
-          <button onClick={() => setActiveTab("places")}>장소</button>
-          <button onClick={() => setActiveTab("routes")}>경로</button>
-        </nav>
+        <StyledMyTripHeader>
+          <Container>
+            <h2>내 여행</h2>
+          </Container>
+          <nav aria-label="내 여행 (장소 / 경로)">
+            <TabButton
+              onClick={() => setActiveTab("places")}
+              isActive={activeTab === "places"}
+              fontSize={theme.font.body1}
+              btnCnt={2}
+            >
+              장소
+            </TabButton>
+            <TabButton
+              onClick={() => setActiveTab("routes")}
+              isActive={activeTab === "routes"}
+              fontSize={theme.font.body1}
+              btnCnt={2}
+            >
+              경로
+            </TabButton>
+          </nav>
+        </StyledMyTripHeader>
 
         <section>
           <Container>
@@ -50,5 +71,13 @@ const MyTripPage = () => {
 };
 
 const MyTripContainer = styled.div``;
+
+const StyledMyTripHeader = styled.header`
+  padding-top: 54px;
+  h2 {
+    ${applyFontStyles(theme.font.header)}
+    margin: 24px 0 10px 0;
+  }
+`;
 
 export default MyTripPage;
