@@ -3,6 +3,6 @@ export function applyFontStyles(font) {
   return `
         font-size: ${font.fontSize};
         font-weight: ${font.fontWeight};
-        line-heigth: ${font.lineHeight};
+        line-height: ${font.lineHeight};
     `;
 }
