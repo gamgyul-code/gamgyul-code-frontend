@@ -5,7 +5,7 @@ import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import { applyFontStyles } from "../../../utils/fontStyles";
 
-const Modal = ({ onClose }) => {
+const TempModal = ({ onClose }) => {
   return (
     <StyledOverlay>
       <StyledModal>
@@ -71,4 +71,4 @@ const StyledStampWrap = styled.div`
   }
 `;
 
-export default Modal;
+export default TempModal;
