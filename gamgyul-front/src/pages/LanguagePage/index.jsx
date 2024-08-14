@@ -7,6 +7,7 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { theme } from "./../../style/theme";
 import axios from "axios";
+import { applyFontStyles } from "../../utils/fontStyles";
 
 const LanguagePage = () => {
   // const { language, changeLanguage } = useContext(LanguageContext);
@@ -17,7 +18,7 @@ const LanguagePage = () => {
   };
 
   const handleSendLanguage = () => {
-    console.log(language)
+    console.log(language);
     axios
       .post(`https://k0bcc2aad5ee3a.user-app.krampoline.com/api/languages/set?language=${language}`)
       .then((response) => {
@@ -50,7 +51,7 @@ const LanguagePage = () => {
 };
 
 const StlyedSpan = styled.span`
-  font-size: ${theme.fontSize.body2};
+  ${applyFontStyles(theme.font.body2)}
   padding-bottom: 14px;
   text-align: left;
   display: block;
@@ -70,9 +71,9 @@ const StyledLanguage = styled.div`
 `;
 
 const StyledSelect = styled.select`
+  ${applyFontStyles(theme.font.body1)}
   width: 353px;
   height: 64px;
-  font-size: ${theme.fontSize.body1};
   border-radius: 10px;
 
   border: 1px solid ${theme.color.grayscale_BF};
@@ -88,12 +89,12 @@ const StyledSelect = styled.select`
   background-size: 24px;
 
   &::placeholder {
-    font-size: ${theme.fontSize.body1}; /* Placeholder text 크기 조정 */
+    ${applyFontStyles(theme.font.body1)}
   }
 
   option {
     height: 64px; /* StyledSelect의 높이와 동일하게 설정 */
-    font-size: ${theme.fontSize.body1}; /* Option text 크기 조정 */
+    ${applyFontStyles(theme.font.body1)}
   }
 
   &:focus {

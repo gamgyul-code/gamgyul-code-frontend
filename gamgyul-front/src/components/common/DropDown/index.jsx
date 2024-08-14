@@ -3,6 +3,7 @@ import { useState, useCallback } from "react";
 import ArrowUp from "../../../assets/DropDown/arrow_down.svg";
 import ArrowDown from "../../../assets/DropDown/arrow_up.svg";
 import { theme } from "../../../style/theme";
+import { applyFontStyles } from "../../../utils/fontStyles";
 
 const DropDown = ({ title, children, number, content }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,15 +30,16 @@ const StyledDropDown = styled.div`
 `;
 
 const Header = styled.h2`
+  ${applyFontStyles(theme.font.body1)}
   display: flex;
   align-items: center;
   cursor: pointer;
   padding: 16px;
   margin: 0;
-  font-size: ${theme.fontSize.body1};
 `;
 
 const NumberCircle = styled.div`
+  ${applyFontStyles(theme.font.body2)}
   width: 24px;
   height: 24px;
   background-color: #00a653;
@@ -47,8 +49,6 @@ const NumberCircle = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 10px;
-  font-size: ${theme.fontSize.body2};
-  font-weight: 500;
 `;
 
 const Title = styled.span`

@@ -3,6 +3,7 @@ import { HOME_PAGE_TEXT } from "../../constants/String";
 import { theme } from "../../style/theme";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
 import { Link, useNavigate } from "react-router-dom";
+import { applyFontStyles } from "../../utils/fontStyles";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -155,7 +156,7 @@ const StyledLiRouter = styled.li`
   }
 
   p {
-    font-size: ${theme.fontSize.body2};
+    ${applyFontStyles(theme.font.body2)}
     color: ${theme.color.black};
     width: calc(100% - 20px);
     height: calc(100% - 168px);
@@ -182,16 +183,13 @@ const StyledHomeHeader = styled.header`
     transform: translateX(-50%);
   }
   div > p:first-child {
-    font-size: ${theme.fontSize.header};
+    ${applyFontStyles(theme.font.header)}
     color: ${theme.color.black};
-    line-height: 36px;
-    font-weight: 700;
     white-space: pre-line;
   }
   div > p:nth-child(2) {
-    font-size: ${theme.fontSize.body3};
+    ${applyFontStyles(theme.font.body3)}
     color: ${theme.color.gray1};
-    font-weight: 400;
     margin-top: 8px;
   }
 `;
@@ -247,7 +245,7 @@ const StyledThemeAtrct = styled.section`
   }
 
   li p {
-    font-size: ${theme.fontSize.body2};
+    ${applyFontStyles(theme.font.body2)}
     color: ${theme.color.white};
     position: absolute;
     top: 50%;
@@ -263,6 +261,5 @@ const StyledThemeAtrct = styled.section`
 `;
 
 const StyledCategoryName = styled.h2`
-  font-size: ${theme.fontSize.body1};
-  font-weight: 600;
+  ${applyFontStyles(theme.font.body1)}
 `;

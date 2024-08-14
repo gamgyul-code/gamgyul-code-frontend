@@ -11,12 +11,41 @@ export const theme = {
     gray2: "#B5B5B5",
     gray3: "#E5E5EA",
   },
-  fontSize: {
-    header: "2.8rem",
-    subtitle: "2.4rem",
-    body1: "1.25rem",
-    body2: "1.6rem",
-    body3: "1.4rem",
-    caption: "1.2rem",
+  font: {
+    header: {
+      fontSize: "28px",
+      fontWeight: "700",
+      lineHeight: "130%",
+    },
+    subtitle: {
+      fontSize: "24px",
+      fontWeight: "600",
+      lineHeight: "140%",
+    },
+    body1: {
+      fontSize: "20px",
+      fontWeight: "600",
+      lineHeight: "140%",
+    },
+    body2: {
+      fontSize: "16px",
+      fontWeight: "600",
+      lineHeight: "140%",
+    },
+    body3: {
+      fontSize: "14px",
+      fontWeight: "400",
+      lineHeight: "140%",
+    },
+    body4: {
+      fontSize: "16px",
+      fontWeight: "400",
+      lineHeight: "160%",
+    },
+    caption1: {
+      fontSize: "12px",
+      fontWeight: "600",
+      lineHeight: "120%",
+    },
   },
 };

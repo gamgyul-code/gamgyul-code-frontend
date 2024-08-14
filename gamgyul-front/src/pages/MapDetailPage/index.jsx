@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Modal from "../../components/common/Modal";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { applyFontStyles } from "../../utils/fontStyles";
 
 const MapDetailPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -98,12 +99,12 @@ const MapDetailPage = () => {
 
 /** SubTitle 텍스트 스타일링 */
 export const StyledSubTitleText = styled.span`
-  font-size: ${theme.fontSize.subtitle};
+  ${applyFontStyles(theme.font.subtitle)}
 `;
 
 /** body2 텍스트 스타일링 */
 export const StyledBody2Text = styled.span`
-  font-size: ${theme.fontSize.body2};
+  ${applyFontStyles(theme.font.body2)}
 `;
 
 /** body2 gray 텍스트 스타일링 */

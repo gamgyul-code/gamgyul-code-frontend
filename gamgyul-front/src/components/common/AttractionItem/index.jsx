@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { theme } from "../../../style/theme";
 import { useEffect, useState } from "react";
+import { applyFontStyles } from "../../../utils/fontStyles";
 
 /** 관광지 아이템 컴포넌트 (분리 필요) */
 const AttractionItem = ({ isChecked, onCheckChange }) => {
   const [bookmark, setBookmark] = useState("off");
   const [isModal, setIsModal] = useState(false);
-  //   const type = "DELETE";
+  // const type = "DELETE";
   // const type = "CHECK";
   const type = "BASIC";
 
@@ -32,8 +33,8 @@ const AttractionItem = ({ isChecked, onCheckChange }) => {
   };
 
   return (
-    <StyledAtrctItem>
-      <div>
+    <AtrctItemContainer>
+      <AtrctItemInfo>
         {type === "CHECK" && (
           <StyledCheckBtn>
             <img src={`/images/Icon/check_${bookmark}.svg`} alt="북마크버튼" onClick={() => handleCheckClick()} />
@@ -46,7 +47,7 @@ const AttractionItem = ({ isChecked, onCheckChange }) => {
             <p>리스트내용</p>
           </figcaption>
         </figure>
-      </div>
+      </AtrctItemInfo>
       {type === "DELETE" ? (
         <StyledIconBtn>
           <img src={`/images/Icon/delete.svg`} alt="삭제버튼" onClick={() => handleDeleteClick()} />
@@ -60,28 +61,13 @@ const AttractionItem = ({ isChecked, onCheckChange }) => {
           />
         </StyledIconBtn>
       )}
-    </StyledAtrctItem>
+    </AtrctItemContainer>
   );
 };
 
-/** 관광지 아이템 컴포넌트 스타일링 */
-const StyledAtrctItem = styled.li`
-  height: 90px;
+const AtrctItemInfo = styled.section`
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${theme.color.sub2};
-
-  & > div {
-    display: flex;
-    align-items: center;
-    div {
-      width: 32px;
-      height: 32px;
-      background-color: green;
-      margin-right: 16px;
-    }
-  }
 
   figure {
     display: flex;
@@ -89,13 +75,11 @@ const StyledAtrctItem = styled.li`
   }
 
   h3 {
-    font-size: ${theme.fontSize.body2};
-    font-weight: 600;
+    ${applyFontStyles(theme.font.body2)}
   }
   p {
-    font-size: ${theme.fontSize.body3};
+    ${applyFontStyles(theme.font.body3)}
     color: ${theme.color.gray1};
-    font-weight: 400;
   }
 
   figure > img {
@@ -105,6 +89,15 @@ const StyledAtrctItem = styled.li`
     background-color: black;
     margin-right: 16px;
   }
+`;
+
+/** 관광지 아이템 컴포넌트 스타일링 */
+const AtrctItemContainer = styled.li`
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid ${theme.color.sub2};
 `;
 
 const StyledIconBtn = styled.button`

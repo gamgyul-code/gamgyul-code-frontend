@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Button from "./../../components/common/Button/index";
 import { FormLayout } from "../ThemeFormPage";
 import { theme } from "../../style/theme";
+import { applyFontStyles } from "../../utils/fontStyles";
 const LocationListPage = () => {
   return (
     <StyledFormLayout>
@@ -54,8 +55,7 @@ const Content = styled.div`
   padding-top: 48px;
 `;
 const StyledHeading = styled.h2`
-  font-size: ${theme.fontSize.subtitle};
-  font-weight: bold;
+  ${applyFontStyles(theme.font.subtitle)}
   color: ${theme.color.grayscale_21};
   margin-bottom: 24px;
 `;
