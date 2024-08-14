@@ -29,7 +29,7 @@ const AttractionItem = ({ onDelete, isChecked, onCheckChange, type }) => {
         <AtrctItemInfo>
           {type === "CHECK" && (
             <StyledCheckBtn>
-              <img src={`/images/Icon/check_${bookmark}.svg`} alt="북마크버튼" onClick={() => handleCheckClick()} />
+              <img src={`/images/Icon/check_${bookmark}.svg`} alt="체크버튼" onClick={() => handleCheckClick()} />
             </StyledCheckBtn>
           )}
           <figure>
