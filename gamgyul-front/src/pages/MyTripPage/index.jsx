@@ -13,8 +13,8 @@ const MyTripPage = () => {
   const [activeTab, setActiveTab] = useState("places");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  /** 모달 임시 클릭 (달성 조건 추가 필요) */
-  const handleButtonClick = () => {
+  /** 삭제 아이콘 클릭 */
+  const handleDeleteClick = () => {
     setIsModalOpen(true);
   };
   /** 모달 닫기 */
@@ -22,9 +22,15 @@ const MyTripPage = () => {
     setIsModalOpen(false);
   };
 
+  /** 모달 확인 버튼 클릭 */
+  const handleModalCheck = (value) => {
+    // API 요청
+    console.log(value);
+  };
+
   return (
     <MyTripLayout>
-      {isModalOpen && <Modal type="DELETE" onClose={handleCloseModal} />}
+      {isModalOpen && <Modal type="DELETE" onClick={handleModalCheck} onClose={handleCloseModal} />}
       <MyTripContainer>
         <StyledMyTripHeader>
           <Container>
@@ -74,11 +80,11 @@ const MyTripPage = () => {
               <Container>
                 <h3>내가 만든 경로</h3>
               </Container>
-              <AttractionItem type="DELETE" onDelete={handleButtonClick} />
-              <AttractionItem type="DELETE" onDelete={handleButtonClick} />
-              <AttractionItem type="DELETE" onDelete={handleButtonClick} />
-              <AttractionItem type="DELETE" onDelete={handleButtonClick} />
-              <AttractionItem type="DELETE" onDelete={handleButtonClick} />
+              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
+              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
+              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
+              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
+              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
             </StyledRoutesSection>
           </>
         )}
