@@ -1,4 +1,5 @@
 export const theme = {
+  maxWidth: "375px",
   color: {
     primary: "#1EB17B",
     sub1: "#B6E4CB",
