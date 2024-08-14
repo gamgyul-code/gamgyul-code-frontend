@@ -40,7 +40,7 @@ const NaviContainer = styled.div`
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
+  width: ${theme.maxWidth};
   display: flex;
   justify-content: space-around;
   background-color: #f6faed;

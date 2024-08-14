@@ -96,6 +96,7 @@ const StyledMyTripHeader = styled.header`
 
 const MyTripLayout = styled(BasicLayout)`
   background-color: ${theme.color.white};
+  position: relative;
 `;
 
 const MyTripButton = styled(Button)`
@@ -104,7 +105,7 @@ const MyTripButton = styled(Button)`
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-  width: calc(100% - 40px);
+  max-width: calc(${theme.maxWidth} - 40px);
 `;
 
 export default MyTripPage;
