@@ -50,18 +50,19 @@ const MyTripPage = () => {
           )}
           {activeTab === "routes" && (
             <>
-              <section>
+              <StyledRoutesSection>
                 <h3>저장한 경로</h3>
                 <AttractionItem />
                 <AttractionItem />
                 <AttractionItem />
-              </section>
-              <section>
+              </StyledRoutesSection>
+              <StyledRoutesSection>
                 <h3>내가 만든 경로</h3>
-                <AttractionItem />
-                <AttractionItem />
-                <AttractionItem />
-              </section>
+                <AttractionItem type="DELETE" />
+                <AttractionItem type="DELETE" />
+                <AttractionItem type="DELETE" />
+                <AttractionItem type="DELETE" />
+              </StyledRoutesSection>
             </>
           )}
         </Container>
@@ -75,6 +76,13 @@ const MyTripContainer = styled.div``;
 
 const StyledPlacesSection = styled.section`
   margin: 8px 0 80px 0;
+`;
+
+const StyledRoutesSection = styled.section`
+  margin: 20px 0 4px 0;
+  h3 {
+    ${applyFontStyles(theme.font.body1)}
+  }
 `;
 
 const StyledMyTripHeader = styled.header`
