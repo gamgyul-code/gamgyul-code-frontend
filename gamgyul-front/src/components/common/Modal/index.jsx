@@ -1,73 +1,111 @@
-import { StyledBody2Gray } from "../../../pages/MapDetailPage";
+import { useState } from "react";
+import styled from "styled-components";
 import { theme } from "../../../style/theme";
-import Button from "../Button";
-import { styled } from "styled-components";
-import { Link } from "react-router-dom";
 import { applyFontStyles } from "../../../utils/fontStyles";
+import Button from "../Button";
 
-const Modal = ({ onClose }) => {
+const Modal = ({ onClose, onClick, type }) => {
+  const [routeValue, setRouteValue] = useState("");
+  const isSaveButtonDisabled = type === "SAVE" && routeValue.trim() === "";
+  // 경로 삭제일 때 : 확인 => 경로 삭제 api 요청 / 취소 => 모달 닫기
+  // 경로 저장일 때 : 확인 => 경로 저장 api 요청 / 취소 => 모달 닫기
+
   return (
-    <StyledOverlay>
-      <StyledModal>
-        <StyledBody1Text>You got a stamp!</StyledBody1Text>
-        <StyledStampWrap>
-          <img src="images/Stamp/stamp.svg" />
-          <StyledBody2Gray>영실기암</StyledBody2Gray>
-        </StyledStampWrap>
-        <Link to="/complete">
-          <Button type="small" onClick={onClose}>
-            Next
-          </Button>
-        </Link>
-      </StyledModal>
-    </StyledOverlay>
+    <ModalOverlayContainer>
+      <ModalContents>
+        {type === "DELETE" && <ModalDeleteH2>경로를 삭제 하시겠어요?</ModalDeleteH2>}
+        {type === "SAVE" && (
+          <ModalRoutesSection>
+            <h2>경로 이름</h2>
+            <p>경로를 저장하려면 이름이 필요합니다.</p>
+            <StyledInputBox
+              type="text"
+              id="route-input"
+              value={routeValue}
+              placeholder="이름을 입력해주세요."
+              onChange={(event) => setRouteValue(event.target.value)}
+            />
+          </ModalRoutesSection>
+        )}
+        <div>
+          <StyledModalBtn type="small" onClick={onClose} color="gray">
+            취소
+          </StyledModalBtn>
+          <StyledModalBtn type="small" onClick={() => onClick(routeValue)} disabled={isSaveButtonDisabled}>
+            확인
+          </StyledModalBtn>
+        </div>
+      </ModalContents>
+    </ModalOverlayContainer>
   );
 };
 
-/** body1 텍스트 스타일링 */
-export const StyledBody1Text = styled.span`
-  ${applyFontStyles(theme.font.body1)}
+const ModalDeleteH2 = styled.h2`
+  width: 100%;
+  padding: 0 8px;
+  margin-top: 80px;
+  box-sizing: border-box;
+  text-align: center;
 `;
 
-/** 오버레이 스타일링 */
-const StyledOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+const ModalOverlayContainer = styled.div`
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  max-width: ${theme.maxWidth};
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 9999;
+  background: #00000066;
 `;
 
-/** 모달 스타일링 */
-const StyledModal = styled.div`
-  margin: 0 auto;
-  text-align: center;
-  width: 300px;
-  height: 300px;
-  padding: 20px;
-  border-radius: 10px;
+const ModalContents = styled.div`
+  width: 100%;
+  min-height: 252px;
+  border-radius: 20px;
+  padding: 14px 16px;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 10px 0px #0000001a;
+  max-width: calc(${theme.maxWidth} - 88px);
   background-color: ${theme.color.white};
-  box-shadow: 0px 3.39px 16.94px 0px #0000001a;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  h2 {
+    ${applyFontStyles(theme.font.subtitle)}
+  }
+
+  Button:last-child {
+    margin-right: 0;
+  }
 `;
 
-const StyledStampWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const StyledModalBtn = styled(Button)`
+  width: calc(50% - 4px);
+  margin-right: 8px;
+`;
 
-  *:nth-child(1) {
-    width: 128px;
-    height: 128px;
-    margin-bottom: 8px;
+const ModalRoutesSection = styled.section`
+  margin: 10px 8px;
+  p {
+    ${applyFontStyles(theme.font.body3)}
+    margin: 4px 0 28px 0;
+  }
+`;
+
+const StyledInputBox = styled.input`
+  ${applyFontStyles(theme.font.body2)}
+  width: 100%;
+  height: 42px;
+  border: none;
+  border-bottom: 1px solid ${theme.color.primary};
+  box-sizing: border-box;
+  padding: 10px;
+
+  &::placeholder {
+    color: ${theme.color.gray2};
   }
 `;
 

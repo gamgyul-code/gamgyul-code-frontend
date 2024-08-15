@@ -7,11 +7,30 @@ import { theme } from "../../style/theme";
 import { TabButton } from "../../components/common/Button/TabButton.style";
 import Button from "../../components/common/Button";
 import NavigationBar from "../../components/common/NavigationBar";
+import Modal from "../../components/common/Modal";
 
 const MyTripPage = () => {
   const [activeTab, setActiveTab] = useState("places");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  /** 삭제 아이콘 클릭 */
+  const handleDeleteClick = () => {
+    setIsModalOpen(true);
+  };
+  /** 모달 닫기 */
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  /** 모달 확인 버튼 클릭 */
+  const handleModalCheck = (value) => {
+    // API 요청
+    console.log(value);
+  };
+
   return (
     <MyTripLayout>
+      {isModalOpen && <Modal type="DELETE" onClick={handleModalCheck} onClose={handleCloseModal} />}
       <MyTripContainer>
         <StyledMyTripHeader>
           <Container>
@@ -37,35 +56,38 @@ const MyTripPage = () => {
           </nav>
         </StyledMyTripHeader>
 
-        <Container>
-          {activeTab === "places" && (
-            <StyledPlacesSection>
-              <AttractionItem type="CHECK" />
-              <AttractionItem type="CHECK" />
-              <AttractionItem type="CHECK" />
-              <AttractionItem type="CHECK" />
-              <AttractionItem type="CHECK" />
-              <MyTripButton isShadow={true}>내 경로 만들기</MyTripButton>
-            </StyledPlacesSection>
-          )}
-          {activeTab === "routes" && (
-            <>
-              <StyledRoutesSection>
+        {activeTab === "places" && (
+          <StyledPlacesSection>
+            <AttractionItem type="CHECK" />
+            <AttractionItem type="CHECK" />
+            <AttractionItem type="CHECK" />
+            <AttractionItem type="CHECK" />
+            <AttractionItem type="CHECK" />
+            <MyTripButton isShadow={true}>내 경로 만들기</MyTripButton>
+          </StyledPlacesSection>
+        )}
+        {activeTab === "routes" && (
+          <>
+            <StyledRoutesSection>
+              <Container>
                 <h3>저장한 경로</h3>
-                <AttractionItem />
-                <AttractionItem />
-                <AttractionItem />
-              </StyledRoutesSection>
-              <StyledRoutesSection>
+              </Container>
+              <AttractionItem />
+              <AttractionItem />
+              <AttractionItem />
+            </StyledRoutesSection>
+            <StyledRoutesSection>
+              <Container>
                 <h3>내가 만든 경로</h3>
-                <AttractionItem type="DELETE" />
-                <AttractionItem type="DELETE" />
-                <AttractionItem type="DELETE" />
-                <AttractionItem type="DELETE" />
-              </StyledRoutesSection>
-            </>
-          )}
-        </Container>
+              </Container>
+              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
+              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
+              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
+              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
+              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
+            </StyledRoutesSection>
+          </>
+        )}
       </MyTripContainer>
       <NavigationBar />
     </MyTripLayout>
@@ -96,6 +118,7 @@ const StyledMyTripHeader = styled.header`
 
 const MyTripLayout = styled(BasicLayout)`
   background-color: ${theme.color.white};
+  position: relative;
 `;
 
 const MyTripButton = styled(Button)`
@@ -104,7 +127,7 @@ const MyTripButton = styled(Button)`
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-  width: calc(100% - 40px);
+  max-width: calc(${theme.maxWidth} - 40px);
 `;
 
 export default MyTripPage;

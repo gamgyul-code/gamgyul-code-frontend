@@ -25,6 +25,7 @@ const StyledBackBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   width: 50px;
   height: 50px;

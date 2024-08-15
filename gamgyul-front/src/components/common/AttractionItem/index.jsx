@@ -4,9 +4,8 @@ import { useEffect, useState } from "react";
 import { applyFontStyles } from "../../../utils/fontStyles";
 
 /** 관광지 아이템 컴포넌트 (분리 필요) */
-const AttractionItem = ({ isChecked, onCheckChange, type }) => {
+const AttractionItem = ({ onDelete, isChecked, onCheckChange, type }) => {
   const [bookmark, setBookmark] = useState("off");
-  const [isModal, setIsModal] = useState(false);
 
   useEffect(() => {}, []);
 
@@ -24,40 +23,37 @@ const AttractionItem = ({ isChecked, onCheckChange, type }) => {
     console.log("임시 체크박스 클릭 핸들러입니다.");
   };
 
-  /** 삭제 버튼 클릭 => 이후 추가 */
-  const handleDeleteClick = () => {
-    console.log("삭제 버튼을 클릭했습니다.");
-  };
-
   return (
     <AtrctItemContainer>
-      <AtrctItemInfo>
-        {type === "CHECK" && (
-          <StyledCheckBtn>
-            <img src={`/images/Icon/check_${bookmark}.svg`} alt="북마크버튼" onClick={() => handleCheckClick()} />
-          </StyledCheckBtn>
+      <AtrctItemContents>
+        <AtrctItemInfo>
+          {type === "CHECK" && (
+            <StyledCheckBtn>
+              <img src={`/images/Icon/check_${bookmark}.svg`} alt="체크버튼" onClick={() => handleCheckClick()} />
+            </StyledCheckBtn>
+          )}
+          <figure>
+            <img src="" alt="관광지 이미지" />
+            <figcaption>
+              <h3>리스트이름</h3>
+              <p>리스트내용</p>
+            </figcaption>
+          </figure>
+        </AtrctItemInfo>
+        {type === "DELETE" ? (
+          <StyledIconBtn>
+            <img src={`/images/Icon/delete.svg`} alt="삭제버튼" onClick={onDelete} />
+          </StyledIconBtn>
+        ) : (
+          <StyledIconBtn>
+            <img
+              src={`/images/Icon/bookmark_${bookmark}.svg`}
+              alt="북마크버튼"
+              onClick={() => handleBookmarkClick(bookmark)}
+            />
+          </StyledIconBtn>
         )}
-        <figure>
-          <img src="" alt="관광지 이미지" />
-          <figcaption>
-            <h3>리스트이름</h3>
-            <p>리스트내용</p>
-          </figcaption>
-        </figure>
-      </AtrctItemInfo>
-      {type === "DELETE" ? (
-        <StyledIconBtn>
-          <img src={`/images/Icon/delete.svg`} alt="삭제버튼" onClick={() => handleDeleteClick()} />
-        </StyledIconBtn>
-      ) : (
-        <StyledIconBtn>
-          <img
-            src={`/images/Icon/bookmark_${bookmark}.svg`}
-            alt="북마크버튼"
-            onClick={() => handleBookmarkClick(bookmark)}
-          />
-        </StyledIconBtn>
-      )}
+      </AtrctItemContents>
     </AtrctItemContainer>
   );
 };
@@ -88,13 +84,22 @@ const AtrctItemInfo = styled.section`
   }
 `;
 
-/** 관광지 아이템 컴포넌트 스타일링 */
-const AtrctItemContainer = styled.li`
+const AtrctItemContents = styled.li`
+  width: 100%;
   height: 90px;
+  border-bottom: 1px solid ${theme.color.sub2};
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${theme.color.sub2};
+`;
+
+/** 관광지 아이템 컴포넌트 스타일링 */
+const AtrctItemContainer = styled.div`
+  padding: 0 20px;
+
+  &:hover {
+    background: #1eb17b0d;
+  }
 `;
 
 const StyledIconBtn = styled.button`
@@ -102,6 +107,7 @@ const StyledIconBtn = styled.button`
   height: 24px;
   border: none;
   background-color: inherit;
+  cursor: pointer;
 `;
 
 const StyledCheckBtn = styled.button`
@@ -111,8 +117,9 @@ const StyledCheckBtn = styled.button`
   background-color: inherit;
   margin-right: 16px;
   & > img {
+    cursor: pointer;
     width: 100%;
-    hegiht: 100%;
+    height: 100%;
   }
 `;
 
