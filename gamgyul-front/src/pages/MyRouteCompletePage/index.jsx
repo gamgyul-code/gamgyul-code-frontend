@@ -4,8 +4,10 @@ import { theme } from "../../style/theme";
 import { ROUTE_COMPLETE_PAGE_TEXT } from "../../constants/String";
 import Button from "../../components/common/Button";
 import { applyFontStyles } from "../../utils/fontStyles";
+import { useNavigate } from "react-router-dom";
 
 const MyRouteCompletePage = () => {
+  const navigate = useNavigate();
   const language = "KR";
   const text = ROUTE_COMPLETE_PAGE_TEXT[language];
   return (
@@ -15,7 +17,7 @@ const MyRouteCompletePage = () => {
           <img src="/images/Complete/route-complete.svg" alt="" />
           <h2>{text.ROUTE_COMPLETE_MESSAGE}</h2>
         </MyRouteCompleteContents>
-        <Button>{text.ROUTE_COMPLETE_BUTTON}</Button>
+        <Button onClick={() => navigate("/trip?tab=routes")}>{text.ROUTE_COMPLETE_BUTTON}</Button>
       </MyRouteCompleteContainer>
     </MyRouteCompleteLayout>
   );
