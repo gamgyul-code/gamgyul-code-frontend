@@ -110,7 +110,7 @@ const StyledPlacesSection = styled.section`
 
 const StyledRoutesSection = styled.section`
   margin: 20px 0 4px 0;
-  h3 {
+  div > h3 {
     ${applyFontStyles(theme.font.body1)}
   }
 `;
