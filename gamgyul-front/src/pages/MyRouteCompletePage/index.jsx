@@ -3,6 +3,7 @@ import { BasicLayout, Container } from "../../components/common/BasicLayout/layo
 import { theme } from "../../style/theme";
 import { ROUTE_COMPLETE_PAGE_TEXT } from "../../constants/String";
 import Button from "../../components/common/Button";
+import { applyFontStyles } from "../../utils/fontStyles";
 
 const MyRouteCompletePage = () => {
   const language = "KR";
@@ -12,7 +13,7 @@ const MyRouteCompletePage = () => {
       <MyRouteCompleteContainer>
         <MyRouteCompleteContents>
           <img src="/images/Complete/route-complete.svg" alt="" />
-          <h1>{text.ROUTE_COMPLETE_MESSAGE}</h1>
+          <h2>{text.ROUTE_COMPLETE_MESSAGE}</h2>
         </MyRouteCompleteContents>
         <Button>{text.ROUTE_COMPLETE_BUTTON}</Button>
       </MyRouteCompleteContainer>
@@ -21,10 +22,31 @@ const MyRouteCompletePage = () => {
 };
 
 const MyRouteCompleteLayout = styled(BasicLayout)`
+  padding-bottom: 40px;
+  height: calc(100vh - 40px);
+  background-color: ${theme.color.white};
 `;
 
 const MyRouteCompleteContainer = styled(Container)`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 `;
-const MyRouteCompleteContents = styled.section``;
+const MyRouteCompleteContents = styled.section`
+  text-align: center;
+  max-width: calc(${theme.maxWidth} - 88px);
+  margin-top: 160px;
+  h2 {
+    ${applyFontStyles(theme.font.header)}
+    white-space: pre-line;
+    margin-top: 32px;
+  }
+  img {
+    width: 80px;
+    height: 80px;
+  }
+`;
 
 export default MyRouteCompletePage;
