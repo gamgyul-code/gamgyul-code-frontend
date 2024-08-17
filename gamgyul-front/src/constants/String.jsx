@@ -37,3 +37,11 @@ export const HOME_PAGE_TEXT = {
     REGION_ATRCT: "",
   },
 };
+
+/** MyRouteCompletePage String */
+export const ROUTE_COMPLETE_PAGE_TEXT = {
+  EN: { ROUTE_COMPLETE_MESSAGE: "", ROUTE_COMPLETE_BUTTON: "" },
+  KR: { ROUTE_COMPLETE_MESSAGE: "내 여행에 새로운\n경로가 저장되었어요!", ROUTE_COMPLETE_BUTTON: "확인" },
+  JP: { ROUTE_COMPLETE_MESSAGE: "", ROUTE_COMPLETE_BUTTON: "" },
+  CH: { ROUTE_COMPLETE_MESSAGE: "", ROUTE_COMPLETE_BUTTON: "" },
+};
