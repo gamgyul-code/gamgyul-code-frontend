@@ -13,6 +13,7 @@ import { LanguageProvider } from "./contexts/LanguageContext"; // LanguageProvid
 import AttractionListPage from "./pages/AttractionListPage";
 import MyTripPage from "./pages/MyTripPage";
 import MyRouteCompletePage from "./pages/MyRouteCompletePage";
+import TripRoutePage from "./pages/TripRoutePage";
 function App() {
   return (
     <LanguageProvider>
@@ -27,6 +28,7 @@ function App() {
           <Route path="/complete" element={<CompletePage />} />
           <Route path="/attractions/:id" element={<AttractionListPage />} />
           <Route path="/trip" element={<MyTripPage />} />
+          <Route path="/route/:id" element={<TripRoutePage />} />
           <Route path="/route-complete" element={<MyRouteCompletePage />} />
 
           {/* 추가 페이지 (임시) */}
