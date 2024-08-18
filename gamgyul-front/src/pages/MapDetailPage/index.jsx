@@ -3,10 +3,10 @@ import Button from "../../components/common/Button";
 import { FormLayout, StyledBottomWrapper } from "../ThemeFormPage";
 import { theme } from "../../style/theme";
 import { useEffect, useState } from "react";
-import Modal from "../../components/common/Modal";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { applyFontStyles } from "../../utils/fontStyles";
+import TempModal from "../../components/common/TempModal";
 
 const MapDetailPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,7 +41,7 @@ const MapDetailPage = () => {
 
   return (
     <>
-      {isModalOpen && <Modal onClose={handleCloseModal} />}
+      {isModalOpen && <TempModal onClose={handleCloseModal} />}
       <StyledFormLayout>
         <StyledPictureStamp>
           <StyledLocationPicture style={{ backgroundImage: `url(${mapDetailData?.placePictureUrl})` }} />

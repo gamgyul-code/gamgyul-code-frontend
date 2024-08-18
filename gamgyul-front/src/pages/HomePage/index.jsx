@@ -4,6 +4,7 @@ import { theme } from "../../style/theme";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
 import { Link, useNavigate } from "react-router-dom";
 import { applyFontStyles } from "../../utils/fontStyles";
+import NavigationBar from "../../components/common/NavigationBar";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -121,6 +122,7 @@ const HomePage = () => {
             </ul>
           </nav>
         </StyledRouteAtrct>
+        <NavigationBar />
       </BasicLayout>
     </>
   );

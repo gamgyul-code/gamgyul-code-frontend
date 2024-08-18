@@ -24,7 +24,7 @@ export const GlobalStyles = createGlobalStyle`
     
     .layout {
       height: 100vh;
-      max-width: 375px;
+      max-width: ${theme.maxWidth};
       margin: 0 auto;
     }
 

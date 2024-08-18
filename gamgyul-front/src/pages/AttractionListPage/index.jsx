@@ -23,19 +23,17 @@ const AttractionListPage = () => {
             <p>제주를 대표하는 과 관련된 장소를 여행해보세요.</p>
           </Container>
         </StyledAtrctHeader>
-        <Container>
-          <StyledListSection>
-            <ul>
-              {/* {data.map((element, index) => {
+        <StyledListSection>
+          <ul>
+            {/* {data.map((element, index) => {
               return <AttractionItem />;
             })} */}
 
-              <AttractionItem />
-              <AttractionItem />
-              <AttractionItem />
-            </ul>
-          </StyledListSection>
-        </Container>
+            <AttractionItem />
+            <AttractionItem />
+            <AttractionItem />
+          </ul>
+        </StyledListSection>
       </AttractionListContainer>
     </BasicLayout>
   );

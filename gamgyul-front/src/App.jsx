@@ -6,7 +6,6 @@ import CompletePage from "./pages/CompletePage";
 import HomePage from "./pages/HomePage";
 import LanguagePage from "./pages/LanguagePage";
 import LocationFormPage from "./pages/LocationFormPage";
-import LoginPage from "./pages/LoginPage";
 import MapDetailPage from "./pages/MapDetailPage";
 import MapDetailPage2 from "./pages/MapDetailPage2/index";
 import MapPage from "./pages/MapPage/index";
@@ -25,7 +24,6 @@ function App() {
           <Route path="/map" element={<MapPage />} />
           <Route path="/complete" element={<CompletePage />} />
           <Route path="/attractions/:id" element={<AttractionListPage />} />
-          <Route path="/login" element={<LoginPage />} />
 
           {/* 추가 페이지 (임시) */}
           <Route path="/theme" element={<ThemeFormPage />} />
