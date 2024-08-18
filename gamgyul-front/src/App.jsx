@@ -1,16 +1,17 @@
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import HomePage from "./pages/HomePage";
-import MapDetailPage from "./pages/MapDetailPage";
-import MapDetailPage2 from "./pages/MapDetailPage2/index";
-import LanguagePage from "./pages/LanguagePage";
-import MapPage from "./pages/MapPage/index";
-import CompletePage from "./pages/CompletePage";
-import ThemeFormPage from "./pages/ThemeFormPage";
-import LocationFormPage from "./pages/LocationFormPage";
-import { GlobalStyles } from "./style/global";
 import { LanguageProvider } from "./contexts/LanguageContext"; // LanguageProvider 추가
 import AttractionListPage from "./pages/AttractionListPage";
+import CompletePage from "./pages/CompletePage";
+import HomePage from "./pages/HomePage";
+import LanguagePage from "./pages/LanguagePage";
+import LocationFormPage from "./pages/LocationFormPage";
+import LoginPage from "./pages/LoginPage";
+import MapDetailPage from "./pages/MapDetailPage";
+import MapDetailPage2 from "./pages/MapDetailPage2/index";
+import MapPage from "./pages/MapPage/index";
+import ThemeFormPage from "./pages/ThemeFormPage";
+import { GlobalStyles } from "./style/global";
 function App() {
   return (
     <LanguageProvider>
@@ -24,6 +25,7 @@ function App() {
           <Route path="/map" element={<MapPage />} />
           <Route path="/complete" element={<CompletePage />} />
           <Route path="/attractions/:id" element={<AttractionListPage />} />
+          <Route path="/login" element={<LoginPage />} />
 
           {/* 추가 페이지 (임시) */}
           <Route path="/theme" element={<ThemeFormPage />} />
