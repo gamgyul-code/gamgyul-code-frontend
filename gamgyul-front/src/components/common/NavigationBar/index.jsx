@@ -1,11 +1,16 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { theme } from "../../../style/theme";
 import { applyFontStyles } from "../../../utils/fontStyles";
 
 const NavigationBar = () => {
-  const [activeTab, setActiveTab] = useState("map");
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState(location.pathname);
+
+  useEffect(() => {
+    setActiveTab(location.pathname);
+  }, [location.pathname]);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -13,23 +18,23 @@ const NavigationBar = () => {
 
   return (
     <NaviContainer>
-      <NavbarLink to="/complete" onClick={() => handleTabClick("map")}>
+      <NavbarLink to="/complete" onClick={() => handleTabClick("/map")}>
         <NaviBtn
-          src={activeTab === "map" ? "/src/assets/NavigationBar/mapOn.svg" : "/src/assets/NavigationBar/mapOff.svg"}
+          src={activeTab === "/map" ? "/src/assets/NavigationBar/mapOn.svg" : "/src/assets/NavigationBar/mapOff.svg"}
         />
-        <NaviText $active={activeTab === "map"}>Map</NaviText>
+        <NaviText $active={activeTab === "/map"}>Map</NaviText>
       </NavbarLink>
-      <NavbarLink to="/detail" onClick={() => handleTabClick("home")}>
+      <NavbarLink to="/home" onClick={() => handleTabClick("/home")}>
         <NaviBtn
-          src={activeTab === "home" ? "/src/assets/NavigationBar/homeOn.svg" : "/src/assets/NavigationBar/homeOff.svg"}
+          src={activeTab === "/home" ? "/src/assets/NavigationBar/homeOn.svg" : "/src/assets/NavigationBar/homeOff.svg"}
         />
-        <NaviText $active={activeTab === "home"}>Home</NaviText>
+        <NaviText $active={activeTab === "/home"}>Home</NaviText>
       </NavbarLink>
-      <NavbarLink to="/detail2" onClick={() => handleTabClick("trip")}>
+      <NavbarLink to="/trip" onClick={() => handleTabClick("/trip")}>
         <NaviBtn
-          src={activeTab === "trip" ? "/src/assets/NavigationBar/tripOn.svg" : "/src/assets/NavigationBar/tripOff.svg"}
+          src={activeTab === "/trip" ? "/src/assets/NavigationBar/tripOn.svg" : "/src/assets/NavigationBar/tripOff.svg"}
         />
-        <NaviText $active={activeTab === "trip"}>My Trip</NaviText>
+        <NaviText $active={activeTab === "/trip"}>My Trip</NaviText>
       </NavbarLink>
     </NaviContainer>
   );
@@ -40,7 +45,7 @@ const NaviContainer = styled.div`
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
+  width: ${theme.maxWidth};
   display: flex;
   justify-content: space-around;
   background-color: #f6faed;

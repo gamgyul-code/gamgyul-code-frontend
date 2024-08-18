@@ -11,6 +11,7 @@ import LocationFormPage from "./pages/LocationFormPage";
 import { GlobalStyles } from "./style/global";
 import { LanguageProvider } from "./contexts/LanguageContext"; // LanguageProvider 추가
 import AttractionListPage from "./pages/AttractionListPage";
+import MyTripPage from "./pages/MyTripPage";
 function App() {
   return (
     <LanguageProvider>
@@ -24,6 +25,7 @@ function App() {
           <Route path="/map" element={<MapPage />} />
           <Route path="/complete" element={<CompletePage />} />
           <Route path="/attractions/:id" element={<AttractionListPage />} />
+          <Route path="/trip" element={<MyTripPage />} />
 
           {/* 추가 페이지 (임시) */}
           <Route path="/theme" element={<ThemeFormPage />} />
