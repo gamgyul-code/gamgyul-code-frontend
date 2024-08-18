@@ -3,6 +3,8 @@ import { BasicLayout, Container } from "../../components/common/BasicLayout/layo
 import BackNaviBtn from "../../components/common/BackNaviBtn";
 import { useState } from "react";
 import Modal from "../../components/common/Modal";
+import { applyFontStyles } from "../../utils/fontStyles";
+import { theme } from "../../style/theme";
 
 const TripRoutePage = () => {
   const type = "USER_DEFINE"; // 사용자가 만든 경로
@@ -36,16 +38,14 @@ const TripRoutePage = () => {
       <TripRouteContainer>
         <RouteMapSection>
           <BackNaviBtn />
-          <Container>
-            <div>map api 들어갈 곳</div>
-            <NavLinkButton>
-              <img src="/images/Icon/delete.svg" alt="" />
-              <span>네비연동</span>
-            </NavLinkButton>
-          </Container>
+          <div>map api 들어갈 곳</div>
+          <NavLinkButton>
+            <img src="/images/Icon/delete.svg" alt="" />
+            <span>네비연동</span>
+          </NavLinkButton>
         </RouteMapSection>
         <BottomSheetMain>
-          <section>
+          <BottomSheetInfoContainer>
             <header>
               <h2>추천 경로</h2>
               <p>선택한 장소를 바탕으로 생성한 경로입니다.</p>
@@ -64,7 +64,7 @@ const TripRoutePage = () => {
                 />
               </RouteBookmarkButton>
             )}
-          </section>
+          </BottomSheetInfoContainer>
           <section>
             <div>경로 컴포넌트</div>
             <div>경로 컴포넌트</div>
@@ -89,13 +89,74 @@ const RouteMapSection = styled.section`
   width: 100%;
   height: 360px;
   position: relative;
+  background-color: green;
 `;
 
 /** Route 페이지 하단시트 (경로) */
-const BottomSheetMain = styled.main``;
+const BottomSheetMain = styled.main`
+  background-color: red;
+  height: calc(100vh - 360px);
+  border-radius: 30px 30px 0px 0px;
+`;
 
-const NavLinkButton = styled.button``;
-const RouteSaveButton = styled.button``;
+/** 하단시트 정보 (header + 버튼) */
+const BottomSheetInfoContainer = styled(Container)`
+  display: flex;
+  justify-content: space-between;
+
+  header > h2 {
+    ${applyFontStyles(theme.font.subtitle)}
+    margin-bottom: 4px;
+  }
+  header > p {
+    ${applyFontStyles(theme.font.body3)}
+    color: ${theme.color.gray1};
+  }
+`;
+
+/** 네비 연동 버튼 */
+const NavLinkButton = styled.button`
+  border: none;
+  padding: 4px 8px;
+  border-radius: 30px;
+  box-shadow: 0px 2px 3px 0px #0000001a;
+  background-color: ${theme.color.white};
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 20px;
+  bottom: 16px;
+  cursor: pointer;
+
+  img {
+    width: 20px;
+    height: 20px;
+    margint-right: 4px;
+  }
+  span {
+    ${applyFontStyles(theme.font.caption1)}
+    color: ${theme.color.gray1};
+  }
+`;
+
+/** 경로 저장 버튼 */
+const RouteSaveButton = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+
+  img {
+    width: 30px;
+    height: 30px;
+  }
+  span {
+    ${applyFontStyles(theme.font.caption1)}
+    color: ${theme.color.primary};
+  }
+`;
 const RouteBookmarkButton = styled.button``;
 
 export default TripRoutePage;
