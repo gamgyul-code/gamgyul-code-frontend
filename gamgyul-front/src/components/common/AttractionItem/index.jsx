@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { theme } from "../../../style/theme";
 import { useEffect, useState } from "react";
 import { applyFontStyles } from "../../../utils/fontStyles";
+import { StyledIconBtn } from "../Button/StyledIconBtn.style";
 
 /** 관광지 아이템 컴포넌트 (분리 필요) */
 const AttractionItem = ({ onDelete, isChecked, onCheckChange, type }) => {
@@ -100,14 +101,6 @@ const AtrctItemContainer = styled.div`
   &:hover {
     background: #1eb17b0d;
   }
-`;
-
-const StyledIconBtn = styled.button`
-  width: 24px;
-  height: 24px;
-  border: none;
-  background-color: inherit;
-  cursor: pointer;
 `;
 
 const StyledCheckBtn = styled.button`
