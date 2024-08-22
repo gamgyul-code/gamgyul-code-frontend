@@ -4,12 +4,12 @@ import { LanguageProvider } from "./contexts/LanguageContext"; // LanguageProvid
 import AttractionListPage from "./pages/AttractionListPage";
 import CompletePage from "./pages/CompletePage";
 import HomePage from "./pages/HomePage";
-import LanguageSelectPage from "./pages/LanguageSelectPage";
+import LanguagePage from "./pages/LanguagePage";
 import LocationFormPage from "./pages/LocationFormPage";
+import LoginPage from "./pages/LoginPage/index";
 import MapDetailPage from "./pages/MapDetailPage";
 import MapDetailPage2 from "./pages/MapDetailPage2/index";
 import MapPage from "./pages/MapPage/index";
-import MyTripPage from "./pages/MyTripPage";
 import ThemeFormPage from "./pages/ThemeFormPage";
 import { GlobalStyles } from "./style/global";
 function App() {
@@ -18,18 +18,18 @@ function App() {
       <div className="layout">
         <GlobalStyles />
         <Routes>
-          <Route path="/" element={<LanguageSelectPage />} />
+          <Route path="/" element={<LanguagePage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/detail" element={<MapDetailPage />} />
           <Route path="/detail2" element={<MapDetailPage2 />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/complete" element={<CompletePage />} />
           <Route path="/attractions/:id" element={<AttractionListPage />} />
-          <Route path="/trip" element={<MyTripPage />} />
 
           {/* 추가 페이지 (임시) */}
           <Route path="/theme" element={<ThemeFormPage />} />
           <Route path="/location" element={<LocationFormPage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </div>
     </LanguageProvider>
