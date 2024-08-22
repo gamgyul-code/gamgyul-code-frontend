@@ -4,7 +4,7 @@ import { LanguageProvider } from "./contexts/LanguageContext"; // LanguageProvid
 import AttractionListPage from "./pages/AttractionListPage";
 import CompletePage from "./pages/CompletePage";
 import HomePage from "./pages/HomePage";
-import LanguagePage from "./pages/LanguagePage";
+import LanguageSelectPage from "./pages/LanguageSelectPage";
 import LocationFormPage from "./pages/LocationFormPage";
 import LoginPage from "./pages/LoginPage/index";
 import MapDetailPage from "./pages/MapDetailPage";
@@ -18,7 +18,7 @@ function App() {
       <div className="layout">
         <GlobalStyles />
         <Routes>
-          <Route path="/" element={<LanguagePage />} />
+          <Route path="/" element={<LanguageSelectPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/detail" element={<MapDetailPage />} />
           <Route path="/detail2" element={<MapDetailPage2 />} />
