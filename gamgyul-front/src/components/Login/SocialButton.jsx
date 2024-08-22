@@ -41,7 +41,8 @@ const Button = styled.button`
   cursor: pointer;
   border: none;
   margin-bottom: 8px;
-  ${applyFontStyles(theme.font.body2)}
+  ${applyFontStyles(theme.font.body2)};
+  width: calc(${theme.maxWidth} - 40px);
 
   padding: ${({ category }) => {
     switch (category) {
