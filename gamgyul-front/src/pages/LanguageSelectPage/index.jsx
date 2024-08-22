@@ -16,7 +16,7 @@ const LanguageSelectPage = () => {
   return (
     <LanguagePageContainer>
       <LanguageImage>
-        <Img src={`/images/Icon/mainLogo.svg`} />
+        <img src={`/images/Icon/mainLogo.svg`} />
       </LanguageImage>
       <SelectContainer>
         <Info>언어를 선택해 주세요</Info>
@@ -42,8 +42,6 @@ const LanguageImage = styled.div`
 
   margin: 323px 0 106.4px;
 `;
-
-const Img = styled.img``;
 
 const SelectContainer = styled.section``;
 
