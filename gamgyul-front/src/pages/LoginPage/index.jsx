@@ -1,13 +1,11 @@
 // LoginPage.jsx
 import { styled } from "styled-components";
 import { BasicLayout } from "../../components/common/BasicLayout/layout.style";
-import GoogleBtn from "../../components/Login/GoogleBtn";
-import KakaoBtn from "../../components/Login/KakaoBtn";
-import NaverBtn from "../../components/Login/NaverBtn";
+import SocialButton from "../../components/Login/SocialButton";
 import { theme } from "../../style/theme";
 import { applyFontStyles } from "./../../utils/fontStyles";
 
-const LoginPage = () => {
+const LoginPage = ({ Google }) => {
   const handleLogin = async () => {
     /* 로그인 구현 */
   };
@@ -21,9 +19,9 @@ const LoginPage = () => {
         </Title>
       </LoginTitle>
       <LoginButtonContainer>
-        <GoogleBtn onClick={() => handleLogin("google")} />
-        <NaverBtn onClick={() => handleLogin("naver")} />
-        <KakaoBtn onClick={() => handleLogin("kakao")} />
+        <SocialButton category="Google" onClick={() => handleJoinBtnClick()} />
+        <SocialButton category="Naver" onClick={() => handleJoinBtnClick()} />
+        <SocialButton category="Kakao" onClick={() => handleJoinBtnClick()} />
       </LoginButtonContainer>
     </LoginContainer>
   );
