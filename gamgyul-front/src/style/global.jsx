@@ -7,8 +7,7 @@ export const GlobalStyles = createGlobalStyle`
       padding: 0;
       text-decoration: none;
       margin: 0;
-      font-weight: 500;
-      color: ${theme.color.black};
+      
 
       /* 스크롤 안 보이게 하기 */
       -ms-overflow-style: none; /* IE and Edge */
