@@ -11,6 +11,7 @@ export const theme = {
     gray1: "#636366",
     gray2: "#B5B5B5",
     gray3: "#E5E5EA",
+    gray4: "#F5F5F5",
   },
   font: {
     header: {
