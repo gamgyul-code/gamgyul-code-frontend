@@ -12,6 +12,9 @@ import MapDetailPage2 from "./pages/MapDetailPage2/index";
 import MapPage from "./pages/MapPage/index";
 import ThemeFormPage from "./pages/ThemeFormPage";
 import { GlobalStyles } from "./style/global";
+import MyTripPage from "./pages/MyTripPage";
+import MyRouteCompletePage from "./pages/MyRouteCompletePage";
+import TripRoutePage from "./pages/TripRoutePage";
 function App() {
   return (
     <LanguageProvider>
@@ -25,6 +28,9 @@ function App() {
           <Route path="/map" element={<MapPage />} />
           <Route path="/complete" element={<CompletePage />} />
           <Route path="/attractions/:id" element={<AttractionListPage />} />
+          <Route path="/trip" element={<MyTripPage />} />
+          <Route path="/route/:id" element={<TripRoutePage />} />
+          <Route path="/route-complete" element={<MyRouteCompletePage />} />
 
           {/* 추가 페이지 (임시) */}
           <Route path="/theme" element={<ThemeFormPage />} />

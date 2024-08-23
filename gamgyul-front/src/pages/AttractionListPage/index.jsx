@@ -24,15 +24,17 @@ const AttractionListPage = () => {
           </Container>
         </StyledAtrctHeader>
         <StyledListSection>
-          <ul>
-            {/* {data.map((element, index) => {
+          <nav>
+            <ul>
+              {/* {data.map((element, index) => {
               return <AttractionItem />;
             })} */}
 
-            <AttractionItem />
-            <AttractionItem />
-            <AttractionItem />
-          </ul>
+              <AttractionItem />
+              <AttractionItem />
+              <AttractionItem />
+            </ul>
+          </nav>
         </StyledListSection>
       </AttractionListContainer>
     </BasicLayout>

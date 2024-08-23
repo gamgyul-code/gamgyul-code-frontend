@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AttractionItem from "../../components/common/AttractionItem";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
 import styled from "styled-components";
@@ -8,10 +8,18 @@ import { TabButton } from "../../components/common/Button/TabButton.style";
 import Button from "../../components/common/Button";
 import NavigationBar from "../../components/common/NavigationBar";
 import Modal from "../../components/common/Modal";
+import { useLocation } from "react-router-dom";
 
 const MyTripPage = () => {
   const [activeTab, setActiveTab] = useState("places");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const tab = queryParams.get("tab");
+    tab === "routes" && setActiveTab("routes");
+  }, [location.search]);
 
   /** 삭제 아이콘 클릭 */
   const handleDeleteClick = () => {
@@ -102,7 +110,7 @@ const StyledPlacesSection = styled.section`
 
 const StyledRoutesSection = styled.section`
   margin: 20px 0 4px 0;
-  h3 {
+  div > h3 {
     ${applyFontStyles(theme.font.body1)}
   }
 `;
