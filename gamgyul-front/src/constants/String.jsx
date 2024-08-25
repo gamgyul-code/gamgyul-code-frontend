@@ -45,3 +45,24 @@ export const ROUTE_COMPLETE_PAGE_TEXT = {
   JP: { ROUTE_COMPLETE_MESSAGE: "", ROUTE_COMPLETE_BUTTON: "" },
   CH: { ROUTE_COMPLETE_MESSAGE: "", ROUTE_COMPLETE_BUTTON: "" },
 };
+
+/** Modal String */
+export const MODAL_TEXT = {
+  EN: { ROUTE_NAME: "", ROUTE_NAME_MESSAGE: "", ROUTE_PLACEHOLDER: "", ROUTE_DELETE_MESSAGE: "" },
+  KR: {
+    ROUTE_NAME: "경로 이름",
+    ROUTE_NAME_MESSAGE: "경로를 저장하려면 이름이 필요합니다.",
+    ROUTE_PLACEHOLDER: "이름을 입력해주세요.",
+    ROUTE_DELETE_MESSAGE: "경로를 정말\n삭제 하시겠어요?",
+  },
+  JP: { ROUTE_NAME: "", ROUTE_NAME_MESSAGE: "", ROUTE_PLACEHOLDER: "", ROUTE_DELETE_MESSAGE: "" },
+  CH: { ROUTE_NAME: "", ROUTE_NAME_MESSAGE: "", ROUTE_PLACEHOLDER: "", ROUTE_DELETE_MESSAGE: "" },
+};
+
+/** Common String */
+export const COMMON_TEXT = {
+  EN: { CHECK_BUTTON: "", CANCEL_BUTTON: "" },
+  KR: { CHECK_BUTTON: "확인", CANCEL_BUTTON: "취소" },
+  JP: { CHECK_BUTTON: "", CANCEL_BUTTON: "" },
+  CH: { CHECK_BUTTON: "", CANCEL_BUTTON: "" },
+};
