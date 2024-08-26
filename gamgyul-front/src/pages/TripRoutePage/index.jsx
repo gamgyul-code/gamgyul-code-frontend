@@ -8,8 +8,8 @@ import { theme } from "../../style/theme";
 import TripRouteItem from "../../components/common/TripRouteItem";
 
 const TripRoutePage = () => {
-  const type = "USER_DEFINE"; // 사용자가 만든 경로
-  //   const type = "PREDEFINE"; // 기존 제공 경로
+  // const type = "USER_DEFINE"; // 사용자가 만든 경로
+  const type = "PREDEFINE"; // 기존 제공 경로
   const [bookmark, setBookmark] = useState("off");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState(null);
@@ -54,7 +54,7 @@ const TripRoutePage = () => {
           <BackNaviBtn />
           <div>map api 들어갈 곳</div>
           <NavLinkButton>
-            <img src="/images/Icon/delete.svg" alt="" />
+            <img src="/images/Icon/navigation.svg" alt="" />
             <span>네비연동</span>
           </NavLinkButton>
         </RouteMapSection>
@@ -66,7 +66,7 @@ const TripRoutePage = () => {
             </header>
             {type === "USER_DEFINE" ? (
               <RouteSaveButton onClick={() => setIsModalOpen(true)}>
-                <img src="/images/Icon/delete.svg" alt="" />
+                <img src="/images/Icon/save.svg" alt="" />
                 <span>저장하기</span>
               </RouteSaveButton>
             ) : (
@@ -172,7 +172,7 @@ const NavLinkButton = styled.button`
   img {
     width: 20px;
     height: 20px;
-    margint-right: 4px;
+    margin-right: 4px;
   }
   span {
     ${applyFontStyles(theme.font.caption1)}
@@ -199,6 +199,16 @@ const RouteSaveButton = styled.button`
     color: ${theme.color.primary};
   }
 `;
-const RouteBookmarkButton = styled.button``;
+const RouteBookmarkButton = styled.button`
+  img {
+    width: 100%;
+    height: 100%;
+  }
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+`;
 
 export default TripRoutePage;

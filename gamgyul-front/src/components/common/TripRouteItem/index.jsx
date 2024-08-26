@@ -19,7 +19,7 @@ const TripRouteItem = ({ isFirst, isLast, stepNumber, data, isActive, onClick })
             <p>{data.subtitle}</p>
           </RouteItemInfo>
           <StyledIconBtn>
-            <img src={`/images/Icon/delete.svg`} alt="more button" />
+            <img src={`/images/Icon/more.svg`} alt="more button" />
           </StyledIconBtn>
         </RouteItemDetails>
       </RouteItemContents>
