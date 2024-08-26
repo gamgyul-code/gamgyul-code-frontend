@@ -73,7 +73,7 @@ const TripRoutePage = () => {
               <RouteBookmarkButton>
                 <img
                   src={`/images/Icon/bookmark_${bookmark}.svg`}
-                  alt="북마크버튼"
+                  alt={`bookmark_${bookmark}`}
                   onClick={() => handleBookmarkClick(bookmark)}
                 />
               </RouteBookmarkButton>
@@ -209,6 +209,7 @@ const RouteBookmarkButton = styled.button`
   border: none;
   background-color: inherit;
   cursor: pointer;
+  filter: invert(57%) sepia(42%) saturate(4074%) hue-rotate(121deg) brightness(95%) contrast(76%);
 `;
 
 export default TripRoutePage;
