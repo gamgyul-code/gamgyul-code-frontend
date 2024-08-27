@@ -8,8 +8,8 @@ import { theme } from "../../style/theme";
 import TripRouteItem from "../../components/common/TripRouteItem";
 
 const TripRoutePage = () => {
-  // const type = "USER_DEFINE"; // 사용자가 만든 경로
-  const type = "PREDEFINE"; // 기존 제공 경로
+  const type = "USER_DEFINE"; // 사용자가 만든 경로
+  // const type = "PREDEFINE"; // 기존 제공 경로
   const [bookmark, setBookmark] = useState("off");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState(null);
@@ -46,13 +46,14 @@ const TripRoutePage = () => {
     { title: "제주 국제 공항", subtitle: "제주 시내" },
     { title: "제주 국제 공항", subtitle: "제주 시내" },
   ];
+
   return (
     <TripRouteLayout>
       {isModalOpen && <Modal type="SAVE" onClick={handleModalCheck} onClose={handleCloseModal} />}
       <TripRouteContainer>
         <RouteMapSection>
           <BackNaviBtn />
-          <div>map api 들어갈 곳</div>
+          <div id="map"></div>
           <NavLinkButton>
             <img src="/images/Icon/navigation.svg" alt="" />
             <span>네비연동</span>
