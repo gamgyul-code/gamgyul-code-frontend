@@ -6,9 +6,9 @@ import { StyledIconBtn } from "../Button/StyledIconBtn.style";
 
 const TripRouteItem = ({ isFirst, isLast, stepNumber, data, isActive, onClick }) => {
   return (
-    <RouteItemContainer isActive={isActive} onClick={onClick}>
+    <RouteItemContainer $isActive={isActive} onClick={onClick}>
       <RouteItemContents>
-        <RouteNumberLine isFirst={isFirst} isLast={isLast}>
+        <RouteNumberLine $isFirst={isFirst} $isLast={isLast}>
           {!isFirst && <RouteLine />}
           <RouteNumber>{stepNumber}</RouteNumber>
           {!isLast && <RouteLine />}
