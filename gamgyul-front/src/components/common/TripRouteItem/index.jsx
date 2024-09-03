@@ -63,7 +63,7 @@ const RouteNumber = styled.span`
   z-index: 50;
 `;
 const RouteItemContainer = styled(Container)`
-  background-color: ${({ isActive }) => (isActive ? "#1EB17B1A" : "inherit")};
+  background-color: ${({ $isActive }) => ($isActive ? "#1EB17B1A" : "inherit")};
   height: 80px;
 `;
 
