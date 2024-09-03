@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
 import BackNaviBtn from "../../components/common/BackNaviBtn";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from "../../components/common/Modal";
 import { applyFontStyles } from "../../utils/fontStyles";
 import { theme } from "../../style/theme";
@@ -13,6 +13,27 @@ const TripRoutePage = () => {
   const [bookmark, setBookmark] = useState("off");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState(null);
+
+  const mapRef = useRef(null);
+  const { naver } = window;
+
+  useEffect(() => {
+    if (mapRef.current && naver) {
+      const location = new naver.maps.LatLng(33.4008, 126.5601);
+      mapRef.current = new naver.maps.Map(mapRef.current, {
+        center: location,
+        zoom: 9,
+        mapDataControl: false,
+        scaleControl: false,
+        logoControlOptions: { position: 3 },
+      });
+    }
+
+    const marker = new naver.maps.Marker({
+      position: new naver.maps.LatLng(33.4008, 126.5601),
+      map: mapRef.current,
+    });
+  }, []);
 
   const handleRouteClick = (index) => {
     console.log(index);
@@ -47,13 +68,18 @@ const TripRoutePage = () => {
     { title: "제주 국제 공항", subtitle: "제주 시내" },
   ];
 
+  const samples = [
+    { lat: 37.5666103, lng: 126.9783882 },
+    { lat: 37.5796103, lng: 126.9772882 },
+  ];  // 좌표 샘플
+
   return (
     <TripRouteLayout>
       {isModalOpen && <Modal type="SAVE" onClick={handleModalCheck} onClose={handleCloseModal} />}
       <TripRouteContainer>
         <RouteMapSection>
           <BackNaviBtn />
-          <div id="map"></div>
+          <TripRouteMapContainer ref={mapRef} id="map"></TripRouteMapContainer>
           <NavLinkButton>
             <img src="/images/Icon/navigation.svg" alt="" />
             <span>네비연동</span>
@@ -119,6 +145,12 @@ const RouteMapSection = styled.section`
   height: 390px;
   background-color: skyblue;
   position: relative;
+`;
+
+/** Naver MAP API 공간 */
+const TripRouteMapContainer = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 
 /** Route 페이지 하단시트 (경로) */
