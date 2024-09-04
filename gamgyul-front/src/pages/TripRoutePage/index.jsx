@@ -1,10 +1,10 @@
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
-import BackNaviBtn from "../../components/common/BackNaviBtn";
-import { useEffect, useRef, useState } from "react";
-import Modal from "../../components/common/Modal";
 import { applyFontStyles } from "../../utils/fontStyles";
 import { theme } from "../../style/theme";
+import BackNaviBtn from "../../components/common/BackNaviBtn";
+import Modal from "../../components/common/Modal";
 import TripRouteItem from "../../components/common/TripRouteItem";
 
 const TripRoutePage = () => {
@@ -45,12 +45,24 @@ const TripRoutePage = () => {
     markersRef.current = [];
 
     if (routeData.length > 0 && mapRef.current) {
+      const path = routeData.map((route) => new naver.maps.LatLng(route.lat, route.lng));
+
+      // polyline
+      const polyline = new naver.maps.Polyline({
+        map: mapRef.current,
+        path: path,
+        strokeColor: theme.color.primary,
+        strokeStyle: "shortdash",
+        strokeWeight: 2,
+      });
+
       routeData.map((route, index) => {
         const marker = new naver.maps.Marker({
           position: new naver.maps.LatLng(route.lat, route.lng),
           map: mapRef.current,
           icon: {
             url: `/images/Map/Markers/marker${index + 1}_${activeRoute === index ? "on" : "off"}.svg`,
+            anchor: activeRoute === index ? new naver.maps.Point(26, 55) : new naver.maps.Point(15, 20),
           },
         });
 
@@ -65,8 +77,6 @@ const TripRoutePage = () => {
   const getClickMarker = (index) => {
     setActiveRoute(index);
   };
-
-  for (let i = 0; i < markersRef.current.length; i++) {}
 
   const handleRouteClick = (index) => {
     console.log(index);
