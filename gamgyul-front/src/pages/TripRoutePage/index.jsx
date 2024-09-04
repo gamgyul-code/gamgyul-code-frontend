@@ -13,14 +13,16 @@ const TripRoutePage = () => {
   const [bookmark, setBookmark] = useState("off");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState(null);
+  const [routeData, setRouteData] = useState([]);
 
   const mapRef = useRef(null);
+  const markersRef = useRef([]);
   const { naver } = window;
 
   useEffect(() => {
     if (mapRef.current && naver) {
       const location = new naver.maps.LatLng(33.4008, 126.5601);
-      mapRef.current = new naver.maps.Map(mapRef.current, {
+      mapRef.current = new naver.maps.Map("map", {
         center: location,
         zoom: 9,
         mapDataControl: false,
@@ -29,14 +31,46 @@ const TripRoutePage = () => {
       });
     }
 
-    const marker = new naver.maps.Marker({
-      position: new naver.maps.LatLng(33.4008, 126.5601),
-      map: mapRef.current,
-    });
+    // data 요청 (temp data)
+    setRouteData([
+      { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.4995, lng: 126.5388 },
+      { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.4521, lng: 126.4076 },
+      { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.3893, lng: 126.4104 },
+      { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.3058, lng: 126.5161 },
+    ]);
   }, []);
+
+  useEffect(() => {
+    markersRef.current.forEach((marker) => marker.setMap(null));
+    markersRef.current = [];
+
+    if (routeData.length > 0 && mapRef.current) {
+      routeData.map((route, index) => {
+        const marker = new naver.maps.Marker({
+          position: new naver.maps.LatLng(route.lat, route.lng),
+          map: mapRef.current,
+          icon: {
+            url: `/images/Map/Markers/marker${index + 1}_${activeRoute === index ? "on" : "off"}.svg`,
+          },
+        });
+
+        naver.maps.Event.addListener(marker, "click", () => {
+          getClickMarker(index);
+        });
+        markersRef.current.push(marker);
+      });
+    }
+  }, [routeData, activeRoute]);
+
+  const getClickMarker = (index) => {
+    setActiveRoute(index);
+  };
+
+  for (let i = 0; i < markersRef.current.length; i++) {}
 
   const handleRouteClick = (index) => {
     console.log(index);
+    // 변경 : 상세 루트 페이지로 이동
     setActiveRoute(index);
   };
 
@@ -59,19 +93,6 @@ const TripRoutePage = () => {
     // API 요청
     console.log(value);
   };
-
-  // 임시 데이터
-  const datas = [
-    { title: "제주 국제 공항", subtitle: "제주 시내" },
-    { title: "제주 국제 공항", subtitle: "제주 시내" },
-    { title: "제주 국제 공항", subtitle: "제주 시내" },
-    { title: "제주 국제 공항", subtitle: "제주 시내" },
-  ];
-
-  const samples = [
-    { lat: 37.5666103, lng: 126.9783882 },
-    { lat: 37.5796103, lng: 126.9772882 },
-  ];  // 좌표 샘플
 
   return (
     <TripRouteLayout>
@@ -109,12 +130,12 @@ const TripRoutePage = () => {
           <BottomSheetRouteSection>
             <nav>
               <ul>
-                {datas.map((data, index) => {
+                {routeData.map((data, index) => {
                   return (
                     <TripRouteItem
                       key={index}
                       isFirst={index === 0}
-                      isLast={index === datas.length - 1}
+                      isLast={index === routeData.length - 1}
                       stepNumber={index + 1}
                       data={data}
                       isActive={index === activeRoute}
