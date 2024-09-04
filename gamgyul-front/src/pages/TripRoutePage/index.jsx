@@ -164,7 +164,6 @@ const TripRouteContainer = styled.div``;
 const RouteMapSection = styled.section`
   width: 100%;
   height: 390px;
-  background-color: skyblue;
   position: relative;
 `;
 

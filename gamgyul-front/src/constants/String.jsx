@@ -46,6 +46,19 @@ export const ROUTE_COMPLETE_PAGE_TEXT = {
   CH: { ROUTE_COMPLETE_MESSAGE: "", ROUTE_COMPLETE_BUTTON: "" },
 };
 
+/** TripRoutePage String */
+export const TRIP_ROUTE_PAGE_TEXT = {
+  EN: { NAVI_LINK_BUTTON: "", BOTTOM_SHEET_MAIN: "", BOTTOM_SHEET_SUB: "", ROUTE_SAVE_BUTTON: "" },
+  KR: {
+    NAVI_LINK_BUTTON: "네비연동",
+    BOTTOM_SHEET_MAIN: "추천 경로",
+    BOTTOM_SHEET_SUB: "선택한 장소를 바탕으로 생성한 경로입니다.",
+    ROUTE_SAVE_BUTTON: "저장하기",
+  },
+  JP: { NAVI_LINK_BUTTON: "", BOTTOM_SHEET_MAIN: "", BOTTOM_SHEET_SUB: "", ROUTE_SAVE_BUTTON: "" },
+  CH: { NAVI_LINK_BUTTON: "", BOTTOM_SHEET_MAIN: "", BOTTOM_SHEET_SUB: "", ROUTE_SAVE_BUTTON: "" },
+};
+
 /** Modal String */
 export const MODAL_TEXT = {
   EN: { ROUTE_NAME: "", ROUTE_NAME_MESSAGE: "", ROUTE_PLACEHOLDER: "", ROUTE_DELETE_MESSAGE: "" },
