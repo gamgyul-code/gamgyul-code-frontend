@@ -13,7 +13,7 @@ const AttractionListPage = () => {
   useEffect(() => {}, []);
 
   return (
-    <BasicLayout>
+    <AttractionListLayout>
       <AttractionListContainer>
         <StyledAtrctHeader>
           <BackNaviBtn />
@@ -37,9 +37,14 @@ const AttractionListPage = () => {
           </nav>
         </StyledListSection>
       </AttractionListContainer>
-    </BasicLayout>
+    </AttractionListLayout>
   );
 };
+
+const AttractionListLayout = styled(BasicLayout)`
+  padding: 0 0 20px 0;
+  height: calc(100vh - 20px);
+`;
 
 const AttractionListContainer = styled.div``;
 
