@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 const MyTripPage = () => {
   const [activeTab, setActiveTab] = useState("places");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [checkRoutes, setCheckRoutes] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
@@ -20,6 +21,17 @@ const MyTripPage = () => {
     const tab = queryParams.get("tab");
     tab === "routes" && setActiveTab("routes");
   }, [location.search]);
+
+  /** 루트 아이템 체크 */
+  const handleCheckChange = (id) => {
+    setCheckRoutes((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((item) => item !== id);
+      } else {
+        return [...prev, id];
+      }
+    });
+  };
 
   /** 삭제 아이콘 클릭 */
   const handleDeleteClick = () => {
@@ -66,12 +78,22 @@ const MyTripPage = () => {
 
         {activeTab === "places" && (
           <StyledPlacesSection>
+            <AttractionItem
+              type="CHECK"
+              isChecked={checkRoutes.includes(1)}
+              onCheckChange={() => handleCheckChange(1)}
+            />
             <AttractionItem type="CHECK" />
             <AttractionItem type="CHECK" />
             <AttractionItem type="CHECK" />
             <AttractionItem type="CHECK" />
-            <AttractionItem type="CHECK" />
-            <MyTripButton isShadow={true}>내 경로 만들기</MyTripButton>
+            {checkRoutes.length === 0 ? (
+              <MyTripButton isShadow={true} disabled={true}>
+                내 경로 만들기
+              </MyTripButton>
+            ) : (
+              <MyTripButton isShadow={true}>내 경로 만들기</MyTripButton>
+            )}
           </StyledPlacesSection>
         )}
         {activeTab === "routes" && (

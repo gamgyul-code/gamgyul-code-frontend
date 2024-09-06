@@ -20,7 +20,7 @@ const AttractionItem = ({ onDelete, isChecked, onCheckChange, type }) => {
   };
   /** 체크박스 클릭 핸들러 */
   const handleCheckClick = () => {
-    // onCheckChange(id);
+    onCheckChange();
     console.log("임시 체크박스 클릭 핸들러입니다.");
   };
 
@@ -30,7 +30,11 @@ const AttractionItem = ({ onDelete, isChecked, onCheckChange, type }) => {
         <AtrctItemInfo>
           {type === "CHECK" && (
             <StyledCheckBtn>
-              <img src={`/images/Icon/check_${bookmark}.svg`} alt="체크버튼" onClick={() => handleCheckClick()} />
+              <img
+                src={`/images/Icon/check_${isChecked ? "on" : "off"}.svg`}
+                alt="체크버튼"
+                onClick={() => handleCheckClick()}
+              />
             </StyledCheckBtn>
           )}
           <figure>
