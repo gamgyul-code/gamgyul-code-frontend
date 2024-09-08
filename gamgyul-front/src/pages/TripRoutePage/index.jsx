@@ -41,36 +41,38 @@ const TripRoutePage = () => {
   }, []);
 
   useEffect(() => {
-    markersRef.current.forEach((marker) => marker.setMap(null));
-    markersRef.current = [];
+    if (mapRef.current) {
+      markersRef.current.forEach((marker) => marker.setMap(null));
+      markersRef.current = [];
 
-    if (routeData.length > 0 && mapRef.current) {
-      const path = routeData.map((route) => new naver.maps.LatLng(route.lat, route.lng));
+      if (routeData.length > 0) {
+        const path = routeData.map((route) => new naver.maps.LatLng(route.lat, route.lng));
 
-      // polyline
-      const polyline = new naver.maps.Polyline({
-        map: mapRef.current,
-        path: path,
-        strokeColor: theme.color.primary,
-        strokeStyle: "shortdash",
-        strokeWeight: 2,
-      });
-
-      routeData.map((route, index) => {
-        const marker = new naver.maps.Marker({
-          position: new naver.maps.LatLng(route.lat, route.lng),
+        // polyline
+        const polyline = new naver.maps.Polyline({
           map: mapRef.current,
-          icon: {
-            url: `/images/Map/Markers/marker${index + 1}_${activeRoute === index ? "on" : "off"}.svg`,
-            anchor: activeRoute === index ? new naver.maps.Point(26, 55) : new naver.maps.Point(15, 20),
-          },
+          path: path,
+          strokeColor: theme.color.primary,
+          strokeStyle: "shortdash",
+          strokeWeight: 2,
         });
 
-        naver.maps.Event.addListener(marker, "click", () => {
-          getClickMarker(index);
+        routeData.forEach((route, index) => {
+          const marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(route.lat, route.lng),
+            map: mapRef.current,
+            icon: {
+              url: `/images/Map/Markers/marker${index + 1}_${activeRoute === index ? "on" : "off"}.svg`,
+              anchor: activeRoute === index ? new naver.maps.Point(26, 55) : new naver.maps.Point(15, 20),
+            },
+          });
+
+          naver.maps.Event.addListener(marker, "click", () => {
+            getClickMarker(index);
+          });
+          markersRef.current.push(marker);
         });
-        markersRef.current.push(marker);
-      });
+      }
     }
   }, [routeData, activeRoute]);
 
