@@ -9,6 +9,7 @@ import Button from "../../components/common/Button";
 import NavigationBar from "../../components/common/NavigationBar";
 import Modal from "../../components/common/Modal";
 import { useLocation } from "react-router-dom";
+import Toast from "../../components/common/Toast";
 
 const MyTripPage = () => {
   const [activeTab, setActiveTab] = useState("places");
@@ -143,6 +144,7 @@ const MyTripPage = () => {
           </>
         )}
       </MyTripContainer>
+      <Toast>Toast 테스트</Toast>
       <NavigationBar />
     </MyTripLayout>
   );
@@ -183,5 +185,6 @@ const MyTripButton = styled(Button)`
   z-index: 1000;
   max-width: calc(${theme.maxWidth} - 40px);
 `;
+
 
 export default MyTripPage;
