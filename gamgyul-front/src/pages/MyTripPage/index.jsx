@@ -33,6 +33,12 @@ const MyTripPage = () => {
     });
   };
 
+  /** 경로 만들기 버튼 클릭 */
+  const handleCreateRouteClick = () => {
+    console.log("내 경로 만들기 버튼 클릭");
+    console.log(checkRoutes);
+  };
+
   /** 삭제 아이콘 클릭 */
   const handleDeleteClick = () => {
     setIsModalOpen(true);
@@ -83,16 +89,34 @@ const MyTripPage = () => {
               isChecked={checkRoutes.includes(1)}
               onCheckChange={() => handleCheckChange(1)}
             />
-            <AttractionItem type="CHECK" />
-            <AttractionItem type="CHECK" />
-            <AttractionItem type="CHECK" />
-            <AttractionItem type="CHECK" />
-            {checkRoutes.length === 0 ? (
+            <AttractionItem
+              type="CHECK"
+              isChecked={checkRoutes.includes(2)}
+              onCheckChange={() => handleCheckChange(2)}
+            />
+            <AttractionItem
+              type="CHECK"
+              isChecked={checkRoutes.includes(3)}
+              onCheckChange={() => handleCheckChange(3)}
+            />
+            <AttractionItem
+              type="CHECK"
+              isChecked={checkRoutes.includes(4)}
+              onCheckChange={() => handleCheckChange(4)}
+            />
+            <AttractionItem
+              type="CHECK"
+              isChecked={checkRoutes.includes(5)}
+              onCheckChange={() => handleCheckChange(5)}
+            />
+            {checkRoutes.length <= 1 ? (
               <MyTripButton isShadow={true} disabled={true}>
                 내 경로 만들기
               </MyTripButton>
             ) : (
-              <MyTripButton isShadow={true}>내 경로 만들기</MyTripButton>
+              <MyTripButton isShadow={true} onClick={handleCreateRouteClick}>
+                내 경로 만들기
+              </MyTripButton>
             )}
           </StyledPlacesSection>
         )}
