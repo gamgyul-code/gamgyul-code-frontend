@@ -2,10 +2,11 @@ import styled from "styled-components";
 import { theme } from "../../../style/theme";
 import { applyFontStyles } from "../../../utils/fontStyles";
 
-const Toast = ({ children, ...props }) => {
+// type별 toast 아이콘 지정 (default : alert)
+const Toast = ({ children, type = "alert", ...props }) => {
   return (
     <ToastContainer>
-      <ToastIcon src="/images/Complete/route-complete.svg" alt="" />
+      <ToastIcon src={`/images/Icon/${type}.svg`} alt={type} />
       <ToastMessage>{children}</ToastMessage>
     </ToastContainer>
   );
