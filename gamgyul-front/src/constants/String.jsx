@@ -59,6 +59,45 @@ export const TRIP_ROUTE_PAGE_TEXT = {
   CH: { NAVI_LINK_BUTTON: "", BOTTOM_SHEET_MAIN: "", BOTTOM_SHEET_SUB: "", ROUTE_SAVE_BUTTON: "" },
 };
 
+export const MY_TRIP_PAGE_TEXT = {
+  EN: {
+    HEADER_MAIN: "",
+    NAV_PLACE: "",
+    NAV_ROUTE: "",
+    ROUTE_CREATE_BUTTON: "",
+    SAVED_ROUTE: "",
+    CREATED_ROUTE: "",
+    ALERT_TOAST: "",
+  },
+  KR: {
+    HEADER_MAIN: "내 여행",
+    NAV_PLACE: "장소",
+    NAV_ROUTE: "경로",
+    ROUTE_CREATE_BUTTON: "내 경로 만들기",
+    SAVED_ROUTE: "저장한 경로",
+    CREATED_ROUTE: "내가 만든 경로",
+    ALERT_TOAST: "장소는 최대 N개까지 선택할 수 있어요.",
+  },
+  JP: {
+    HEADER_MAIN: "",
+    NAV_PLACE: "",
+    NAV_ROUTE: "",
+    ROUTE_CREATE_BUTTON: "",
+    SAVED_ROUTE: "",
+    CREATED_ROUTE: "",
+    ALERT_TOAST: "",
+  },
+  CH: {
+    HEADER_MAIN: "",
+    NAV_PLACE: "",
+    NAV_ROUTE: "",
+    ROUTE_CREATE_BUTTON: "",
+    SAVED_ROUTE: "",
+    CREATED_ROUTE: "",
+    ALERT_TOAST: "",
+  },
+};
+
 /** Modal String */
 export const MODAL_TEXT = {
   EN: { ROUTE_NAME: "", ROUTE_NAME_MESSAGE: "", ROUTE_PLACEHOLDER: "", ROUTE_DELETE_MESSAGE: "" },

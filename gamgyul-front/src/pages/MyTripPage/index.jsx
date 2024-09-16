@@ -10,12 +10,17 @@ import NavigationBar from "../../components/common/NavigationBar";
 import Modal from "../../components/common/Modal";
 import { useLocation } from "react-router-dom";
 import Toast from "../../components/common/Toast";
+import { MY_TRIP_PAGE_TEXT } from "../../constants/String";
 
 const MyTripPage = () => {
   const [activeTab, setActiveTab] = useState("places");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [checkRoutes, setCheckRoutes] = useState([]);
   const location = useLocation();
+
+  // const language = window.localStorage.getItem("lanType");
+  const language = "KR";
+  const text = MY_TRIP_PAGE_TEXT[language];
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -61,7 +66,7 @@ const MyTripPage = () => {
       <MyTripContainer>
         <StyledMyTripHeader>
           <Container>
-            <h2>내 여행</h2>
+            <h2>{text.HEADER_MAIN}</h2>
           </Container>
           <nav aria-label="내 여행 (장소 / 경로)">
             <TabButton
@@ -70,7 +75,7 @@ const MyTripPage = () => {
               fontSize={theme.font.body1}
               btnCnt={2}
             >
-              장소
+              {text.NAV_PLACE}
             </TabButton>
             <TabButton
               onClick={() => setActiveTab("routes")}
@@ -78,7 +83,7 @@ const MyTripPage = () => {
               fontSize={theme.font.body1}
               btnCnt={2}
             >
-              경로
+              {text.NAV_ROUTE}
             </TabButton>
           </nav>
         </StyledMyTripHeader>
@@ -110,13 +115,14 @@ const MyTripPage = () => {
               isChecked={checkRoutes.includes(5)}
               onCheckChange={() => handleCheckChange(5)}
             />
+            <Toast>{text.ALERT_TOAST}</Toast>
             {checkRoutes.length <= 1 ? (
               <MyTripButton isShadow={true} disabled={true}>
-                내 경로 만들기
+                {text.ROUTE_CREATE_BUTTON}
               </MyTripButton>
             ) : (
               <MyTripButton isShadow={true} onClick={handleCreateRouteClick}>
-                내 경로 만들기
+                {text.ROUTE_CREATE_BUTTON}
               </MyTripButton>
             )}
           </StyledPlacesSection>
@@ -125,7 +131,7 @@ const MyTripPage = () => {
           <>
             <StyledRoutesSection>
               <Container>
-                <h3>저장한 경로</h3>
+                <h3>{text.SAVED_ROUTE}</h3>
               </Container>
               <AttractionItem />
               <AttractionItem />
@@ -133,7 +139,7 @@ const MyTripPage = () => {
             </StyledRoutesSection>
             <StyledRoutesSection>
               <Container>
-                <h3>내가 만든 경로</h3>
+                <h3>{text.CREATED_ROUTE}</h3>
               </Container>
               <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
               <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
@@ -144,7 +150,7 @@ const MyTripPage = () => {
           </>
         )}
       </MyTripContainer>
-      <Toast>Toast 테스트</Toast>
+
       <NavigationBar />
     </MyTripLayout>
   );
@@ -185,6 +191,5 @@ const MyTripButton = styled(Button)`
   z-index: 1000;
   max-width: calc(${theme.maxWidth} - 40px);
 `;
-
 
 export default MyTripPage;
