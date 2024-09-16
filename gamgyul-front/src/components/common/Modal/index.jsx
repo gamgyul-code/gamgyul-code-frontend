@@ -26,6 +26,7 @@ const Modal = ({ onClose, onClick, type }) => {
               value={routeValue}
               placeholder="이름을 입력해주세요."
               onChange={(event) => setRouteValue(event.target.value)}
+              maxLength={15}
             />
           </ModalRoutesSection>
         )}
