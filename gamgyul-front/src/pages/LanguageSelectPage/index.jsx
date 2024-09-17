@@ -34,6 +34,8 @@ const LanguageSelectPage = () => {
 
 const LanguagePageContainer = styled(BasicLayout)`
   background-color: ${theme.color.primary};
+  padding: 0;
+  height: 100vh;
 `;
 
 const LanguageImage = styled.div`
