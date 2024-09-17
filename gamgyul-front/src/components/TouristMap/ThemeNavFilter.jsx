@@ -62,7 +62,7 @@ const FilterItem = styled.button`
   align-items: center;
   gap: 4px;
   padding: 4px 7px;
-  border: 1px solid #f6faed;
+  border: 1px solid ${({ $isActive }) => ($isActive ? theme.color.stroke : theme.color.background)};
   border-radius: 30px;
   background-color: ${({ $isActive }) => ($isActive ? theme.color.primary : theme.color.white)};
   color: ${({ $isActive }) => ($isActive ? theme.color.white : theme.color.black)};
