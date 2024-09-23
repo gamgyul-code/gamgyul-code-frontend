@@ -46,17 +46,6 @@ const TripRoutePage = () => {
       markersRef.current = [];
 
       if (routeData.length > 0) {
-        const path = routeData.map((route) => new naver.maps.LatLng(route.lat, route.lng));
-
-        // polyline
-        const polyline = new naver.maps.Polyline({
-          map: mapRef.current,
-          path: path,
-          strokeColor: theme.color.primary,
-          strokeStyle: "shortdash",
-          strokeWeight: 2,
-        });
-
         routeData.forEach((route, index) => {
           const marker = new naver.maps.Marker({
             position: new naver.maps.LatLng(route.lat, route.lng),
@@ -71,6 +60,16 @@ const TripRoutePage = () => {
             getClickMarker(index);
           });
           markersRef.current.push(marker);
+        });
+
+        // polyline
+        const path = routeData.map((route) => new naver.maps.LatLng(route.lat, route.lng));
+        const polyline = new naver.maps.Polyline({
+          map: mapRef.current,
+          path: path,
+          strokeColor: theme.color.primary,
+          strokeStyle: "shortdash",
+          strokeWeight: 2,
         });
       }
     }
