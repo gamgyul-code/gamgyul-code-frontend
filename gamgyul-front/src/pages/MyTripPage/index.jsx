@@ -15,6 +15,8 @@ import { MY_TRIP_PAGE_TEXT } from "../../constants/String";
 const MyTripPage = () => {
   const [activeTab, setActiveTab] = useState("places");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isToastVisible, setIsToastVisible] = useState(false);
+
   const [checkRoutes, setCheckRoutes] = useState([]);
   const location = useLocation();
 
@@ -30,6 +32,16 @@ const MyTripPage = () => {
 
   /** 루트 아이템 체크 */
   const handleCheckChange = (id) => {
+    // 지정 개수 넘길 수 없을 때 return
+    if (checkRoutes.length === 2) {
+      setIsToastVisible(true);
+      setTimeout(() => {
+        setIsToastVisible(false);
+      }, 2000);
+      console.log("지정 개수를 넘길 수 없어요");
+      return;
+    }
+
     setCheckRoutes((prev) => {
       if (prev.includes(id)) {
         return prev.filter((item) => item !== id);
@@ -115,7 +127,8 @@ const MyTripPage = () => {
               isChecked={checkRoutes.includes(5)}
               onCheckChange={() => handleCheckChange(5)}
             />
-            <Toast>{text.ALERT_TOAST}</Toast>
+
+            {isToastVisible && <Toast>{text.ALERT_TOAST}</Toast>}
             {checkRoutes.length <= 1 ? (
               <MyTripButton isShadow={true} disabled={true}>
                 {text.ROUTE_CREATE_BUTTON}
