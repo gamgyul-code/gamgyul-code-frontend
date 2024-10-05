@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { theme } from "../../../style/theme";
 import { applyFontStyles } from "../../../utils/fontStyles";
+import { fadeInOut } from "../../../utils/interaction";
 
 // type별 toast 아이콘 지정 (default : alert)
 const Toast = ({ children, type = "alert", ...props }) => {
@@ -31,6 +32,7 @@ const ToastContainer = styled.section`
   z-index: 1000;
 
   box-shadow: 0px 2px 2px 0px #00000033;
+  animation: ${fadeInOut} 2s ease-in-out forwards;
 `;
 
 const ToastIcon = styled.img`

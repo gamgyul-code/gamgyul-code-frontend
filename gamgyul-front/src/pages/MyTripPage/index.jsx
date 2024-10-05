@@ -40,10 +40,12 @@ const MyTripPage = () => {
 
     // 지정 개수 넘길 수 없을 때 return
     if (checkRoutes.length === 2) {
-      setIsToastVisible(true);
-      setTimeout(() => {
-        setIsToastVisible(false);
-      }, 2000);
+      if (!isToastVisible) {
+        setIsToastVisible(true);
+        setTimeout(() => {
+          setIsToastVisible(false);
+        }, 2000);
+      }
       console.log("지정 개수를 넘길 수 없어요");
       return;
     }
