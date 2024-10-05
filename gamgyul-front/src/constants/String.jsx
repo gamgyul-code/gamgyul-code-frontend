@@ -10,6 +10,7 @@ export const HOME_PAGE_TEXT = {
     CATEGORY_LOVE: "Love", // 사랑
     CATEGORY_HISTORY: "History", // 역사
     CATEGORY_MYTH: "Myth", // 신화
+    REFRESH_BUTTON: "", // 새로고침
   },
   KR: {
     HEADER_MAIN: "설문대 할망과\n설화 여행을 떠나요!",
@@ -21,6 +22,7 @@ export const HOME_PAGE_TEXT = {
     CATEGORY_LOVE: "사랑",
     CATEGORY_HISTORY: "역사",
     CATEGORY_MYTH: "신화",
+    REFRESH_BUTTON: "새로고침",
   },
   JP: {
     HEADER_MAIN: "",
@@ -28,6 +30,11 @@ export const HOME_PAGE_TEXT = {
     THEME_ATRCT: "",
     FOLKTALE_ROUTE: "",
     REGION_ATRCT: "",
+    CATEGORY_SEOLMUNDAE: "",
+    CATEGORY_LOVE: "",
+    CATEGORY_HISTORY: "",
+    CATEGORY_MYTH: "",
+    REFRESH_BUTTON: "",
   },
   CH: {
     HEADER_MAIN: "",
@@ -35,6 +42,11 @@ export const HOME_PAGE_TEXT = {
     THEME_ATRCT: "",
     FOLKTALE_ROUTE: "",
     REGION_ATRCT: "",
+    CATEGORY_SEOLMUNDAE: "",
+    CATEGORY_LOVE: "",
+    CATEGORY_HISTORY: "",
+    CATEGORY_MYTH: "",
+    REFRESH_BUTTON: "",
   },
 };
 

@@ -26,6 +26,9 @@ const HomePage = () => {
     }
   };
 
+  /** 설화 여행 루트 새로고침 버튼 클릭 */
+  const handleRefreshClick = () => {};
+
   /** 예시 데이터 */
   const data = {
     REGION_ATRCT: [
@@ -44,6 +47,40 @@ const HomePage = () => {
       {
         name: "여행루트이름4",
         img: "이미지URL4",
+      },
+    ],
+    FOLKTALE_ROUTE: [
+      {
+        name: "여행루트이름1",
+        img: "이미지URL1",
+      },
+      {
+        name: "여행루트이름2",
+        img: "이미지URL2",
+      },
+      {
+        name: "여행루트이름3",
+        img: "이미지URL3",
+      },
+      {
+        name: "여행루트이름4",
+        img: "이미지URL4",
+      },
+      {
+        name: "여행루트이름5",
+        img: "이미지URL5",
+      },
+      {
+        name: "여행루트이름6",
+        img: "이미지URL6",
+      },
+      {
+        name: "여행루트이름7",
+        img: "이미지URL7",
+      },
+      {
+        name: "여행루트이름8",
+        img: "이미지URL8",
       },
     ],
   };
@@ -90,10 +127,16 @@ const HomePage = () => {
         {/* 공통 컴포넌트 분리 -> 이후 정리 */}
         {/* 카테고리별 라우팅2 (다른 페이지로 이동) */}
         <StyledRouteAtrct>
-          <StyledCategoryName>{text.FOLKTALE_ROUTE}</StyledCategoryName>
+          <StyledFolktaleContainer>
+            <StyledCategoryName>{text.FOLKTALE_ROUTE}</StyledCategoryName>
+            <StyledRefreshButton aria-label="새로고침">
+              {text.REFRESH_BUTTON}
+              <img src="/images/Icon/check_on.svg" alt="refresh icon" />
+            </StyledRefreshButton>
+          </StyledFolktaleContainer>
           <nav>
             <ul>
-              {data.REGION_ATRCT.map((element, index) => {
+              {data.FOLKTALE_ROUTE.map((element, index) => {
                 return (
                   <RouterLiItem
                     key={`folktale-${index}`}
@@ -148,6 +191,7 @@ const StyledLiRouter = styled.li`
   background-color: ${theme.color.sub2};
   flex: 0 0 auto;
   overflow: hidden;
+  cursor: pointer;
 
   img {
     width: 150px;
@@ -219,6 +263,9 @@ const StyledRouteAtrct = styled.section`
   ul > li:first-child {
     margin-left: 20px;
   }
+  ul > li:last-child {
+    margin-right: 20px;
+  }
 `;
 
 /** THEME_ATRCT Wrapper (h2 제외 따로 컴포넌트화 X) */
@@ -244,6 +291,7 @@ const StyledThemeAtrct = styled.section`
     background-color: black;
     overflow: hidden;
     position: relative;
+    cursor: pointer;
   }
 
   li p {
@@ -264,4 +312,27 @@ const StyledThemeAtrct = styled.section`
 
 const StyledCategoryName = styled.h2`
   ${applyFontStyles(theme.font.body1)}
+`;
+
+const StyledRefreshButton = styled.button`
+  ${applyFontStyles(theme.font.body3)}
+  color: ${theme.color.gray1};
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: inherit;
+  margin-right: 20px;
+  cursor: pointer;
+
+  img {
+    width: 20px;
+    height: 20px;
+    margin-left: 4px;
+  }
+`;
+
+const StyledFolktaleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
