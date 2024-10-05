@@ -100,32 +100,48 @@ const MyTripPage = () => {
           </nav>
         </StyledMyTripHeader>
 
+        {/* API 연결 후 넘겨주는 id 변경 */}
         {activeTab === "places" && (
           <StyledPlacesSection>
             <AttractionItem
               type="CHECK"
               isChecked={checkRoutes.includes(1)}
               onCheckChange={() => handleCheckChange(1)}
+              checkRoutes={checkRoutes}
+              id={1}
+              language={language}
             />
             <AttractionItem
               type="CHECK"
               isChecked={checkRoutes.includes(2)}
               onCheckChange={() => handleCheckChange(2)}
+              checkRoutes={checkRoutes}
+              id={2}
+              language={language}
             />
             <AttractionItem
               type="CHECK"
               isChecked={checkRoutes.includes(3)}
               onCheckChange={() => handleCheckChange(3)}
+              checkRoutes={checkRoutes}
+              id={3}
+              language={language}
             />
             <AttractionItem
               type="CHECK"
               isChecked={checkRoutes.includes(4)}
               onCheckChange={() => handleCheckChange(4)}
+              checkRoutes={checkRoutes}
+              id={4}
+              language={language}
             />
             <AttractionItem
               type="CHECK"
               isChecked={checkRoutes.includes(5)}
               onCheckChange={() => handleCheckChange(5)}
+              checkRoutes={checkRoutes}
+              id={5}
+              language={language}
             />
 
             {isToastVisible && <Toast>{text.ALERT_TOAST}</Toast>}
