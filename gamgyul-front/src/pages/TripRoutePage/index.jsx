@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 const TripRoutePage = () => {
   const location = useLocation();
   const routeType = location.state.routeType;
-  
+
   const [bookmark, setBookmark] = useState("off");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState(null);
@@ -127,19 +127,15 @@ const TripRoutePage = () => {
             </header>
             {routeType === "CUSTOM" ? (
               <RouteSaveButton onClick={() => setIsModalOpen(true)}>
-                <img src="/images/Icon/save.svg" alt="" />
-                <span>저장하기</span>
+                <img src="/images/Icon/save.svg" alt="save button" />
               </RouteSaveButton>
             ) : (
-              <RouteBookmarkButton>
-                <img
-                  src={`/images/Icon/bookmark_${bookmark}.svg`}
-                  alt={`bookmark_${bookmark}`}
-                  onClick={() => handleBookmarkClick(bookmark)}
-                />
+              <RouteBookmarkButton onClick={() => handleBookmarkClick(bookmark)}>
+                <img src={`/images/Icon/bookmark_${bookmark}.svg`} alt={`bookmark_${bookmark}`} />
               </RouteBookmarkButton>
             )}
           </BottomSheetInfoContainer>
+          {routeType === "CUSTOM" && <RouteEditButton>편집</RouteEditButton>}
           <BottomSheetRouteSection>
             <nav>
               <ul>
@@ -164,6 +160,8 @@ const TripRoutePage = () => {
     </TripRouteLayout>
   );
 };
+
+export default TripRoutePage;
 
 const TripRouteLayout = styled(BasicLayout)`
   padding: 0;
@@ -249,6 +247,7 @@ const NavLinkButton = styled.button`
 /** 경로 저장 버튼 */
 const RouteSaveButton = styled.button`
   width: 45px;
+  height: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -259,10 +258,6 @@ const RouteSaveButton = styled.button`
   img {
     width: 30px;
     height: 30px;
-  }
-  span {
-    ${applyFontStyles(theme.font.caption1)}
-    color: ${theme.color.primary};
   }
 `;
 const RouteBookmarkButton = styled.button`
@@ -278,4 +273,13 @@ const RouteBookmarkButton = styled.button`
   filter: invert(57%) sepia(42%) saturate(4074%) hue-rotate(121deg) brightness(95%) contrast(76%);
 `;
 
-export default TripRoutePage;
+const RouteEditButton = styled.button`
+  ${applyFontStyles(theme.font.body3)}
+  color: ${theme.color.gray1};
+  border: none;
+  background-color: inherit;
+  height: 20px;
+  margin: 8px 20px;
+  padding: 0 7px;
+  float: right;
+`;

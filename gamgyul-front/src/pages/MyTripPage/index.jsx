@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import AttractionItem from "../../components/common/AttractionItem";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
-import styled from "styled-components";
 import { applyFontStyles } from "../../utils/fontStyles";
 import { theme } from "../../style/theme";
 import { TabButton } from "../../components/common/Button/TabButton.style";
 import Button from "../../components/common/Button";
 import NavigationBar from "../../components/common/NavigationBar";
 import Modal from "../../components/common/Modal";
-import { useLocation } from "react-router-dom";
 import Toast from "../../components/common/Toast";
 import { MY_TRIP_PAGE_TEXT } from "../../constants/String";
 
 const MyTripPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState("places");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isToastVisible, setIsToastVisible] = useState(false);
-
   const [checkRoutes, setCheckRoutes] = useState([]);
-  const location = useLocation();
 
   // const language = window.localStorage.getItem("lanType");
   const language = "KR";
@@ -55,6 +55,8 @@ const MyTripPage = () => {
   const handleCreateRouteClick = () => {
     console.log("내 경로 만들기 버튼 클릭");
     console.log(checkRoutes);
+    const customId = 4123; // 커스텀 고유 번호 필요
+    navigate(`/route/${customId}`, { state: { routeType: "CUSTOM", routeData: checkRoutes } });
   };
 
   /** 삭제 아이콘 클릭 */
