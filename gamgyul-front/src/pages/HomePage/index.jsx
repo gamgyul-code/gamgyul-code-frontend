@@ -5,14 +5,91 @@ import { BasicLayout, Container } from "../../components/common/BasicLayout/layo
 import { Link, useNavigate } from "react-router-dom";
 import { applyFontStyles } from "../../utils/fontStyles";
 import NavigationBar from "../../components/common/NavigationBar";
+import { useEffect, useState } from "react";
+import { shuffleArray } from "../../utils/shuffleArray";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [data, setData] = useState({});
+  const [shuffledRoutes, setShuffledRoutes] = useState([]);
 
   // 예시 작업 (이후에 상태관리 or 로컬스토리지 저장으로 변경)
   // const language = window.localStorage.getItem("lanType");
   const language = "KR";
   const text = HOME_PAGE_TEXT[language];
+
+  useEffect(() => {
+    // API 요청 + data 세팅 (현재 임시 데이터)
+    const fetchData = async () => {
+      try {
+        // const response = await fetch("API_URL");
+        setData({
+          REGION_ATRCT: [
+            {
+              name: "여행루트이름1",
+              img: "이미지URL1",
+            },
+            {
+              name: "여행루트이름2",
+              img: "이미지URL2",
+            },
+            {
+              name: "여행루트이름3",
+              img: "이미지URL3",
+            },
+            {
+              name: "여행루트이름4",
+              img: "이미지URL4",
+            },
+          ],
+          FOLKTALE_ROUTE: [
+            {
+              name: "여행루트이름1",
+              img: "이미지URL1",
+            },
+            {
+              name: "여행루트이름2",
+              img: "이미지URL2",
+            },
+            {
+              name: "여행루트이름3",
+              img: "이미지URL3",
+            },
+            {
+              name: "여행루트이름4",
+              img: "이미지URL4",
+            },
+            {
+              name: "여행루트이름5",
+              img: "이미지URL5",
+            },
+            {
+              name: "여행루트이름6",
+              img: "이미지URL6",
+            },
+            {
+              name: "여행루트이름7",
+              img: "이미지URL7",
+            },
+            {
+              name: "여행루트이름8",
+              img: "이미지URL8",
+            },
+          ],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data.FOLKTALE_ROUTE && data.FOLKTALE_ROUTE.length > 0) {
+      const shuffled = shuffleArray(data.FOLKTALE_ROUTE).slice(0, 6);
+      setShuffledRoutes(shuffled);
+    }
+  }, [data]);
 
   /** 루트 & 관광지 리스트 클릭 */
   const handleListClick = (props) => {
@@ -27,62 +104,9 @@ const HomePage = () => {
   };
 
   /** 설화 여행 루트 새로고침 버튼 클릭 */
-  const handleRefreshClick = () => {};
-
-  /** 예시 데이터 */
-  const data = {
-    REGION_ATRCT: [
-      {
-        name: "여행루트이름1",
-        img: "이미지URL1",
-      },
-      {
-        name: "여행루트이름2",
-        img: "이미지URL2",
-      },
-      {
-        name: "여행루트이름3",
-        img: "이미지URL3",
-      },
-      {
-        name: "여행루트이름4",
-        img: "이미지URL4",
-      },
-    ],
-    FOLKTALE_ROUTE: [
-      {
-        name: "여행루트이름1",
-        img: "이미지URL1",
-      },
-      {
-        name: "여행루트이름2",
-        img: "이미지URL2",
-      },
-      {
-        name: "여행루트이름3",
-        img: "이미지URL3",
-      },
-      {
-        name: "여행루트이름4",
-        img: "이미지URL4",
-      },
-      {
-        name: "여행루트이름5",
-        img: "이미지URL5",
-      },
-      {
-        name: "여행루트이름6",
-        img: "이미지URL6",
-      },
-      {
-        name: "여행루트이름7",
-        img: "이미지URL7",
-      },
-      {
-        name: "여행루트이름8",
-        img: "이미지URL8",
-      },
-    ],
+  const handleRefreshClick = () => {
+    const shuffled = shuffleArray(data.FOLKTALE_ROUTE).slice(0, 6);
+    setShuffledRoutes(shuffled);
   };
 
   return (
@@ -129,14 +153,14 @@ const HomePage = () => {
         <StyledRouteAtrct>
           <StyledFolktaleContainer>
             <StyledCategoryName>{text.FOLKTALE_ROUTE}</StyledCategoryName>
-            <StyledRefreshButton aria-label="새로고침">
+            <StyledRefreshButton aria-label="새로고침" onClick={handleRefreshClick}>
               {text.REFRESH_BUTTON}
               <img src="/images/Icon/check_on.svg" alt="refresh icon" />
             </StyledRefreshButton>
           </StyledFolktaleContainer>
           <nav>
             <ul>
-              {data.FOLKTALE_ROUTE.map((element, index) => {
+              {shuffledRoutes.map((element, index) => {
                 return (
                   <RouterLiItem
                     key={`folktale-${index}`}
@@ -153,15 +177,17 @@ const HomePage = () => {
           <StyledCategoryName>{text.REGION_ATRCT}</StyledCategoryName>
           <nav>
             <ul>
-              {data.REGION_ATRCT.map((element, index) => {
-                return (
-                  <RouterLiItem
-                    key={`region-${index}`}
-                    data={element}
-                    onClick={() => handleListClick([element, "ATRCT"])}
-                  />
-                );
-              })}
+              {data.REGION_ATRCT &&
+                data.REGION_ATRCT.length > 0 &&
+                data.REGION_ATRCT.map((element, index) => {
+                  return (
+                    <RouterLiItem
+                      key={`region-${index}`}
+                      data={element}
+                      onClick={() => handleListClick([element, "ATRCT"])}
+                    />
+                  );
+                })}
             </ul>
           </nav>
         </StyledRouteAtrct>
