@@ -14,13 +14,8 @@ const TripRouteItem = ({ isFirst, isLast, stepNumber, data, isActive, onClick })
           {!isLast && <RouteLine />}
         </RouteNumberLine>
         <RouteItemDetails>
-          <RouteItemInfo>
-            <h3>{data.title}</h3>
-            <p>{data.subtitle}</p>
-          </RouteItemInfo>
-          <StyledIconBtn>
-            <img src={`/images/Icon/more.svg`} alt="more button" />
-          </StyledIconBtn>
+          <h3>{data.title}</h3>
+          <p>{data.subtitle}</p>
         </RouteItemDetails>
       </RouteItemContents>
     </RouteItemContainer>
@@ -78,15 +73,11 @@ const RouteItemDetails = styled.section`
   margin: 4px 0 4px 22px;
   padding: 15px 20px;
   box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 
   background-color: ${theme.color.white};
   border: 1px solid #b6e4cb;
   border-radius: 20px;
-`;
-const RouteItemInfo = styled.div`
+
   h3 {
     ${applyFontStyles(theme.font.body2)}
   }

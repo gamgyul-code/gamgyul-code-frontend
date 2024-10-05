@@ -6,10 +6,12 @@ import { theme } from "../../style/theme";
 import BackNaviBtn from "../../components/common/BackNaviBtn";
 import Modal from "../../components/common/Modal";
 import TripRouteItem from "../../components/common/TripRouteItem";
+import { useLocation } from "react-router-dom";
 
 const TripRoutePage = () => {
-  const type = "USER_DEFINE"; // 사용자가 만든 경로
-  // const type = "PREDEFINE"; // 기존 제공 경로
+  const location = useLocation();
+  const routeType = location.state.routeType;
+  
   const [bookmark, setBookmark] = useState("off");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState(null);
@@ -123,7 +125,7 @@ const TripRoutePage = () => {
               <h2>추천 경로</h2>
               <p>선택한 장소를 바탕으로 생성한 경로입니다.</p>
             </header>
-            {type === "USER_DEFINE" ? (
+            {routeType === "CUSTOM" ? (
               <RouteSaveButton onClick={() => setIsModalOpen(true)}>
                 <img src="/images/Icon/save.svg" alt="" />
                 <span>저장하기</span>

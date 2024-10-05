@@ -99,7 +99,8 @@ const HomePage = () => {
     if (type === "ATRCT") {
       navigate(`/attractions/${data.id}`);
     } else if (type === "ROUTE") {
-      console.log("루트로 이동할 예정입니다.");
+      // routeType => SERVICE : 서비스 제공 루트 / CUSTOM : 사용자 커스텀 루트
+      navigate(`/route/${data.id}`, { state: { routeType: "SERVICE" } });
     }
   };
 
