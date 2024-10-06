@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
 import { applyFontStyles } from "../../utils/fontStyles";
 import { theme } from "../../style/theme";
 import BackNaviBtn from "../../components/common/BackNaviBtn";
 import Modal from "../../components/common/Modal";
 import TripRouteItem from "../../components/common/TripRouteItem";
-import { useLocation } from "react-router-dom";
 
 const TripRoutePage = () => {
   const location = useLocation();
@@ -16,6 +16,8 @@ const TripRoutePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState(null);
   const [routeData, setRouteData] = useState([]);
+  const [isEditing, setIsEdition] = useState(false);
+  const [checkRoutes, setCheckRoutes] = useState([]);
 
   const mapRef = useRef(null);
   const markersRef = useRef([]);
@@ -33,13 +35,17 @@ const TripRoutePage = () => {
       });
     }
 
-    // data 요청 (temp data)
-    setRouteData([
-      { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.4995, lng: 126.5388 },
-      { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.4521, lng: 126.4076 },
-      { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.3893, lng: 126.4104 },
-      { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.3058, lng: 126.5161 },
-    ]);
+    // data 요청 (temp data) => CUSTOM SERVICE에 따라 구분
+    if (routeType === "CUSTOM") {
+      setRouteData(location.state.routeData);
+    } else {
+      setRouteData([
+        { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.4995, lng: 126.5388 },
+        { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.4521, lng: 126.4076 },
+        { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.3893, lng: 126.4104 },
+        { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.3058, lng: 126.5161 },
+      ]);
+    }
   }, []);
 
   useEffect(() => {
@@ -107,6 +113,28 @@ const TripRoutePage = () => {
     console.log(value);
   };
 
+  /** 편집 버튼 클릭 */
+  const handleEditButtonClick = () => {
+    if (isEditing) {
+      // API 요청 후, 성공했을 경우 저장 + false처리
+      // 만약 실패했을 경우? => Toast?
+      setIsEdition(false);
+    } else {
+      setIsEdition(true);
+    }
+  };
+
+  /** 루트 아이템 체크 */
+  const handleCheckChange = (id) => {
+    // 이미 체크된 항목을 클릭했을 때 체크 해제
+    if (checkRoutes.includes(id)) {
+      setCheckRoutes((prev) => prev.filter((item) => item !== id));
+      return;
+    }
+
+    setCheckRoutes((prev) => [...prev, id]);
+  };
+
   return (
     <TripRouteLayout>
       {isModalOpen && <Modal type="SAVE" onClick={handleModalCheck} onClose={handleCloseModal} />}
@@ -135,7 +163,11 @@ const TripRoutePage = () => {
               </RouteBookmarkButton>
             )}
           </BottomSheetInfoContainer>
-          {routeType === "CUSTOM" && <RouteEditButton>편집</RouteEditButton>}
+          {routeType === "CUSTOM" && (
+            <RouteEditButton onClick={handleEditButtonClick} isEditing={isEditing}>
+              {isEditing ? "완료" : "편집"}
+            </RouteEditButton>
+          )}
           <BottomSheetRouteSection>
             <nav>
               <ul>
@@ -148,7 +180,10 @@ const TripRoutePage = () => {
                       stepNumber={index + 1}
                       data={data}
                       isActive={index === activeRoute}
+                      isEditing={isEditing}
                       onClick={() => handleRouteClick(index)}
+                      isChecked={checkRoutes.includes(index)}
+                      onCheckChange={() => handleCheckChange(index)}
                     />
                   );
                 })}
@@ -275,11 +310,12 @@ const RouteBookmarkButton = styled.button`
 
 const RouteEditButton = styled.button`
   ${applyFontStyles(theme.font.body3)}
-  color: ${theme.color.gray1};
+  color: ${(props) => (props.isEditing ? theme.color.primary : theme.color.gray1)};
   border: none;
   background-color: inherit;
   height: 20px;
   margin: 8px 20px;
   padding: 0 7px;
   float: right;
+  cursor: pointer;
 `;

@@ -4,19 +4,46 @@ import { theme } from "../../../style/theme";
 import { applyFontStyles } from "../../../utils/fontStyles";
 import { StyledIconBtn } from "../Button/StyledIconBtn.style";
 
-const TripRouteItem = ({ isFirst, isLast, stepNumber, data, isActive, onClick }) => {
+const TripRouteItem = ({
+  isFirst,
+  isLast,
+  stepNumber,
+  data,
+  isActive,
+  isEditing,
+  onClick,
+  isChecked,
+  onCheckChange,
+}) => {
+  /** 체크박스 클릭 핸들러 */
+  const handleCheckClick = () => {
+    onCheckChange();
+  };
+
   return (
     <RouteItemContainer $isActive={isActive} onClick={onClick}>
-      <RouteItemContents>
-        <RouteNumberLine $isFirst={isFirst} $isLast={isLast}>
-          {!isFirst && <RouteLine />}
-          <RouteNumber>{stepNumber}</RouteNumber>
-          {!isLast && <RouteLine />}
-        </RouteNumberLine>
+      <RouteItemContents isEditing={isEditing}>
+        {isEditing ? (
+          <StyledIconBtn onClick={() => handleCheckClick()}>
+            <img src={`/images/Icon/check_${isChecked ? "on" : "off"}.svg`} alt="체크버튼" />
+          </StyledIconBtn>
+        ) : (
+          <RouteNumberLine $isFirst={isFirst} $isLast={isLast}>
+            {!isFirst && <RouteLine />}
+            <RouteNumber>{stepNumber}</RouteNumber>
+            {!isLast && <RouteLine />}
+          </RouteNumberLine>
+        )}
+
         <RouteItemDetails>
           <h3>{data.title}</h3>
           <p>{data.subtitle}</p>
         </RouteItemDetails>
+        {isEditing && (
+          <StyledDragBtn>
+            <img src={"/images/Icon/check_on.svg"} alt="drag button" />
+          </StyledDragBtn>
+        )}
       </RouteItemContents>
     </RouteItemContainer>
   );
@@ -65,6 +92,7 @@ const RouteItemContainer = styled(Container)`
 const RouteItemContents = styled.li`
   display: flex;
   height: 100%;
+  ${(props) => props.isEditing && "align-items: center;"}
 `;
 
 const RouteItemDetails = styled.section`
@@ -85,6 +113,11 @@ const RouteItemDetails = styled.section`
     ${applyFontStyles(theme.font.body3)}
     color: ${theme.color.gray1};
   }
+`;
+
+/** 드래그 버튼 (Drag Handle) */
+const StyledDragBtn = styled(StyledIconBtn)`
+  margin-left: 16px;
 `;
 
 export default TripRouteItem;

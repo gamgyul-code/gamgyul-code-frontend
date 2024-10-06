@@ -88,7 +88,7 @@ export const MY_TRIP_PAGE_TEXT = {
     ROUTE_CREATE_BUTTON: "내 경로 만들기",
     SAVED_ROUTE: "저장한 경로",
     CREATED_ROUTE: "내가 만든 경로",
-    ALERT_TOAST: "장소는 최대 N개까지 선택할 수 있어요.",
+    ALERT_TOAST: "장소는 최대 6개까지 선택할 수 있어요.",
   },
   JP: {
     HEADER_MAIN: "",

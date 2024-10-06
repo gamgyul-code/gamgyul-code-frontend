@@ -32,6 +32,7 @@ const MyTripPage = () => {
 
   /** 루트 아이템 체크 */
   const handleCheckChange = (id) => {
+    // 객체 형태로 루트 데이터 담아야 함
     // 이미 체크된 항목을 클릭했을 때 체크 해제
     if (checkRoutes.includes(id)) {
       setCheckRoutes((prev) => prev.filter((item) => item !== id));
@@ -39,7 +40,7 @@ const MyTripPage = () => {
     }
 
     // 지정 개수 넘길 수 없을 때 return
-    if (checkRoutes.length === 2) {
+    if (checkRoutes.length === 6) {
       if (!isToastVisible) {
         setIsToastVisible(true);
         setTimeout(() => {

@@ -29,11 +29,10 @@ const AttractionItem = ({ onDelete, isChecked, onCheckChange, type, checkRoutes,
       <AtrctItemContents>
         <AtrctItemInfo>
           {type === "CHECK" && (
-            <StyledCheckBtn>
+            <StyledCheckBtn onClick={() => handleCheckClick()}>
               <img
                 src={`/images/Icon/check_${isChecked ? (checkRoutes[0] === id ? `on_${language}` : "on") : "off"}.svg`}
                 alt="체크버튼"
-                onClick={() => handleCheckClick()}
               />
             </StyledCheckBtn>
           )}
