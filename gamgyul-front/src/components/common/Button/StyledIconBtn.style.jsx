@@ -6,4 +6,9 @@ export const StyledIconBtn = styled.button`
   border: none;
   background-color: inherit;
   cursor: pointer;
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
 `;
