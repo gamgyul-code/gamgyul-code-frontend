@@ -156,7 +156,7 @@ const HomePage = () => {
             <StyledCategoryName>{text.FOLKTALE_ROUTE}</StyledCategoryName>
             <StyledRefreshButton aria-label="새로고침" onClick={handleRefreshClick}>
               {text.REFRESH_BUTTON}
-              <img src="/images/Icon/check_on.svg" alt="refresh icon" />
+              <img src="/images/Icon/refresh.svg" alt="refresh icon" />
             </StyledRefreshButton>
           </StyledFolktaleContainer>
           <nav>
@@ -192,8 +192,8 @@ const HomePage = () => {
             </ul>
           </nav>
         </StyledRouteAtrct>
-        <NavigationBar />
       </BasicLayout>
+      <NavigationBar />
     </>
   );
 };
