@@ -50,6 +50,217 @@ export const HOME_PAGE_TEXT = {
   },
 };
 
+export const ATRCT_LIST_PAGE_TEXT = {
+  EN: {
+    TALE_HALNANG: {
+      MAIN: "",
+      SUB: "",
+      IMG: "",
+    },
+    TALE_LOVE: {
+      MAIN: "",
+      SUB: "",
+      IMG: "",
+    },
+    TALE_HISTORY: {
+      MAIN: "",
+      SUB: "",
+      IMG: "",
+    },
+    TALE_MYTH: {
+      MAIN: "",
+      SUB: "",
+      IMG: "",
+    },
+    REGIONS_WESTERN_JEJU: {
+      MAIN: "Western Jeju City Attractions",
+      SUB: "Travel to the West of Jeju City.",
+      IMG: "",
+    },
+    REGIONS_JEJU: {
+      MAIN: "Jeju City Attractions",
+      SUB: "Travel to Jeju City.",
+      IMG: "",
+    },
+    REGIONS_EASTERN_JEJU: {
+      MAIN: "Eastern Jeju City Attractions",
+      SUB: "Travel to the East of Jeju City.",
+      IMG: "",
+    },
+    REGIONS_WESTERN_SEOGWIPO: {
+      MAIN: "Western Seogwipo Attractions",
+      SUB: "Travel to the West of Seogwipo City.",
+      IMG: "",
+    },
+    REGIONS_SEOGWIPO: {
+      MAIN: "Seogwipo City Attractions",
+      SUB: "Travel to Seogwipo City.",
+      IMG: "",
+    },
+    REGIONS_EASTERN_SEOGWIPO: {
+      MAIN: "Eastern Seogwipo Attractions",
+      SUB: "Travel to the East of Seogwipo City.",
+      IMG: "",
+    },
+  },
+  KR: {
+    TALE_HALNANG: {
+      MAIN: "설문대 할망과 여행하는 제주",
+      SUB: "제주를 대표하는 설문대할망과 관련된 장소를 여행해보세요.",
+      IMG: "",
+    },
+    TALE_LOVE: {
+      MAIN: "사랑 설화를 따라 여행하는 제주",
+      SUB: "제주의 사랑 이야기가 담긴 장소를 여행해보세요.",
+      IMG: "",
+    },
+    TALE_HISTORY: {
+      MAIN: "역사를 따라 여행하는 제주",
+      SUB: "제주의 역사가 담긴 장소를 여행해보세요.",
+      IMG: "",
+    },
+    TALE_MYTH: {
+      MAIN: "신화를 따라 여행하는 제주",
+      SUB: "제주의 신화가 담긴 장소를 여행해보세요.",
+      IMG: "",
+    },
+    REGIONS_WESTERN_JEJU: {
+      MAIN: "제주시 서쪽 관광지",
+      SUB: "제주시 서쪽을 여행해보세요.",
+      IMG: "",
+    },
+    REGIONS_JEJU: {
+      MAIN: "제주시 관광지",
+      SUB: "제주시를 여행해보세요.",
+      IMG: "",
+    },
+    REGIONS_EASTERN_JEJU: {
+      MAIN: "제주시 동쪽 관광지",
+      SUB: "제주시 동쪽을 여행해보세요.",
+      IMG: "",
+    },
+    REGIONS_WESTERN_SEOGWIPO: {
+      MAIN: "서귀포시 서쪽 관광지",
+      SUB: "서귀포시 서쪽을 여행해보세요.",
+      IMG: "",
+    },
+    REGIONS_SEOGWIPO: {
+      MAIN: "서귀포시 관광지",
+      SUB: "서귀포시를 여행해보세요.",
+      IMG: "",
+    },
+    REGIONS_EASTERN_SEOGWIPO: {
+      MAIN: "서귀포시 동쪽 관광지",
+      SUB: "서귀포시 동쪽을 여행해보세요.",
+      IMG: "",
+    },
+  },
+  JP: {
+    TALE_HALNANG: {
+      MAIN: "",
+      SUB: "",
+      IMG: "",
+    },
+    TALE_LOVE: {
+      MAIN: "",
+      SUB: "",
+      IMG: "",
+    },
+    TALE_HISTORY: {
+      MAIN: "",
+      SUB: "",
+      IMG: "",
+    },
+    TALE_MYTH: {
+      MAIN: "",
+      SUB: "",
+      IMG: "",
+    },
+    REGIONS_WESTERN_JEJU: {
+      MAIN: "済州西部観光地",
+      SUB: "済州の西部を旅行してみてください。",
+      IMG: "",
+    },
+    REGIONS_JEJU: {
+      MAIN: "済州市観光地",
+      SUB: "済州市に旅行してください。",
+      IMG: "",
+    },
+    REGIONS_EASTERN_JEJU: {
+      MAIN: "済州市東部観光地",
+      SUB: "済州市の東部に旅行してください。",
+      IMG: "",
+    },
+    REGIONS_WESTERN_SEOGWIPO: {
+      MAIN: "西帰浦市西部観光地",
+      SUB: "西帰浦市の西部に旅行してください。",
+      IMG: "",
+    },
+    REGIONS_SEOGWIPO: {
+      MAIN: "西帰浦市観光地",
+      SUB: "西帰浦市に旅行してください。",
+      IMG: "",
+    },
+    REGIONS_EASTERN_SEOGWIPO: {
+      MAIN: "西帰浦市東部観光地",
+      SUB: "西帰浦市の東部に旅行してください。",
+      IMG: "",
+    },
+  },
+  CH: {
+    TALE_HALNANG: {
+      MAIN: "",
+      SUB: "",
+      IMG: "",
+    },
+    TALE_LOVE: {
+      MAIN: "",
+      SUB: "",
+      IMG: "",
+    },
+    TALE_HISTORY: {
+      MAIN: "",
+      SUB: "",
+      IMG: "",
+    },
+    TALE_MYTH: {
+      MAIN: "",
+      SUB: "",
+      IMG: "",
+    },
+    REGIONS_WESTERN_JEJU: {
+      MAIN: "濟州西部旅游景点",
+      SUB: "请去济州西部旅游。",
+      IMG: "",
+    },
+    REGIONS_JEJU: {
+      MAIN: "济州市旅游景点",
+      SUB: "前往济州市旅行。",
+      IMG: "",
+    },
+    REGIONS_EASTERN_JEJU: {
+      MAIN: "济州市东部旅游景点",
+      SUB: "前往济州市东部旅行。",
+      IMG: "",
+    },
+    REGIONS_WESTERN_SEOGWIPO: {
+      MAIN: "西归浦市西部旅游景点",
+      SUB: "前往西归浦市西部旅行。",
+      IMG: "",
+    },
+    REGIONS_SEOGWIPO: {
+      MAIN: "西归浦市旅游景点",
+      SUB: "前往西归浦市旅行。",
+      IMG: "",
+    },
+    REGIONS_EASTERN_SEOGWIPO: {
+      MAIN: "西归浦市东部旅游景点",
+      SUB: "前往西归浦市东部旅行。",
+      IMG: "",
+    },
+  },
+};
+
 /** MyRouteCompletePage String */
 export const ROUTE_COMPLETE_PAGE_TEXT = {
   EN: { ROUTE_COMPLETE_MESSAGE: "", ROUTE_COMPLETE_BUTTON: "" },
