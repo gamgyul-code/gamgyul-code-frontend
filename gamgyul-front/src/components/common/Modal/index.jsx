@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { theme } from "../../../style/theme";
 import { applyFontStyles } from "../../../utils/fontStyles";
@@ -8,7 +8,14 @@ import { COMMON_TEXT, MODAL_TEXT } from "../../../constants/String";
 const Modal = ({ onClose, onClick, type }) => {
   const language = "KR";
   const [routeValue, setRouteValue] = useState("");
-  const isSaveButtonDisabled = type === "SAVE" && routeValue.trim() === "";
+  const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(true);
+  const maxRouteValue = language === "EN" ? 24 : 15;
+
+  // (type === SAVE) => 저장 버튼 비활성화 여부
+  useEffect(() => {
+    setIsSaveButtonDisabled(type === "SAVE" && (routeValue.trim() === "" || routeValue.length > maxRouteValue));
+  }, [routeValue]);
+
   // 경로 삭제일 때 : 확인 => 경로 삭제 api 요청 / 취소 => 모달 닫기
   // 경로 저장일 때 : 확인 => 경로 저장 api 요청 / 취소 => 모달 닫기
 
@@ -26,8 +33,12 @@ const Modal = ({ onClose, onClick, type }) => {
               value={routeValue}
               placeholder="이름을 입력해주세요."
               onChange={(event) => setRouteValue(event.target.value)}
-              maxLength={15}
+              checkLength={maxRouteValue}
+              valueLength={routeValue.length}
             />
+            <StyledInputInfo checkLength={maxRouteValue} valueLength={routeValue.length}>
+              {routeValue.length}/{maxRouteValue}
+            </StyledInputInfo>
           </ModalRoutesSection>
         )}
         <div>
@@ -104,13 +115,22 @@ const StyledInputBox = styled.input`
   width: 100%;
   height: 42px;
   border: none;
-  border-bottom: 1px solid ${theme.color.primary};
+  border-bottom: 1px solid
+    ${({ checkLength, valueLength }) => (valueLength > checkLength ? "#F86264" : theme.color.primary)};
   box-sizing: border-box;
   padding: 10px;
 
   &::placeholder {
     color: ${theme.color.gray2};
   }
+`;
+
+const StyledInputInfo = styled.div`
+  ${applyFontStyles(theme.font.caption1)}
+  color: ${({ checkLength, valueLength }) => (valueLength > checkLength ? "#F86264" : theme.color.gray1)};
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
 `;
 
 export default Modal;
