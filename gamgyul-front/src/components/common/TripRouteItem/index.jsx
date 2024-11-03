@@ -14,6 +14,7 @@ const TripRouteItem = ({
   onClick,
   isChecked,
   onCheckChange,
+  distance,
 }) => {
   /** 체크박스 클릭 핸들러 */
   const handleCheckClick = () => {
@@ -22,7 +23,7 @@ const TripRouteItem = ({
 
   return (
     <RouteItemContainer $isActive={isActive} onClick={onClick}>
-      <RouteItemContents isEditing={isEditing}>
+      <RouteItemContents $isEditing={isEditing}>
         {isEditing ? (
           <StyledIconBtn onClick={() => handleCheckClick()}>
             <img src={`/images/Icon/check_${isChecked ? "on" : "off"}.svg`} alt="체크버튼" />
@@ -31,6 +32,7 @@ const TripRouteItem = ({
           <RouteNumberLine $isFirst={isFirst} $isLast={isLast}>
             {!isFirst && <RouteLine />}
             <RouteNumber>{stepNumber}</RouteNumber>
+            {distance && <StyledMilestone>{distance}m</StyledMilestone>}
             {!isLast && <RouteLine />}
           </RouteNumberLine>
         )}
@@ -40,8 +42,10 @@ const TripRouteItem = ({
           <p>{data.subtitle}</p>
         </RouteItemDetails>
         {isEditing && (
-          <StyledDragBtn>
-            <img src={"/images/Icon/check_on.svg"} alt="drag button" />
+          <StyledDragBtn
+            draggable={true}
+          >
+            <img src={"/images/Icon/drag_handle.svg"} alt="drag handle" />
           </StyledDragBtn>
         )}
       </RouteItemContents>
@@ -92,7 +96,7 @@ const RouteItemContainer = styled(Container)`
 const RouteItemContents = styled.li`
   display: flex;
   height: 100%;
-  ${(props) => props.isEditing && "align-items: center;"}
+  ${(props) => props.$isEditing && "align-items: center;"}
 `;
 
 const RouteItemDetails = styled.section`
@@ -118,6 +122,22 @@ const RouteItemDetails = styled.section`
 /** 드래그 버튼 (Drag Handle) */
 const StyledDragBtn = styled(StyledIconBtn)`
   margin-left: 16px;
+  width: 20px;
+  height: 20px;
+`;
+
+/** 이정표 */
+const StyledMilestone = styled.div`
+  ${applyFontStyles(theme.font.caption1)}
+  width: 50px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  background-image: url("/images/Map/Milestone.svg");
+  position: absolute;
+  z-index: 100;
+  top: calc(100% - 12px);
+  left: -50%;
 `;
 
 export default TripRouteItem;
