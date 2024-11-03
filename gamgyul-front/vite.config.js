@@ -16,6 +16,7 @@ export default ({ mode }) => {
           data: {
             kakaoMapId: env.VITE_KAKAO_TOKEN,
             naverMapId: env.VITE_NAVER_ID,
+            naverMapSecret: env.VITE_NAVER_SECRET,
           },
         },
       }),
