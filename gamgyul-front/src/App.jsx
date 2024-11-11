@@ -27,7 +27,7 @@ function App() {
           <Route path="/detail2" element={<MapDetailPage2 />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/complete" element={<CompletePage />} />
-          <Route path="/attractions/:id" element={<AttractionListPage />} />
+          <Route path="/spots/:type/:id" element={<AttractionListPage />} />
           <Route path="/trip" element={<MyTripPage />} />
           <Route path="/route/:id" element={<TripRoutePage />} />
           <Route path="/route-complete" element={<MyRouteCompletePage />} />
