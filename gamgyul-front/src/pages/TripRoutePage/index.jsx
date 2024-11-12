@@ -7,15 +7,19 @@ import { theme } from "../../style/theme";
 import BackNaviBtn from "../../components/common/BackNaviBtn";
 import Modal from "../../components/common/Modal";
 import TripRouteItem from "../../components/common/TripRouteItem";
+import { applyIconColors } from "../../utils/iconStyles";
+import axios from "axios";
 
 const TripRoutePage = () => {
-  const location = useLocation();
-  const routeType = location.state.routeType;
+  const curLocation = useLocation();
+  const routeType = curLocation.state.routeType;
 
   const [bookmark, setBookmark] = useState("off");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState(null);
   const [routeData, setRouteData] = useState([]);
+  const [distances, setDistances] = useState([]);
+
   const [isEditing, setIsEdition] = useState(false);
   const [checkRoutes, setCheckRoutes] = useState([]);
 
@@ -35,19 +39,45 @@ const TripRoutePage = () => {
       });
     }
 
-    // data 요청 (temp data) => CUSTOM SERVICE에 따라 구분
+    // data 요청 (temp data) => CUSTOM SERVICE DONE에 따라 구분
     if (routeType === "CUSTOM") {
-      setRouteData(location.state.routeData);
+      setRouteData(curLocation.state.routeData);
     } else {
+      // SERVICE와 DONE의 경우 백엔드 API 요청 필요
       setRouteData([
-        { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.4995, lng: 126.5388 },
-        { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.4521, lng: 126.4076 },
-        { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.3893, lng: 126.4104 },
-        { title: "제주 국제 공항", subtitle: "제주 시내", lat: 33.3058, lng: 126.5161 },
+        { title: "제주 장소1", subtitle: "서브 타이틀1", lat: 33.4995, lng: 126.5388 },
+        { title: "제주 장소2", subtitle: "서브 타이틀2", lat: 33.4521, lng: 126.4076 },
+        { title: "제주 장소3", subtitle: "서브 타이틀3", lat: 33.3893, lng: 126.4104 },
+        { title: "제주 장소4", subtitle: "서브 타이틀4", lat: 33.3058, lng: 126.5161 },
       ]);
     }
   }, []);
 
+  // CUSTOM일 때, 추천 경로 계산 테스트 요청 => 백엔드 소통 진행중
+  // useEffect(() => {
+  //   if (routeData.length > 0) {
+  //     axios
+  //       .get("/map-direction/v1", {
+  //         params: {
+  //           start: `${routeData[0].lat},${routeData[0].lng}`,
+  //           goal: routeData
+  //             .slice(1)
+  //             .map((data) => `${data.lat},${data.lng}`)
+  //             .join(":"),
+  //         },
+  //         headers: {
+  //           "x-ncp-apigw-api-key-id": "<%= naverMapId %>",
+  //           "x-ncp-apigw-api-key": "<%= naverMapSecret %>",
+  //         },
+  //       })
+  //       .then((response) => {
+  //         console.log("데이터", response);
+  //       })
+  //       .catch((error) => console.log("Error", error));
+  //   }
+  // }, [routeData]);
+
+  // marker + polyline
   useEffect(() => {
     if (mapRef.current) {
       markersRef.current.forEach((marker) => marker.setMap(null));
@@ -82,6 +112,41 @@ const TripRoutePage = () => {
       }
     }
   }, [routeData, activeRoute]);
+
+  /** 네비연동 버튼 클릭 */
+  const handleNaviLinkClick = () => {
+    const isAndroid = /android/i.test(navigator.userAgent);
+    const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const urlString = "배포 / 사용 URL 주소";
+
+    // 액션 경로 설정
+    const actionString = routeData
+      .map((element, idx) => {
+        if (idx === 0) {
+          return `slat=${element.lat}&slng=${element.lng}&sname=${element.title}`;
+        } else if (idx === routeData.length - 1) {
+          return `dlat=${element.lat}&dlng=${element.lng}&dname=${element.title}`;
+        } else {
+          return `v${idx}lat=${element.lat}&v${idx}lng=${element.lng}&v${idx}name=${element.title}`;
+        }
+      })
+      .join("&");
+
+    if (isAndroid) {
+      // 안드로이드 테스트 필요
+      location.href = `intent://route/car?${actionString}&appname=${urlString}#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;end`;
+    } else if (isiOS) {
+      const clickedAt = +new Date();
+
+      location.href = `nmap://route/car?${actionString}&appname=${urlString}`;
+
+      setTimeout(function () {
+        if (+new Date() - clickedAt < 2000) {
+          location.href = "http://itunes.apple.com/app/id311867728?mt=8";
+        }
+      }, 1500);
+    }
+  };
 
   const getClickMarker = (index) => {
     setActiveRoute(index);
@@ -136,63 +201,69 @@ const TripRoutePage = () => {
   };
 
   return (
-    <TripRouteLayout>
-      {isModalOpen && <Modal type="SAVE" onClick={handleModalCheck} onClose={handleCloseModal} />}
-      <TripRouteContainer>
-        <RouteMapSection>
-          <BackNaviBtn />
-          <TripRouteMapContainer ref={mapRef} id="map"></TripRouteMapContainer>
-          <NavLinkButton>
-            <img src="/images/Icon/navigation.svg" alt="" />
-            <span>네비연동</span>
-          </NavLinkButton>
-        </RouteMapSection>
-        <BottomSheetMain>
-          <BottomSheetInfoContainer>
-            <header>
-              <h2>추천 경로</h2>
-              <p>선택한 장소를 바탕으로 생성한 경로입니다.</p>
-            </header>
-            {routeType === "CUSTOM" ? (
-              <RouteSaveButton onClick={() => setIsModalOpen(true)}>
-                <img src="/images/Icon/save.svg" alt="save button" />
-              </RouteSaveButton>
-            ) : (
-              <RouteBookmarkButton onClick={() => handleBookmarkClick(bookmark)}>
-                <img src={`/images/Icon/bookmark_${bookmark}.svg`} alt={`bookmark_${bookmark}`} />
-              </RouteBookmarkButton>
+    <>
+      <TripRouteLayout>
+        {isModalOpen && <Modal type="SAVE" onClick={handleModalCheck} onClose={handleCloseModal} />}
+        <TripRouteContainer>
+          <RouteMapSection>
+            <BackNaviBtn />
+            <TripRouteMapContainer ref={mapRef} id="map"></TripRouteMapContainer>
+            <NavLinkButton onClick={handleNaviLinkClick}>
+              <img src="/images/Icon/navigation.svg" alt="" />
+              <span>네비연동</span>
+            </NavLinkButton>
+          </RouteMapSection>
+          <BottomSheetMain>
+            <BottomSheetInfoContainer>
+              <header>
+                <h2>추천 경로</h2>
+                <p>선택한 장소를 바탕으로 생성한 경로입니다.</p>
+              </header>
+              {routeType === "CUSTOM" ? (
+                <RouteSaveButton onClick={() => setIsModalOpen(true)}>
+                  <img src="/images/Icon/save.svg" alt="save button" />
+                </RouteSaveButton>
+              ) : (
+                <RouteBookmarkButton onClick={() => handleBookmarkClick(bookmark)}>
+                  <img src={`/images/Icon/bookmark_${bookmark}.svg`} alt={`bookmark_${bookmark}`} />
+                </RouteBookmarkButton>
+              )}
+            </BottomSheetInfoContainer>
+            {routeType === "CUSTOM" && (
+              <RouteEditBtnContainer>
+                <RouteEditButton onClick={handleEditButtonClick} $isEditing={isEditing}>
+                  {isEditing ? "완료" : "편집"}
+                </RouteEditButton>
+              </RouteEditBtnContainer>
             )}
-          </BottomSheetInfoContainer>
-          {routeType === "CUSTOM" && (
-            <RouteEditButton onClick={handleEditButtonClick} isEditing={isEditing}>
-              {isEditing ? "완료" : "편집"}
-            </RouteEditButton>
-          )}
-          <BottomSheetRouteSection>
-            <nav>
-              <ul>
-                {routeData.map((data, index) => {
-                  return (
-                    <TripRouteItem
-                      key={index}
-                      isFirst={index === 0}
-                      isLast={index === routeData.length - 1}
-                      stepNumber={index + 1}
-                      data={data}
-                      isActive={index === activeRoute}
-                      isEditing={isEditing}
-                      onClick={() => handleRouteClick(index)}
-                      isChecked={checkRoutes.includes(index)}
-                      onCheckChange={() => handleCheckChange(index)}
-                    />
-                  );
-                })}
-              </ul>
-            </nav>
-          </BottomSheetRouteSection>
-        </BottomSheetMain>
-      </TripRouteContainer>
-    </TripRouteLayout>
+            <BottomSheetRouteSection>
+              <nav>
+                <ul>
+                  {routeData.map((data, index) => {
+                    return (
+                      <TripRouteItem
+                        key={index}
+                        isFirst={index === 0}
+                        isLast={index === routeData.length - 1}
+                        stepNumber={index + 1}
+                        data={data}
+                        isActive={index === activeRoute}
+                        isEditing={isEditing}
+                        onClick={() => handleRouteClick(index)}
+                        isChecked={checkRoutes.includes(index)}
+                        onCheckChange={() => handleCheckChange(index)}
+                        distance={index < distances.length ? distances[index] : null}
+                      />
+                    );
+                  })}
+                </ul>
+              </nav>
+            </BottomSheetRouteSection>
+          </BottomSheetMain>
+        </TripRouteContainer>
+      </TripRouteLayout>
+      {isEditing && <TempDeleteButton>삭제하기</TempDeleteButton>}
+    </>
   );
 };
 
@@ -249,7 +320,7 @@ const BottomSheetInfoContainer = styled(Container)`
 
 const BottomSheetRouteSection = styled.section`
   width: 100%;
-  height: calc(100% - 114px);
+  height: calc(100% - 142px);
   margin-top: 24px;
   overflow-y: scroll;
 `;
@@ -296,6 +367,7 @@ const RouteSaveButton = styled.button`
   }
 `;
 const RouteBookmarkButton = styled.button`
+  ${applyIconColors("gray1")}
   img {
     width: 100%;
     height: 100%;
@@ -305,17 +377,39 @@ const RouteBookmarkButton = styled.button`
   border: none;
   background-color: inherit;
   cursor: pointer;
-  filter: invert(57%) sepia(42%) saturate(4074%) hue-rotate(121deg) brightness(95%) contrast(76%);
+`;
+
+const RouteEditBtnContainer = styled.div`
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 8px 20px;
 `;
 
 const RouteEditButton = styled.button`
   ${applyFontStyles(theme.font.body3)}
-  color: ${(props) => (props.isEditing ? theme.color.primary : theme.color.gray1)};
+  color: ${(props) => (props.$isEditing ? theme.color.primary : theme.color.gray1)};
   border: none;
   background-color: inherit;
-  height: 20px;
-  margin: 8px 20px;
+  height: 100%;
   padding: 0 7px;
-  float: right;
+  cursor: pointer;
+`;
+
+/** 임시 삭제 버튼 => 변수명 + 스타일 변경 예정 */
+const TempDeleteButton = styled.button`
+  ${applyFontStyles(theme.font.body2)}
+  height: 83px;
+  background-color: ${theme.color.primary};
+  border: none;
+  color: ${theme.color.white};
+  padding-bottom: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: ${theme.maxWidth};
+  z-index: 1000;
   cursor: pointer;
 `;
