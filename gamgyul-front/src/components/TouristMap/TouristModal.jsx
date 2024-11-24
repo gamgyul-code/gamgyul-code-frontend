@@ -52,12 +52,7 @@ const TouristModal = ({ onClose, onClick }) => {
         <StyledModalBtn type="small" onClick={onClose} color="gray">
           취소
         </StyledModalBtn>
-        <StyledModalBtn
-          type="small"
-          onClick={handleConfirmClick}
-          disabled={!selectedCategory} // 선택되지 않으면 비활성화
-          color={selectedCategory ? "primary" : ""} // 선택 여부에 따라 색상 변경
-        >
+        <StyledModalBtn type="small" onClick={handleConfirmClick} disabled={!selectedCategory}>
           확인
         </StyledModalBtn>
       </CategoryButton>
@@ -71,7 +66,6 @@ const ModalContainer = styled.article`
 
   width: 288px;
   height: 298px;
-  display: none;
 `;
 
 const ModalTitle = styled.div`
