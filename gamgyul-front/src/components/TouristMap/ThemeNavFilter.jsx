@@ -21,13 +21,13 @@ const ThemeNavFilter = () => {
       id: 3,
       label: "역사",
       icon: "/images/TouristMap/ic_myth.svg",
-      activeIcon: "/images/TouristMap/ic_history_on.svg",
+      activeIcon: "/images/TouristMap/ic_myth_on.svg",
     },
     {
       id: 4,
       label: "신화",
       icon: "/images/TouristMap/ic_history.svg",
-      activeIcon: "/images/TouristMap/ic_myth_on.svg",
+      activeIcon: "/images/TouristMap/ic_history_on.svg",
     },
   ];
 
