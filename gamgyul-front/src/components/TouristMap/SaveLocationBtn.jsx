@@ -17,8 +17,7 @@ const LocationBtnContainer = styled.button`
   align-items: center;
   padding: 10px;
   border-radius: 30px;
-  margin-top: 573px;
-  margin-left: 246px;
+
   /*   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.1); */
   background-color: ${theme.color.white};
 `;
