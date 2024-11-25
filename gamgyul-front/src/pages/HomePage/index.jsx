@@ -1,22 +1,38 @@
-import styled from "styled-components";
-import { HOME_PAGE_TEXT } from "../../constants/String";
-import { theme } from "../../style/theme";
-import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
-import { Link, useNavigate } from "react-router-dom";
-import { applyFontStyles } from "../../utils/fontStyles";
-import NavigationBar from "../../components/common/NavigationBar";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import axios from "axios";
+import { theme } from "../../style/theme";
+import { applyFontStyles } from "../../utils/fontStyles";
 import { shuffleArray } from "../../utils/shuffleArray";
+import { HOME_PAGE_TEXT } from "../../constants/String";
+import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
+import NavigationBar from "../../components/common/NavigationBar";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({});
   const [shuffledRoutes, setShuffledRoutes] = useState([]);
 
-  // 예시 작업 (이후에 상태관리 or 로컬스토리지 저장으로 변경)
   // const language = window.localStorage.getItem("lanType");
   const language = "KR";
   const text = HOME_PAGE_TEXT[language];
+
+  // useEffect(() => {
+  //   const token = "토큰";
+
+  //   axios
+  //     .get("요청 URL", {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       withCredentials: true,
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       console.log(response.data);
+  //     });
+  // }, []);
 
   useEffect(() => {
     // API 요청 + data 세팅 (현재 임시 데이터)
@@ -97,7 +113,7 @@ const HomePage = () => {
     const [data, type] = props;
     console.log(data);
     if (type === "ATRCT") {
-      navigate(`/attractions/${data.id}`);
+      navigate(`/spots/${data.type}/${data.id}`, { state: { type: data.type, id: data.id } });
     } else if (type === "ROUTE") {
       // routeType => SERVICE : 서비스 제공 루트 / CUSTOM : 사용자 커스텀 루트
       navigate(`/route/${data.id}`, { state: { routeType: "SERVICE" } });
@@ -129,19 +145,19 @@ const HomePage = () => {
             <StyledCategoryName>{text.THEME_ATRCT}</StyledCategoryName>
             <nav>
               <ul>
-                <li onClick={() => handleListClick([{ id: "seolmundae", name: "SEOLMUNDAE" }, "ATRCT"])}>
+                <li onClick={() => handleListClick([{ id: "halmang", name: "HALMANG", type: "tale" }, "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_SEOLMUNDAE}</p>
                 </li>
-                <li onClick={() => handleListClick([{ id: "love", name: "LOVE" }, "ATRCT"])}>
+                <li onClick={() => handleListClick([{ id: "love", name: "LOVE", type: "tale" }, "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_LOVE}</p>
                 </li>
-                <li onClick={() => handleListClick([{ id: "history", name: "HISTORY" }, "ATRCT"])}>
+                <li onClick={() => handleListClick([{ id: "history", name: "HISTORY", type: "tale" }, "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_HISTORY}</p>
                 </li>
-                <li onClick={() => handleListClick([{ id: "myth", name: "MYTH" }, "ATRCT"])}>
+                <li onClick={() => handleListClick([{ id: "myth", name: "MYTH", type: "tale" }, "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_MYTH}</p>
                 </li>
@@ -154,7 +170,7 @@ const HomePage = () => {
         <StyledRouteAtrct>
           <StyledFolktaleContainer>
             <StyledCategoryName>{text.FOLKTALE_ROUTE}</StyledCategoryName>
-            <StyledRefreshButton aria-label="새로고침" onClick={handleRefreshClick}>
+            <StyledRefreshButton aria-label={text.REFRESH_BUTTON} onClick={handleRefreshClick}>
               {text.REFRESH_BUTTON}
               <img src="/images/Icon/refresh.svg" alt="refresh icon" />
             </StyledRefreshButton>
@@ -185,7 +201,7 @@ const HomePage = () => {
                     <RouterLiItem
                       key={`region-${index}`}
                       data={element}
-                      onClick={() => handleListClick([element, "ATRCT"])}
+                      onClick={() => handleListClick([{ element, type: "regions" }, "ATRCT"])}
                     />
                   );
                 })}
