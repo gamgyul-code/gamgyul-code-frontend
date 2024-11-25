@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
 import { useLocation } from "react-router-dom";
-import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
-import { applyFontStyles } from "../../utils/fontStyles";
+import styled from "styled-components";
+import axios from "axios";
 import { theme } from "../../style/theme";
+import { applyFontStyles } from "../../utils/fontStyles";
+import { applyIconColors } from "../../utils/iconStyles";
+import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
+import TripRouteItem from "../../components/common/TripRouteItem";
+import { BottomButton } from "../../components/common/Button/BottomButton.style";
 import BackNaviBtn from "../../components/common/BackNaviBtn";
 import Modal from "../../components/common/Modal";
-import TripRouteItem from "../../components/common/TripRouteItem";
-import { applyIconColors } from "../../utils/iconStyles";
-import axios from "axios";
 
 const TripRoutePage = () => {
   const curLocation = useLocation();
@@ -23,8 +24,38 @@ const TripRoutePage = () => {
   const [isEditing, setIsEdition] = useState(false);
   const [checkRoutes, setCheckRoutes] = useState([]);
 
+  const dragItem = useRef();
+  const dragOverItem = useRef();
+  /** 드래그 시작 */
+  const handleDragStart = (e, position) => {
+    dragItem.current = position;
+    console.log(e);
+  };
+
+  /** 드래그 포개졌을 때 */
+  const handleDragEnter = (e, position) => {
+    dragOverItem.current = position;
+  };
+
+  /** 드래그 종료 */
+  const handleDrop = () => {
+    const copyListItems = [...routeData];
+    const dragItemContent = copyListItems[dragItem.current];
+
+    // 아이템 재정렬
+    copyListItems.splice(dragItem.current, 1); // 드래그 시작한 아이템 삭제
+    copyListItems.splice(dragOverItem.current, 0, dragItemContent); // 새로운 위치에 삽입
+
+    dragItem.current = null;
+    dragOverItem.current = null;
+    setRouteData(copyListItems); // 상태 업데이트
+    console.log(copyListItems);
+    console.log(routeData);
+  };
+
   const mapRef = useRef(null);
   const markersRef = useRef([]);
+  const polylineRef = useRef(null);
   const { naver } = window;
 
   useEffect(() => {
@@ -41,7 +72,14 @@ const TripRoutePage = () => {
 
     // data 요청 (temp data) => CUSTOM SERVICE DONE에 따라 구분
     if (routeType === "CUSTOM") {
-      setRouteData(curLocation.state.routeData);
+      // setRouteData(curLocation.state.routeData);
+      setRouteData([
+        // temp data
+        { title: "제주 장소1", subtitle: "서브 타이틀1", lat: 33.4995, lng: 126.5388 },
+        { title: "제주 장소2", subtitle: "서브 타이틀2", lat: 33.4521, lng: 126.4076 },
+        { title: "제주 장소3", subtitle: "서브 타이틀3", lat: 33.3893, lng: 126.4104 },
+        { title: "제주 장소4", subtitle: "서브 타이틀4", lat: 33.3058, lng: 126.5161 },
+      ]);
     } else {
       // SERVICE와 DONE의 경우 백엔드 API 요청 필요
       setRouteData([
@@ -83,6 +121,11 @@ const TripRoutePage = () => {
       markersRef.current.forEach((marker) => marker.setMap(null));
       markersRef.current = [];
 
+      if (polylineRef.current) {
+        polylineRef.current.setMap(null);
+        polylineRef.current = null;
+      }
+
       if (routeData.length > 0) {
         routeData.forEach((route, index) => {
           const marker = new naver.maps.Marker({
@@ -92,6 +135,7 @@ const TripRoutePage = () => {
               url: `/images/Map/Markers/marker${index + 1}_${activeRoute === index ? "on" : "off"}.svg`,
               anchor: activeRoute === index ? new naver.maps.Point(26, 55) : new naver.maps.Point(15, 20),
             },
+            zIndex: activeRoute === index ? 100 : 1,
           });
 
           naver.maps.Event.addListener(marker, "click", () => {
@@ -102,7 +146,7 @@ const TripRoutePage = () => {
 
         // polyline
         const path = routeData.map((route) => new naver.maps.LatLng(route.lat, route.lng));
-        const polyline = new naver.maps.Polyline({
+        polylineRef.current = new naver.maps.Polyline({
           map: mapRef.current,
           path: path,
           strokeColor: theme.color.primary,
@@ -252,6 +296,9 @@ const TripRoutePage = () => {
                         onClick={() => handleRouteClick(index)}
                         isChecked={checkRoutes.includes(index)}
                         onCheckChange={() => handleCheckChange(index)}
+                        onDragStart={(e) => handleDragStart(e, index)}
+                        onDragEnter={(e) => handleDragEnter(e, index)}
+                        onDrop={handleDrop}
                         distance={index < distances.length ? distances[index] : null}
                       />
                     );
@@ -262,7 +309,7 @@ const TripRoutePage = () => {
           </BottomSheetMain>
         </TripRouteContainer>
       </TripRouteLayout>
-      {isEditing && <TempDeleteButton>삭제하기</TempDeleteButton>}
+      {isEditing && <BottomButton>삭제하기</BottomButton>}
     </>
   );
 };
@@ -394,22 +441,5 @@ const RouteEditButton = styled.button`
   background-color: inherit;
   height: 100%;
   padding: 0 7px;
-  cursor: pointer;
-`;
-
-/** 임시 삭제 버튼 => 변수명 + 스타일 변경 예정 */
-const TempDeleteButton = styled.button`
-  ${applyFontStyles(theme.font.body2)}
-  height: 83px;
-  background-color: ${theme.color.primary};
-  border: none;
-  color: ${theme.color.white};
-  padding-bottom: 20px;
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: ${theme.maxWidth};
-  z-index: 1000;
   cursor: pointer;
 `;

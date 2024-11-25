@@ -14,18 +14,16 @@ const TripRouteItem = ({
   onClick,
   isChecked,
   onCheckChange,
+  onDragStart,
+  onDragEnter,
+  onDrop,
   distance,
 }) => {
-  /** 체크박스 클릭 핸들러 */
-  const handleCheckClick = () => {
-    onCheckChange();
-  };
-
   return (
     <RouteItemContainer $isActive={isActive} onClick={onClick}>
       <RouteItemContents $isEditing={isEditing}>
         {isEditing ? (
-          <StyledIconBtn onClick={() => handleCheckClick()}>
+          <StyledIconBtn onClick={() => onCheckChange()}>
             <img src={`/images/Icon/check_${isChecked ? "on" : "off"}.svg`} alt="체크버튼" />
           </StyledIconBtn>
         ) : (
@@ -43,7 +41,11 @@ const TripRouteItem = ({
         </RouteItemDetails>
         {isEditing && (
           <StyledDragBtn
-            draggable={true}
+            draggable={isEditing}
+            onDragStart={(e) => onDragStart(e)}
+            onDragEnter={(e) => onDragEnter(e)}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => onDrop(e)}
           >
             <img src={"/images/Icon/drag_handle.svg"} alt="drag handle" />
           </StyledDragBtn>
