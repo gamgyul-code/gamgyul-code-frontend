@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
-import { useEffect } from "react";
 import styled from "styled-components";
 import { theme } from "../../style/theme";
 import AttractionItem from "../../components/common/AttractionItem";
@@ -8,9 +8,33 @@ import BackNaviBtn from "../../components/common/BackNaviBtn";
 import { applyFontStyles } from "../../utils/fontStyles";
 
 const AttractionListPage = () => {
-  const { id } = useParams();
+  const curLocation = useLocation();
+  const id = curLocation.state.id;
+  const type = curLocation.state.type;
+  const [data, setData] = useState([]);
 
-  useEffect(() => {}, []);
+  // const language = window.localStorage.getItem("lanType");
+  const language = "KR";
+  // const text = ATRCT_LIST_PAGE_TEXT[language];
+
+  // API 요청
+  // useEffect(() => {
+  //   const token = "토큰"; // 토큰 + API 요청 interceptor 필요
+  //   axios
+  //     .get(`요청URL/spots/${type}/${id}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       withCredentials: true,
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error : ", error);
+  //     });
+  // }, [type, id]);
 
   return (
     <AttractionListLayout>
@@ -19,6 +43,7 @@ const AttractionListPage = () => {
           <BackNaviBtn />
           <img src="" alt="" />
           <Container>
+            {/* {type === "" ? <></> : <></>} */}
             <h2>{id}과 여행하는 제주</h2>
             <p>제주를 대표하는 과 관련된 장소를 여행해보세요.</p>
           </Container>
@@ -52,7 +77,7 @@ const StyledListSection = styled.section`
   margin-top: 10px;
 `;
 
-/** Attractions Page header styled-components */
+/** Attractions Page header */
 const StyledAtrctHeader = styled.header`
   width: 100%;
   height: 355px;
