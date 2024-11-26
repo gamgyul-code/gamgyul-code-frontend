@@ -5,7 +5,7 @@ import { applyFontStyles } from "../../../utils/fontStyles";
 import { StyledIconBtn } from "../Button/StyledIconBtn.style";
 
 /** 관광지 아이템 컴포넌트 (분리 필요) */
-const AttractionItem = ({ onDelete, isChecked, onCheckChange, type }) => {
+const AttractionItem = ({ onDelete, isChecked, onCheckChange, type, checkRoutes, id, language }) => {
   const [bookmark, setBookmark] = useState("off");
 
   useEffect(() => {}, []);
@@ -20,7 +20,7 @@ const AttractionItem = ({ onDelete, isChecked, onCheckChange, type }) => {
   };
   /** 체크박스 클릭 핸들러 */
   const handleCheckClick = () => {
-    // onCheckChange(id);
+    onCheckChange();
     console.log("임시 체크박스 클릭 핸들러입니다.");
   };
 
@@ -29,8 +29,11 @@ const AttractionItem = ({ onDelete, isChecked, onCheckChange, type }) => {
       <AtrctItemContents>
         <AtrctItemInfo>
           {type === "CHECK" && (
-            <StyledCheckBtn>
-              <img src={`/images/Icon/check_${bookmark}.svg`} alt="체크버튼" onClick={() => handleCheckClick()} />
+            <StyledCheckBtn onClick={() => handleCheckClick()}>
+              <img
+                src={`/images/Icon/check_${isChecked ? (checkRoutes[0] === id ? `on_${language}` : "on") : "off"}.svg`}
+                alt="체크버튼"
+              />
             </StyledCheckBtn>
           )}
           <figure>

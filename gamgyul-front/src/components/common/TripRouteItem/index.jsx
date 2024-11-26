@@ -4,24 +4,52 @@ import { theme } from "../../../style/theme";
 import { applyFontStyles } from "../../../utils/fontStyles";
 import { StyledIconBtn } from "../Button/StyledIconBtn.style";
 
-const TripRouteItem = ({ isFirst, isLast, stepNumber, data, isActive, onClick }) => {
+const TripRouteItem = ({
+  isFirst,
+  isLast,
+  stepNumber,
+  data,
+  isActive,
+  isEditing,
+  onClick,
+  isChecked,
+  onCheckChange,
+  onDragStart,
+  onDragEnter,
+  onDrop,
+  distance,
+}) => {
   return (
-    <RouteItemContainer isActive={isActive} onClick={onClick}>
-      <RouteItemContents>
-        <RouteNumberLine isFirst={isFirst} isLast={isLast}>
-          {!isFirst && <RouteLine />}
-          <RouteNumber>{stepNumber}</RouteNumber>
-          {!isLast && <RouteLine />}
-        </RouteNumberLine>
-        <RouteItemDetails>
-          <RouteItemInfo>
-            <h3>{data.title}</h3>
-            <p>{data.subtitle}</p>
-          </RouteItemInfo>
-          <StyledIconBtn>
-            <img src={`/images/Icon/delete.svg`} alt="more button" />
+    <RouteItemContainer $isActive={isActive} onClick={onClick}>
+      <RouteItemContents $isEditing={isEditing}>
+        {isEditing ? (
+          <StyledIconBtn onClick={() => onCheckChange()}>
+            <img src={`/images/Icon/check_${isChecked ? "on" : "off"}.svg`} alt="체크버튼" />
           </StyledIconBtn>
+        ) : (
+          <RouteNumberLine $isFirst={isFirst} $isLast={isLast}>
+            {!isFirst && <RouteLine />}
+            <RouteNumber>{stepNumber}</RouteNumber>
+            {distance && <StyledMilestone>{distance}m</StyledMilestone>}
+            {!isLast && <RouteLine />}
+          </RouteNumberLine>
+        )}
+
+        <RouteItemDetails>
+          <h3>{data.title}</h3>
+          <p>{data.subtitle}</p>
         </RouteItemDetails>
+        {isEditing && (
+          <StyledDragBtn
+            draggable={isEditing}
+            onDragStart={(e) => onDragStart(e)}
+            onDragEnter={(e) => onDragEnter(e)}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => onDrop(e)}
+          >
+            <img src={"/images/Icon/drag_handle.svg"} alt="drag handle" />
+          </StyledDragBtn>
+        )}
       </RouteItemContents>
     </RouteItemContainer>
   );
@@ -63,13 +91,14 @@ const RouteNumber = styled.span`
   z-index: 50;
 `;
 const RouteItemContainer = styled(Container)`
-  background-color: ${({ isActive }) => (isActive ? "#1EB17B1A" : "inherit")};
+  background-color: ${({ $isActive }) => ($isActive ? "#1EB17B1A" : "inherit")};
   height: 80px;
 `;
 
 const RouteItemContents = styled.li`
   display: flex;
   height: 100%;
+  ${(props) => props.$isEditing && "align-items: center;"}
 `;
 
 const RouteItemDetails = styled.section`
@@ -78,15 +107,11 @@ const RouteItemDetails = styled.section`
   margin: 4px 0 4px 22px;
   padding: 15px 20px;
   box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 
   background-color: ${theme.color.white};
   border: 1px solid #b6e4cb;
   border-radius: 20px;
-`;
-const RouteItemInfo = styled.div`
+
   h3 {
     ${applyFontStyles(theme.font.body2)}
   }
@@ -94,6 +119,27 @@ const RouteItemInfo = styled.div`
     ${applyFontStyles(theme.font.body3)}
     color: ${theme.color.gray1};
   }
+`;
+
+/** 드래그 버튼 (Drag Handle) */
+const StyledDragBtn = styled(StyledIconBtn)`
+  margin-left: 16px;
+  width: 20px;
+  height: 20px;
+`;
+
+/** 이정표 */
+const StyledMilestone = styled.div`
+  ${applyFontStyles(theme.font.caption1)}
+  width: 50px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  background-image: url("/images/Map/Milestone.svg");
+  position: absolute;
+  z-index: 100;
+  top: calc(100% - 12px);
+  left: -50%;
 `;
 
 export default TripRouteItem;
