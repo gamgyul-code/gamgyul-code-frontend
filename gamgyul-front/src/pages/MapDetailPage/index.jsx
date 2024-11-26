@@ -1,16 +1,23 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../components/common/Button";
-import { FormLayout, StyledBottomWrapper } from "../ThemeFormPage";
-import { theme } from "../../style/theme";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { applyFontStyles } from "../../utils/fontStyles";
+import { TabButton } from "../../components/common/Button/TabButton.style";
 import TempModal from "../../components/common/TempModal";
+import { theme } from "../../style/theme";
+import { applyFontStyles } from "../../utils/fontStyles";
+import { StyledBottomWrapper } from "../ThemeFormPage";
 
 const MapDetailPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mapDetailData, setMapDetailData] = useState(null);
+  const [isSaved, setIsSaved] = useState(false);
+  const [activeTab, setActiveTab] = useState("tale");
+
+  const handleIconClick = () => {
+    setIsSaved(!isSaved); // 클릭할 때마다 상태를 토글
+  };
 
   /** 모달 임시 클릭 (달성 조건 추가 필요) */
   const handleButtonClick = () => {
@@ -47,25 +54,68 @@ const MapDetailPage = () => {
           <StyledLocationPicture style={{ backgroundImage: `url(${mapDetailData?.placePictureUrl})` }} />
         </StyledPictureStamp>
         <StyledContentWrapper>
-          <StyledSubTitleText style={{ display: "block", marginBottom: "16px" }}>
-            {mapDetailData?.name}
-          </StyledSubTitleText>
-          <StyledInfoItem>
-            <StyledIcon src="images/Icon/location.svg" alt="위치 아이콘" />
-            <StyledBody2Gray>{mapDetailData?.address}</StyledBody2Gray>
-          </StyledInfoItem>
-          <StyledInfoItem>
-            <StyledIcon src="images/Icon/call.svg" alt="전화 아이콘" />
-            <StyledBody2Gray>{mapDetailData?.phoneNumber}</StyledBody2Gray>
-          </StyledInfoItem>
-          <StyledInfoItem>
-            <StyledIcon src="images/Icon/alarm.svg" alt="시간 아이콘" />
-            <StyledBody2Gray>{mapDetailData?.time}</StyledBody2Gray>
-          </StyledInfoItem>
-          <StyledInfoItem>
-            <StyledIcon src="images/Icon/money.svg" alt="이용료 아이콘" />
-            <StyledBody2Gray>{mapDetailData?.fee}</StyledBody2Gray>
-          </StyledInfoItem>
+          <StyledContentTop>
+            <StyledMapItem>
+              <StyledBadge>연간 방문객 보통</StyledBadge>
+              <Icon
+                src={isSaved ? `/images/TouristMap/book_on.svg` : `/images/TouristMap/book_off.svg`}
+                onClick={handleIconClick} // 아이콘 클릭 이벤트 추가
+              />
+            </StyledMapItem>
+            <StyledSubTitleText style={{ display: "block", marginBottom: "16px" }}>
+              {mapDetailData?.name}
+            </StyledSubTitleText>
+            <StyledInfoItem>
+              <StyledIcon src="images/Icon/location.svg" alt="위치 아이콘" />
+              <StyledBody2Gray>{mapDetailData?.address}</StyledBody2Gray>
+            </StyledInfoItem>
+            <StyledInfoItem>
+              <StyledIcon src="images/Icon/call.svg" alt="전화 아이콘" />
+              <StyledBody2Gray>{mapDetailData?.phoneNumber}</StyledBody2Gray>
+            </StyledInfoItem>
+            <StyledInfoItem>
+              <StyledIcon src="images/Icon/alarm.svg" alt="시간 아이콘" />
+              <StyledBody2Gray>{mapDetailData?.time}</StyledBody2Gray>
+            </StyledInfoItem>
+            <StyledInfoItem>
+              <StyledIcon src="images/Icon/money.svg" alt="이용료 아이콘" />
+              <StyledBody2Gray>{mapDetailData?.fee}</StyledBody2Gray>
+            </StyledInfoItem>
+          </StyledContentTop>
+          <nav aria-label="내 여행 (장소 / 경로)">
+            <TabButton
+              onClick={() => setActiveTab("tale")}
+              isActive={activeTab === "tale"}
+              fontSize={theme.font.body1}
+              btnCnt={4}
+            >
+              설화
+            </TabButton>
+            <TabButton
+              onClick={() => setActiveTab("myth")}
+              isActive={activeTab === "myth"}
+              fontSize={theme.font.body1}
+              btnCnt={4}
+            >
+              역사
+            </TabButton>
+            <TabButton
+              onClick={() => setActiveTab("topography")}
+              isActive={activeTab === "topography"}
+              fontSize={theme.font.body1}
+              btnCnt={4}
+            >
+              지형
+            </TabButton>
+            <TabButton
+              onClick={() => setActiveTab("caution")}
+              isActive={activeTab === "caution"}
+              fontSize={theme.font.body1}
+              btnCnt={4}
+            >
+              주의사항
+            </TabButton>
+          </nav>
           <StyledHrTag />
           <StyledDetailWrap>
             <StyledBody2Primary>Korean traditional stories</StyledBody2Primary>
@@ -104,18 +154,20 @@ export const StyledSubTitleText = styled.span`
 
 /** body2 텍스트 스타일링 */
 export const StyledBody2Text = styled.span`
-  ${applyFontStyles(theme.font.body2)}
+  color: ${theme.color.black};
+  ${applyFontStyles(theme.font.body4)}
 `;
 
 /** body2 gray 텍스트 스타일링 */
 export const StyledBody2Gray = styled(StyledBody2Text)`
-  color: ${theme.color.grayscale_73};
+  color: ${theme.color.gray1};
+  ${applyFontStyles(theme.font.body3)}
 `;
 
 /** 구분선 스타일링 */
 export const StyledHrTag = styled.hr`
   border: 0px;
-  border-top: 10x solid ${theme.color.grayscale_F8};
+
   margin: 32px 0;
 `;
 
@@ -126,9 +178,18 @@ export const StyledDetailText = styled(StyledBody2Text)`
   text-align: left;
 `;
 
+const StyledContentTop = styled.section`
+  padding: 16px 20px;
+`;
+
 /** 스크롤 필요한 FormLayout 스타일링 */
-const StyledFormLayout = styled(FormLayout)`
+const StyledFormLayout = styled.article`
   overflow-y: scroll;
+  background-color: ${theme.color.white};
+  border: 1px solid blue;
+  height: 100vh;
+  max-width: ${theme.maxWidth};
+  margin: 0 auto;
 `;
 
 /** 스크롤 필요한 ButtonWrapper 스타일링 */
@@ -141,11 +202,28 @@ export const StyledBtnWrapper = styled(StyledBottomWrapper)`
 /** 장소 사진 이미지 스타일링 */
 const StyledLocationPicture = styled.div`
   width: 100%;
-  height: 375px;
+  height: 288px;
   background-color: #ccc;
-  position: absolute;
-  top: 0;
-  left: 0;
+
+  background-repeat: no-repeat;
+`;
+
+const StyledBadge = styled.p`
+  border: 1px solid yellow;
+  padding: 4px 8px;
+  ${applyFontStyles(theme.font.caption1)};
+  border-radius: 20px;
+`;
+
+const StyledMapItem = styled.div`
+  display: flex;
+  margin-bottom: 8px;
+  justify-content: space-between;
+`;
+
+const Icon = styled.img`
+  width: 24px;
+  height: 24px;
 `;
 
 /** 장소 스탬프 이미지 스타일링 */
@@ -153,7 +231,7 @@ const StyledLocationStamp = styled.div`
   width: 86px;
   height: 86px;
   background-color: blue;
-  position: absolute;
+
   top: 269px;
   right: 20px;
   border-radius: 50%;
@@ -164,11 +242,11 @@ const StyledPictureStamp = styled.div`
   width: 100%;
   height: 375px
   position: relative;
+
 `;
 
 /** 콘텐츠 wrapper */
 const StyledContentWrapper = styled.div`
-  margin-top: 407px;
   padding-bottom: 100px;
 `;
 
