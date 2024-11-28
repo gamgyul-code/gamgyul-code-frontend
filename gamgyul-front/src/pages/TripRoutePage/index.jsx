@@ -6,10 +6,10 @@ import { theme } from "../../style/theme";
 import { applyFontStyles } from "../../utils/fontStyles";
 import { applyIconColors } from "../../utils/iconStyles";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
-import TripRouteItem from "../../components/common/TripRouteItem";
 import { BottomButton } from "../../components/common/Button/BottomButton.style";
 import BackNaviBtn from "../../components/common/BackNaviBtn";
 import Modal from "../../components/common/Modal";
+import TripRouteItem from "../../components/TripRoute/TripRouteItem";
 
 const TripRoutePage = () => {
   const curLocation = useLocation();
