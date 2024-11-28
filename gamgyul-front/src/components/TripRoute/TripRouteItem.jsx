@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { theme } from "../../../style/theme";
-import { applyFontStyles } from "../../../utils/fontStyles";
-import { StyledIconBtn } from "../../common/Button/StyledIconBtn.style";
-import { Container } from "../../common/BasicLayout/layout.style";
+import { Container } from "../common/BasicLayout/layout.style";
+import { theme } from "../../style/theme";
+import { applyFontStyles } from "../../utils/fontStyles";
+import { StyledIconBtn } from "../common/Button/StyledIconBtn.style";
 
 const TripRouteItem = ({
   isFirst,
