@@ -1,18 +1,111 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { HOME_PAGE_TEXT } from "../../constants/String";
+import axios from "axios";
 import { theme } from "../../style/theme";
-import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
-import { Link, useNavigate } from "react-router-dom";
 import { applyFontStyles } from "../../utils/fontStyles";
+import { shuffleArray } from "../../utils/shuffleArray";
+import { HOME_PAGE_TEXT } from "../../constants/String";
+import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
 import NavigationBar from "../../components/common/NavigationBar";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [data, setData] = useState({});
+  const [shuffledRoutes, setShuffledRoutes] = useState([]);
 
-  // 예시 작업 (이후에 상태관리 or 로컬스토리지 저장으로 변경)
   // const language = window.localStorage.getItem("lanType");
   const language = "KR";
   const text = HOME_PAGE_TEXT[language];
+
+  // useEffect(() => {
+  //   const token = "토큰";
+
+  //   axios
+  //     .get("요청 URL", {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       withCredentials: true,
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       console.log(response.data);
+  //     });
+  // }, []);
+
+  useEffect(() => {
+    // API 요청 + data 세팅 (현재 임시 데이터)
+    const fetchData = async () => {
+      try {
+        // const response = await fetch("API_URL");
+        setData({
+          REGION_ATRCT: [
+            {
+              name: "여행루트이름1",
+              img: "이미지URL1",
+            },
+            {
+              name: "여행루트이름2",
+              img: "이미지URL2",
+            },
+            {
+              name: "여행루트이름3",
+              img: "이미지URL3",
+            },
+            {
+              name: "여행루트이름4",
+              img: "이미지URL4",
+            },
+          ],
+          FOLKTALE_ROUTE: [
+            {
+              name: "여행루트이름1",
+              img: "이미지URL1",
+            },
+            {
+              name: "여행루트이름2",
+              img: "이미지URL2",
+            },
+            {
+              name: "여행루트이름3",
+              img: "이미지URL3",
+            },
+            {
+              name: "여행루트이름4",
+              img: "이미지URL4",
+            },
+            {
+              name: "여행루트이름5",
+              img: "이미지URL5",
+            },
+            {
+              name: "여행루트이름6",
+              img: "이미지URL6",
+            },
+            {
+              name: "여행루트이름7",
+              img: "이미지URL7",
+            },
+            {
+              name: "여행루트이름8",
+              img: "이미지URL8",
+            },
+          ],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data.FOLKTALE_ROUTE && data.FOLKTALE_ROUTE.length > 0) {
+      const shuffled = shuffleArray(data.FOLKTALE_ROUTE).slice(0, 6);
+      setShuffledRoutes(shuffled);
+    }
+  }, [data]);
 
   /** 루트 & 관광지 리스트 클릭 */
   const handleListClick = (props) => {
@@ -20,32 +113,17 @@ const HomePage = () => {
     const [data, type] = props;
     console.log(data);
     if (type === "ATRCT") {
-      navigate(`/attractions/${data.id}`);
+      navigate(`/spots/${data.type}/${data.id}`, { state: { type: data.type, id: data.id } });
     } else if (type === "ROUTE") {
-      console.log("루트로 이동할 예정입니다.");
+      // routeType => SERVICE : 서비스 제공 루트 / CUSTOM : 사용자 커스텀 루트
+      navigate(`/route/${data.id}`, { state: { routeType: "SERVICE" } });
     }
   };
 
-  /** 예시 데이터 */
-  const data = {
-    REGION_ATRCT: [
-      {
-        name: "여행루트이름1",
-        img: "이미지URL1",
-      },
-      {
-        name: "여행루트이름2",
-        img: "이미지URL2",
-      },
-      {
-        name: "여행루트이름3",
-        img: "이미지URL3",
-      },
-      {
-        name: "여행루트이름4",
-        img: "이미지URL4",
-      },
-    ],
+  /** 설화 여행 루트 새로고침 버튼 클릭 */
+  const handleRefreshClick = () => {
+    const shuffled = shuffleArray(data.FOLKTALE_ROUTE).slice(0, 6);
+    setShuffledRoutes(shuffled);
   };
 
   return (
@@ -67,19 +145,19 @@ const HomePage = () => {
             <StyledCategoryName>{text.THEME_ATRCT}</StyledCategoryName>
             <nav>
               <ul>
-                <li onClick={() => handleListClick([{ id: "seolmundae", name: "SEOLMUNDAE" }, "ATRCT"])}>
+                <li onClick={() => handleListClick([{ id: "halmang", name: "HALMANG", type: "tale" }, "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_SEOLMUNDAE}</p>
                 </li>
-                <li onClick={() => handleListClick([{ id: "love", name: "LOVE" }, "ATRCT"])}>
+                <li onClick={() => handleListClick([{ id: "love", name: "LOVE", type: "tale" }, "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_LOVE}</p>
                 </li>
-                <li onClick={() => handleListClick([{ id: "history", name: "HISTORY" }, "ATRCT"])}>
+                <li onClick={() => handleListClick([{ id: "history", name: "HISTORY", type: "tale" }, "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_HISTORY}</p>
                 </li>
-                <li onClick={() => handleListClick([{ id: "myth", name: "MYTH" }, "ATRCT"])}>
+                <li onClick={() => handleListClick([{ id: "myth", name: "MYTH", type: "tale" }, "ATRCT"])}>
                   <img src="" alt="" />
                   <p>{text.CATEGORY_MYTH}</p>
                 </li>
@@ -90,10 +168,16 @@ const HomePage = () => {
         {/* 공통 컴포넌트 분리 -> 이후 정리 */}
         {/* 카테고리별 라우팅2 (다른 페이지로 이동) */}
         <StyledRouteAtrct>
-          <StyledCategoryName>{text.FOLKTALE_ROUTE}</StyledCategoryName>
+          <StyledFolktaleContainer>
+            <StyledCategoryName>{text.FOLKTALE_ROUTE}</StyledCategoryName>
+            <StyledRefreshButton aria-label={text.REFRESH_BUTTON} onClick={handleRefreshClick}>
+              {text.REFRESH_BUTTON}
+              <img src="/images/Icon/refresh.svg" alt="refresh icon" />
+            </StyledRefreshButton>
+          </StyledFolktaleContainer>
           <nav>
             <ul>
-              {data.REGION_ATRCT.map((element, index) => {
+              {shuffledRoutes.map((element, index) => {
                 return (
                   <RouterLiItem
                     key={`folktale-${index}`}
@@ -110,20 +194,22 @@ const HomePage = () => {
           <StyledCategoryName>{text.REGION_ATRCT}</StyledCategoryName>
           <nav>
             <ul>
-              {data.REGION_ATRCT.map((element, index) => {
-                return (
-                  <RouterLiItem
-                    key={`region-${index}`}
-                    data={element}
-                    onClick={() => handleListClick([element, "ATRCT"])}
-                  />
-                );
-              })}
+              {data.REGION_ATRCT &&
+                data.REGION_ATRCT.length > 0 &&
+                data.REGION_ATRCT.map((element, index) => {
+                  return (
+                    <RouterLiItem
+                      key={`region-${index}`}
+                      data={element}
+                      onClick={() => handleListClick([{ element, type: "regions" }, "ATRCT"])}
+                    />
+                  );
+                })}
             </ul>
           </nav>
         </StyledRouteAtrct>
-        <NavigationBar />
       </BasicLayout>
+      <NavigationBar />
     </>
   );
 };
@@ -148,6 +234,7 @@ const StyledLiRouter = styled.li`
   background-color: ${theme.color.sub2};
   flex: 0 0 auto;
   overflow: hidden;
+  cursor: pointer;
 
   img {
     width: 150px;
@@ -219,6 +306,9 @@ const StyledRouteAtrct = styled.section`
   ul > li:first-child {
     margin-left: 20px;
   }
+  ul > li:last-child {
+    margin-right: 20px;
+  }
 `;
 
 /** THEME_ATRCT Wrapper (h2 제외 따로 컴포넌트화 X) */
@@ -244,6 +334,7 @@ const StyledThemeAtrct = styled.section`
     background-color: black;
     overflow: hidden;
     position: relative;
+    cursor: pointer;
   }
 
   li p {
@@ -264,4 +355,27 @@ const StyledThemeAtrct = styled.section`
 
 const StyledCategoryName = styled.h2`
   ${applyFontStyles(theme.font.body1)}
+`;
+
+const StyledRefreshButton = styled.button`
+  ${applyFontStyles(theme.font.body3)}
+  color: ${theme.color.gray1};
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: inherit;
+  margin-right: 20px;
+  cursor: pointer;
+
+  img {
+    width: 20px;
+    height: 20px;
+    margin-left: 4px;
+  }
+`;
+
+const StyledFolktaleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;

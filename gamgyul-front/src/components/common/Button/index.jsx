@@ -26,7 +26,7 @@ const StyledButton = styled.button`
   border: 0;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   background-color: ${({ disabled, color }) =>
-    disabled ? theme.color.gray2 : color === "gray" ? theme.color.white : theme.color.primary};
+    disabled ? theme.color.gray2 : color === "gray" ? theme.color.gray4 : theme.color.primary};
   color: ${({ color }) => (color === "gray" ? theme.color.gray2 : theme.color.white)};
   box-shadow: ${({ isShadow }) => (isShadow ? "0px 2px 2px 0px #00000033" : "none")};
 `;
