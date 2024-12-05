@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { google, IcKaKao, IcNaver } from "../../assets";
 import { theme } from "./../../style/theme";
 import { applyFontStyles } from "./../../utils/fontStyles";
 
@@ -7,17 +8,17 @@ const SocialButton = ({ category, onClick }) => {
     {
       category: "Google",
       text: "구글 계정 로그인",
-      icon: "/images/Login/googleLogo.svg",
+      icon: google,
     },
     {
       category: "Naver",
       text: "네이버 계정 로그인",
-      icon: "/images/Login/naverLogo.svg",
+      icon: IcNaver,
     },
     {
       category: "Kakao",
       text: "카카오 계정 로그인",
-      icon: "/images/Login/kakaoLogo.svg",
+      icon: IcKaKao,
     },
   ];
 
@@ -26,7 +27,7 @@ const SocialButton = ({ category, onClick }) => {
   return (
     <Button type="button" category={category} onClick={onClick}>
       <IconContainer category={category}>
-        <img src={content.icon} alt={`${category} logo`} />
+        <content.icon aria-label={`${category} logo`} />
       </IconContainer>
       <BtnText>{content.text}</BtnText>
     </Button>
