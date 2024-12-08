@@ -1,12 +1,12 @@
 // 홈페이지 HomePage.jsx 작성 예시
 export const HOME_PAGE_TEXT = {
   EN: {
-    HEADER_MAIN: "Folktale trip with\nSeolmundae\nGrandmother!",
-    HEADER_SUB: "Let me introduce you to a place with fun and\nmysterious Jeju folktales.",
+    HEADER_MAIN: "Folktale journey with\nSeolmundae Grandma!",
+    HEADER_SUB: "Discover a place of fun and mysterious Jeju folktales.",
     THEME_ATRCT: "Theme-based tourist attraction", // 테마별 설화 관광지
     FOLKTALE_ROUTE: "Folktale tour route", // 설화 여행 루트
     REGION_ATRCT: "Tourist attractions by Region", // 지역별 제주 관광지
-    CATEGORY_SEOLMUNDAE: "Seolmundae Grandmother", // 설문대 할망
+    CATEGORY_SEOLMUNDAE: "Seolmundae\nGrandmother", // 설문대 할망
     CATEGORY_LOVE: "Love", // 사랑
     CATEGORY_HISTORY: "History", // 역사
     CATEGORY_MYTH: "Myth", // 신화
@@ -25,8 +25,8 @@ export const HOME_PAGE_TEXT = {
     REFRESH_BUTTON: "새로고침",
   },
   JP: {
-    HEADER_MAIN: "",
-    HEADER_SUB: "",
+    HEADER_MAIN: "ソルムデハルマンと一緒に\n伝説の旅へ！",
+    HEADER_SUB: "済州の神秘的な伝説の場所をご紹介します。",
     THEME_ATRCT: "",
     FOLKTALE_ROUTE: "",
     REGION_ATRCT: "",
@@ -37,8 +37,8 @@ export const HOME_PAGE_TEXT = {
     REFRESH_BUTTON: "",
   },
   CH: {
-    HEADER_MAIN: "",
-    HEADER_SUB: "",
+    HEADER_MAIN: "跟雪门大奶奶一起开启\n传说之旅吧！",
+    HEADER_SUB: "为您介绍一个充满趣味与神秘的济州传说之地.",
     THEME_ATRCT: "",
     FOLKTALE_ROUTE: "",
     REGION_ATRCT: "",

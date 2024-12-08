@@ -8,6 +8,8 @@ import { shuffleArray } from "../../utils/shuffleArray";
 import { HOME_PAGE_TEXT } from "../../constants/String";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
 import NavigationBar from "../../components/common/NavigationBar";
+import { IcRefresh } from "../../assets";
+import homeBanner from '../../assets/background/homeBanner.png';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -131,7 +133,7 @@ const HomePage = () => {
       <BasicLayout>
         {/* 홈페이지의 상단 이미지 + 소개 내용 */}
         <StyledHomeHeader>
-          <img src="" alt="" />
+          <img src={homeBanner} alt="" />
           <Container>
             <div>
               <p>{text.HEADER_MAIN}</p>
@@ -172,7 +174,7 @@ const HomePage = () => {
             <StyledCategoryName>{text.FOLKTALE_ROUTE}</StyledCategoryName>
             <StyledRefreshButton aria-label={text.REFRESH_BUTTON} onClick={handleRefreshClick}>
               {text.REFRESH_BUTTON}
-              <img src="/images/Icon/refresh.svg" alt="refresh icon" />
+              <IcRefresh />
             </StyledRefreshButton>
           </StyledFolktaleContainer>
           <nav>
@@ -367,9 +369,7 @@ const StyledRefreshButton = styled.button`
   margin-right: 20px;
   cursor: pointer;
 
-  img {
-    width: 20px;
-    height: 20px;
+  svg {
     margin-left: 4px;
   }
 `;
