@@ -9,16 +9,56 @@ import { HOME_PAGE_TEXT } from "../../constants/String";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
 import NavigationBar from "../../components/common/NavigationBar";
 import { IcRefresh } from "../../assets";
-import homeBanner from '../../assets/background/homeBanner.png';
+import homeBanner from "../../assets/background/homeBanner.png";
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [data, setData] = useState({});
+  const [routeData, setRouteData] = useState([]);
   const [shuffledRoutes, setShuffledRoutes] = useState([]);
 
   // const language = window.localStorage.getItem("lanType");
   const language = "KR";
   const text = HOME_PAGE_TEXT[language];
+
+  const themeCategory = [
+    { id: "halmang", name: "HALMANG", imgRoute: "", textKey: "CATEGORY_SEOLMUNDAE" },
+    { id: "love", name: "LOVE", imgRoute: "", textKey: "CATEGORY_LOVE" },
+    { id: "history", name: "HISTORY", imgRoute: "", textKey: "CATEGORY_HISTORY" },
+    { id: "myth", name: "MYTH", imgRoute: "", textKey: "CATEGORY_MYTH" },
+  ];
+
+  const regionsAtrct = [
+    {
+      key: "REGIONS_WESTERN_JEJU",
+      name: "제주시 서쪽 관광지",
+      imgRoute: "이미지URL",
+    },
+    {
+      key: "REGIONS_JEJU",
+      name: "제주시 관광지",
+      imgRoute: "이미지URL",
+    },
+    {
+      key: "REGIONS_EASTERN_JEJU",
+      name: "제주시 동쪽 관광지",
+      imgRoute: "이미지URL",
+    },
+    {
+      key: "REGIONS_WESTERN_SEOGWIPO",
+      name: "서귀포시 서쪽 관광지",
+      imgRoute: "이미지URL",
+    },
+    {
+      key: "REGIONS_SEOGWIPO",
+      name: "서귀포시 관광지",
+      imgRoute: "이미지URL",
+    },
+    {
+      key: "REGIONS_EASTERN_SEOGWIPO",
+      name: "서귀포시 동쪽 관광지",
+      imgRoute: "이미지URL",
+    },
+  ];
 
   // useEffect(() => {
   //   const token = "토큰";
@@ -41,60 +81,40 @@ const HomePage = () => {
     const fetchData = async () => {
       try {
         // const response = await fetch("API_URL");
-        setData({
-          REGION_ATRCT: [
-            {
-              name: "여행루트이름1",
-              img: "이미지URL1",
-            },
-            {
-              name: "여행루트이름2",
-              img: "이미지URL2",
-            },
-            {
-              name: "여행루트이름3",
-              img: "이미지URL3",
-            },
-            {
-              name: "여행루트이름4",
-              img: "이미지URL4",
-            },
-          ],
-          FOLKTALE_ROUTE: [
-            {
-              name: "여행루트이름1",
-              img: "이미지URL1",
-            },
-            {
-              name: "여행루트이름2",
-              img: "이미지URL2",
-            },
-            {
-              name: "여행루트이름3",
-              img: "이미지URL3",
-            },
-            {
-              name: "여행루트이름4",
-              img: "이미지URL4",
-            },
-            {
-              name: "여행루트이름5",
-              img: "이미지URL5",
-            },
-            {
-              name: "여행루트이름6",
-              img: "이미지URL6",
-            },
-            {
-              name: "여행루트이름7",
-              img: "이미지URL7",
-            },
-            {
-              name: "여행루트이름8",
-              img: "이미지URL8",
-            },
-          ],
-        });
+        setRouteData([
+          {
+            name: "여행루트이름1",
+            img: "이미지URL1",
+          },
+          {
+            name: "여행루트이름2",
+            img: "이미지URL2",
+          },
+          {
+            name: "여행루트이름3",
+            img: "이미지URL3",
+          },
+          {
+            name: "여행루트이름4",
+            img: "이미지URL4",
+          },
+          {
+            name: "여행루트이름5",
+            img: "이미지URL5",
+          },
+          {
+            name: "여행루트이름6",
+            img: "이미지URL6",
+          },
+          {
+            name: "여행루트이름7",
+            img: "이미지URL7",
+          },
+          {
+            name: "여행루트이름8",
+            img: "이미지URL8",
+          },
+        ]);
       } catch (error) {
         console.log(error);
       }
@@ -103,11 +123,11 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    if (data.FOLKTALE_ROUTE && data.FOLKTALE_ROUTE.length > 0) {
-      const shuffled = shuffleArray(data.FOLKTALE_ROUTE).slice(0, 6);
+    if (routeData && routeData.length > 0) {
+      const shuffled = shuffleArray(routeData).slice(0, 6);
       setShuffledRoutes(shuffled);
     }
-  }, [data]);
+  }, [routeData]);
 
   /** 루트 & 관광지 리스트 클릭 */
   const handleListClick = (props) => {
@@ -124,7 +144,7 @@ const HomePage = () => {
 
   /** 설화 여행 루트 새로고침 버튼 클릭 */
   const handleRefreshClick = () => {
-    const shuffled = shuffleArray(data.FOLKTALE_ROUTE).slice(0, 6);
+    const shuffled = shuffleArray(routeData).slice(0, 6);
     setShuffledRoutes(shuffled);
   };
 
@@ -147,22 +167,14 @@ const HomePage = () => {
             <StyledCategoryName>{text.THEME_ATRCT}</StyledCategoryName>
             <nav>
               <ul>
-                <li onClick={() => handleListClick([{ id: "halmang", name: "HALMANG", type: "tale" }, "ATRCT"])}>
-                  <img src="" alt="" />
-                  <p>{text.CATEGORY_SEOLMUNDAE}</p>
-                </li>
-                <li onClick={() => handleListClick([{ id: "love", name: "LOVE", type: "tale" }, "ATRCT"])}>
-                  <img src="" alt="" />
-                  <p>{text.CATEGORY_LOVE}</p>
-                </li>
-                <li onClick={() => handleListClick([{ id: "history", name: "HISTORY", type: "tale" }, "ATRCT"])}>
-                  <img src="" alt="" />
-                  <p>{text.CATEGORY_HISTORY}</p>
-                </li>
-                <li onClick={() => handleListClick([{ id: "myth", name: "MYTH", type: "tale" }, "ATRCT"])}>
-                  <img src="" alt="" />
-                  <p>{text.CATEGORY_MYTH}</p>
-                </li>
+                {themeCategory.map((category) => (
+                  <li
+                    onClick={() => handleListClick([{ id: category.id, name: category.name, type: "tale" }, "ATRCT"])}
+                  >
+                    <img src={category.imgRoute} alt="" />
+                    <p>{text[category.textKey]}</p>
+                  </li>
+                ))}
               </ul>
             </nav>
           </StyledThemeAtrct>
@@ -196,9 +208,9 @@ const HomePage = () => {
           <StyledCategoryName>{text.REGION_ATRCT}</StyledCategoryName>
           <nav>
             <ul>
-              {data.REGION_ATRCT &&
-                data.REGION_ATRCT.length > 0 &&
-                data.REGION_ATRCT.map((element, index) => {
+              {regionsAtrct &&
+                regionsAtrct.length > 0 &&
+                regionsAtrct.map((element, index) => {
                   return (
                     <RouterLiItem
                       key={`region-${index}`}
