@@ -22,6 +22,12 @@ const Modal = ({ onClose, onClick, type }) => {
   return (
     <ModalOverlayContainer>
       <ModalContents>
+        {["ATRCT_LIMIT", "ROUTE_LIMIT"].includes(type) && (
+          <ModalLimitSection>
+            <h2>{MODAL_TEXT[language][`${type}_MESSAGE`]}</h2>
+            <p>{MODAL_TEXT[language][`${type}_SUB`]}</p>
+          </ModalLimitSection>
+        )}
         {type === "DELETE" && <ModalDeleteH2>{MODAL_TEXT[language].ROUTE_DELETE_MESSAGE}</ModalDeleteH2>}
         {type === "SAVE" && (
           <ModalRoutesSection>
@@ -41,14 +47,22 @@ const Modal = ({ onClose, onClick, type }) => {
             </StyledInputInfo>
           </ModalRoutesSection>
         )}
-        <div>
-          <StyledModalBtn type="small" onClick={onClose} color="gray">
-            {COMMON_TEXT[language].CANCEL_BUTTON}
-          </StyledModalBtn>
-          <StyledModalBtn type="small" onClick={() => onClick(routeValue)} disabled={isSaveButtonDisabled}>
-            {COMMON_TEXT[language].CHECK_BUTTON}
-          </StyledModalBtn>
-        </div>
+        {["ATRCT_LIMIT", "ROUTE_LIMIT"].includes(type) ? (
+          <div>
+            <Button type="small" onClick={onClick}>
+              {COMMON_TEXT[language].CHECK_BUTTON}
+            </Button>
+          </div>
+        ) : (
+          <div>
+            <StyledModalBtn type="small" onClick={onClose} color="gray">
+              {COMMON_TEXT[language].CANCEL_BUTTON}
+            </StyledModalBtn>
+            <StyledModalBtn type="small" onClick={() => onClick(routeValue)} disabled={isSaveButtonDisabled}>
+              {COMMON_TEXT[language].CHECK_BUTTON}
+            </StyledModalBtn>
+          </div>
+        )}
       </ModalContents>
     </ModalOverlayContainer>
   );
@@ -107,6 +121,21 @@ const ModalRoutesSection = styled.section`
   p {
     ${applyFontStyles(theme.font.body3)}
     margin: 4px 0 28px 0;
+  }
+`;
+
+const ModalLimitSection = styled.section`
+  text-align: center;
+  margin: 10px 8px;
+  h2 {
+    ${applyFontStyles(theme.font.subtitle)}
+    white-space: pre-line;
+    margin-top: 39px;
+  }
+  p {
+    ${applyFontStyles(theme.font.body3)}
+    color: ${theme.color.gray1};
+    margin-top: 4px;
   }
 `;
 
