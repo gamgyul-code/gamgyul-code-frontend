@@ -323,15 +323,46 @@ export const MY_TRIP_PAGE_TEXT = {
 
 /** Modal String */
 export const MODAL_TEXT = {
-  EN: { ROUTE_NAME: "", ROUTE_NAME_MESSAGE: "", ROUTE_PLACEHOLDER: "", ROUTE_DELETE_MESSAGE: "" },
+  EN: {
+    ROUTE_NAME: "",
+    ROUTE_NAME_MESSAGE: "",
+    ROUTE_PLACEHOLDER: "",
+    ROUTE_DELETE_MESSAGE: "",
+    BOOKMARK_LIMIT_MESSAGE: "",
+    BOOKMARK_LIMIT_SUB: "",
+    ROUTE_LIMIT_MESSAGE: "",
+    ROUTE_LIMIT_SUB: "",
+  },
   KR: {
     ROUTE_NAME: "경로 이름",
     ROUTE_NAME_MESSAGE: "경로를 저장하려면 이름이 필요합니다.",
     ROUTE_PLACEHOLDER: "이름을 입력해주세요.",
     ROUTE_DELETE_MESSAGE: "경로를 정말\n삭제 하시겠어요?",
+    ATRCT_LIMIT_MESSAGE: "관광지는 최대 30개까지\n저장할 수 있습니다.",
+    ATRCT_LIMIT_SUB: "더 필요하다면 기존 장소를 정리해 보세요!",
+    ROUTE_LIMIT_MESSAGE: "경로는 최대 30개까지\n저장할 수 있습니다.",
+    ROUTE_LIMIT_SUB: "더 필요하다면 기존 경로를 정리해 보세요!",
   },
-  JP: { ROUTE_NAME: "", ROUTE_NAME_MESSAGE: "", ROUTE_PLACEHOLDER: "", ROUTE_DELETE_MESSAGE: "" },
-  CH: { ROUTE_NAME: "", ROUTE_NAME_MESSAGE: "", ROUTE_PLACEHOLDER: "", ROUTE_DELETE_MESSAGE: "" },
+  JP: {
+    ROUTE_NAME: "",
+    ROUTE_NAME_MESSAGE: "",
+    ROUTE_PLACEHOLDER: "",
+    ROUTE_DELETE_MESSAGE: "",
+    BOOKMARK_LIMIT_MESSAGE: "",
+    BOOKMARK_LIMIT_SUB: "",
+    ROUTE_LIMIT_MESSAGE: "",
+    ROUTE_LIMIT_SUB: "",
+  },
+  CH: {
+    ROUTE_NAME: "",
+    ROUTE_NAME_MESSAGE: "",
+    ROUTE_PLACEHOLDER: "",
+    ROUTE_DELETE_MESSAGE: "",
+    BOOKMARK_LIMIT_MESSAGE: "",
+    BOOKMARK_LIMIT_SUB: "",
+    ROUTE_LIMIT_MESSAGE: "",
+    ROUTE_LIMIT_SUB: "",
+  },
 };
 
 /** Common String */
