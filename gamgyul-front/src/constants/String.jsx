@@ -1,3 +1,29 @@
+// import TaleHalmangKR from "../assets/background/Attraction/";
+import WesternJejuKR from "../assets/background/Attraction/western_jeju_KR.png";
+import WesternJejuEN from "../assets/background/Attraction/western_jeju_EN.png";
+import WesternJejuCH from "../assets/background/Attraction/western_jeju_CH.png";
+import WesternJejuJP from "../assets/background/Attraction/western_jeju_JP.png";
+import JejuKR from "../assets/background/Attraction/jeju_KR.png";
+import JejuEN from "../assets/background/Attraction/jeju_EN.png";
+import JejuCH from "../assets/background/Attraction/jeju_CH.png";
+import JejuJP from "../assets/background/Attraction/jeju_JP.png";
+import EasternJejuKR from "../assets/background/Attraction/eastern_jeju_KR.png";
+import EasternJejuEN from "../assets/background/Attraction/eastern_jeju_EN.png";
+import EasternJejuCH from "../assets/background/Attraction/eastern_jeju_CH.png";
+import EasternJejuJP from "../assets/background/Attraction/eastern_jeju_JP.png";
+import WesternSeogwipoKR from "../assets/background/Attraction/western_seogwipo_KR.png";
+import WesternSeogwipoEN from "../assets/background/Attraction/western_seogwipo_EN.png";
+import WesternSeogwipoCH from "../assets/background/Attraction/western_seogwipo_CH.png";
+import WesternSeogwipoJP from "../assets/background/Attraction/western_seogwipo_JP.png";
+import SeogwipoKR from "../assets/background/Attraction/seogwipo_KR.png";
+import SeogwipoEN from "../assets/background/Attraction/seogwipo_EN.png";
+import SeogwipoCH from "../assets/background/Attraction/seogwipo_CH.png";
+import SeogwipoJP from "../assets/background/Attraction/seogwipo_JP.png";
+import EasternSeogwipoKR from "../assets/background/Attraction/eastern_seogwipo_KR.png";
+import EasternSeogwipoEN from "../assets/background/Attraction/eastern_seogwipo_EN.png";
+import EasternSeogwipoCH from "../assets/background/Attraction/eastern_seogwipo_CH.png";
+import EasternSeogwipoJP from "../assets/background/Attraction/eastern_seogwipo_JP.png";
+
 // 홈페이지 HomePage.jsx 작성 예시
 export const HOME_PAGE_TEXT = {
   EN: {
@@ -52,7 +78,7 @@ export const HOME_PAGE_TEXT = {
 
 export const ATRCT_LIST_PAGE_TEXT = {
   EN: {
-    TALE_HALNANG: {
+    TALE_HALMANG: {
       MAIN: "",
       SUB: "",
       IMG: "",
@@ -75,36 +101,36 @@ export const ATRCT_LIST_PAGE_TEXT = {
     REGIONS_WESTERN_JEJU: {
       MAIN: "Western Jeju City Attractions",
       SUB: "Travel to the West of Jeju City.",
-      IMG: "",
+      IMG: WesternJejuEN,
     },
     REGIONS_JEJU: {
       MAIN: "Jeju City Attractions",
       SUB: "Travel to Jeju City.",
-      IMG: "",
+      IMG: JejuEN,
     },
     REGIONS_EASTERN_JEJU: {
       MAIN: "Eastern Jeju City Attractions",
       SUB: "Travel to the East of Jeju City.",
-      IMG: "",
+      IMG: EasternJejuEN,
     },
     REGIONS_WESTERN_SEOGWIPO: {
       MAIN: "Western Seogwipo Attractions",
       SUB: "Travel to the West of Seogwipo City.",
-      IMG: "",
+      IMG: WesternSeogwipoEN,
     },
     REGIONS_SEOGWIPO: {
       MAIN: "Seogwipo City Attractions",
       SUB: "Travel to Seogwipo City.",
-      IMG: "",
+      IMG: SeogwipoEN,
     },
     REGIONS_EASTERN_SEOGWIPO: {
       MAIN: "Eastern Seogwipo Attractions",
       SUB: "Travel to the East of Seogwipo City.",
-      IMG: "",
+      IMG: EasternSeogwipoEN,
     },
   },
   KR: {
-    TALE_HALNANG: {
+    TALE_HALMANG: {
       MAIN: "설문대 할망과 여행하는 제주",
       SUB: "제주를 대표하는 설문대할망과 관련된 장소를 여행해보세요.",
       IMG: "",
@@ -127,36 +153,36 @@ export const ATRCT_LIST_PAGE_TEXT = {
     REGIONS_WESTERN_JEJU: {
       MAIN: "제주시 서쪽 관광지",
       SUB: "제주시 서쪽을 여행해보세요.",
-      IMG: "",
+      IMG: WesternJejuKR,
     },
     REGIONS_JEJU: {
       MAIN: "제주시 관광지",
       SUB: "제주시를 여행해보세요.",
-      IMG: "",
+      IMG: JejuKR,
     },
     REGIONS_EASTERN_JEJU: {
       MAIN: "제주시 동쪽 관광지",
       SUB: "제주시 동쪽을 여행해보세요.",
-      IMG: "",
+      IMG: EasternJejuKR,
     },
     REGIONS_WESTERN_SEOGWIPO: {
       MAIN: "서귀포시 서쪽 관광지",
       SUB: "서귀포시 서쪽을 여행해보세요.",
-      IMG: "",
+      IMG: WesternSeogwipoKR,
     },
     REGIONS_SEOGWIPO: {
       MAIN: "서귀포시 관광지",
       SUB: "서귀포시를 여행해보세요.",
-      IMG: "",
+      IMG: SeogwipoKR,
     },
     REGIONS_EASTERN_SEOGWIPO: {
       MAIN: "서귀포시 동쪽 관광지",
       SUB: "서귀포시 동쪽을 여행해보세요.",
-      IMG: "",
+      IMG: EasternSeogwipoKR,
     },
   },
   JP: {
-    TALE_HALNANG: {
+    TALE_HALMANG: {
       MAIN: "",
       SUB: "",
       IMG: "",
@@ -179,36 +205,36 @@ export const ATRCT_LIST_PAGE_TEXT = {
     REGIONS_WESTERN_JEJU: {
       MAIN: "済州西部観光地",
       SUB: "済州の西部を旅行してみてください。",
-      IMG: "",
+      IMG: WesternJejuJP,
     },
     REGIONS_JEJU: {
       MAIN: "済州市観光地",
       SUB: "済州市に旅行してください。",
-      IMG: "",
+      IMG: JejuJP,
     },
     REGIONS_EASTERN_JEJU: {
       MAIN: "済州市東部観光地",
       SUB: "済州市の東部に旅行してください。",
-      IMG: "",
+      IMG: EasternJejuJP,
     },
     REGIONS_WESTERN_SEOGWIPO: {
       MAIN: "西帰浦市西部観光地",
       SUB: "西帰浦市の西部に旅行してください。",
-      IMG: "",
+      IMG: WesternSeogwipoJP,
     },
     REGIONS_SEOGWIPO: {
       MAIN: "西帰浦市観光地",
       SUB: "西帰浦市に旅行してください。",
-      IMG: "",
+      IMG: SeogwipoJP,
     },
     REGIONS_EASTERN_SEOGWIPO: {
       MAIN: "西帰浦市東部観光地",
       SUB: "西帰浦市の東部に旅行してください。",
-      IMG: "",
+      IMG: EasternSeogwipoJP,
     },
   },
   CH: {
-    TALE_HALNANG: {
+    TALE_HALMANG: {
       MAIN: "",
       SUB: "",
       IMG: "",
@@ -231,32 +257,32 @@ export const ATRCT_LIST_PAGE_TEXT = {
     REGIONS_WESTERN_JEJU: {
       MAIN: "濟州西部旅游景点",
       SUB: "请去济州西部旅游。",
-      IMG: "",
+      IMG: WesternJejuCH,
     },
     REGIONS_JEJU: {
       MAIN: "济州市旅游景点",
       SUB: "前往济州市旅行。",
-      IMG: "",
+      IMG: JejuCH,
     },
     REGIONS_EASTERN_JEJU: {
       MAIN: "济州市东部旅游景点",
       SUB: "前往济州市东部旅行。",
-      IMG: "",
+      IMG: EasternJejuCH,
     },
     REGIONS_WESTERN_SEOGWIPO: {
       MAIN: "西归浦市西部旅游景点",
       SUB: "前往西归浦市西部旅行。",
-      IMG: "",
+      IMG: WesternSeogwipoCH,
     },
     REGIONS_SEOGWIPO: {
       MAIN: "西归浦市旅游景点",
       SUB: "前往西归浦市旅行。",
-      IMG: "",
+      IMG: SeogwipoCH,
     },
     REGIONS_EASTERN_SEOGWIPO: {
       MAIN: "西归浦市东部旅游景点",
       SUB: "前往西归浦市东部旅行。",
-      IMG: "",
+      IMG: EasternSeogwipoCH,
     },
   },
 };

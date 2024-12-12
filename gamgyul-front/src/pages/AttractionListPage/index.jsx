@@ -6,46 +6,53 @@ import { theme } from "../../style/theme";
 import AttractionItem from "../../components/common/AttractionItem";
 import BackNaviBtn from "../../components/common/BackNaviBtn";
 import { applyFontStyles } from "../../utils/fontStyles";
+import Modal from "../../components/common/Modal";
+import { ATRCT_LIST_PAGE_TEXT } from "../../constants/String";
+import { privateApi } from "../../api/axiosInstance";
 
 const AttractionListPage = () => {
   const curLocation = useLocation();
   const id = curLocation.state.id;
   const type = curLocation.state.type;
   const [data, setData] = useState([]);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   // const language = window.localStorage.getItem("lanType");
   const language = "KR";
-  // const text = ATRCT_LIST_PAGE_TEXT[language];
+  const text = ATRCT_LIST_PAGE_TEXT[language];
+  const headerData =
+    type === "tale"
+      ? `${type}_${id}`.toUpperCase()
+      : `${type}_${id
+          .split("-")
+          .filter((word) => word !== "city")
+          .join("_")}`.toUpperCase();
 
-  // API 요청
-  // useEffect(() => {
-  //   const token = "토큰"; // 토큰 + API 요청 interceptor 필요
-  //   axios
-  //     .get(`요청URL/spots/${type}/${id}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       withCredentials: true,
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       console.log(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error : ", error);
-  //     });
-  // }, [type, id]);
+  /** 모달 확인 버튼 클릭 */
+  const handleModalCheck = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    privateApi
+      .get(`/spots/${type}/${id}`)
+      .then((response) => {
+        console.log("Response", response);
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  }, []);
 
   return (
     <AttractionListLayout>
+      {isModalOpen && <Modal type="ATRCT_LIMIT" onClick={handleModalCheck} />}
       <AttractionListContainer>
         <StyledAtrctHeader>
           <BackNaviBtn />
-          <img src="" alt="" />
+          <img src={text[headerData]["IMG"]} alt="" />
           <Container>
-            {/* {type === "" ? <></> : <></>} */}
-            <h2>{id}과 여행하는 제주</h2>
-            <p>제주를 대표하는 과 관련된 장소를 여행해보세요.</p>
+            <h2>{text[headerData]["MAIN"]}</h2>
+            <p>{text[headerData]["SUB"]}</p>
           </Container>
         </StyledAtrctHeader>
         <StyledListSection>
