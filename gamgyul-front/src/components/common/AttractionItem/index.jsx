@@ -1,27 +1,25 @@
 import styled from "styled-components";
 import { theme } from "../../../style/theme";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { applyFontStyles } from "../../../utils/fontStyles";
 import { StyledIconBtn } from "../Button/StyledIconBtn.style";
+import { IcBookMarkOff, IcBookMarkOn, IcDelete } from "../../../assets";
 
-/** 관광지 아이템 컴포넌트 (분리 필요) */
-const AttractionItem = ({ onDelete, isChecked, onCheckChange, type, checkRoutes, id, language }) => {
-  const [bookmark, setBookmark] = useState("off");
-
+/** 관광지 아이템 컴포넌트 */
+const AttractionItem = ({ data, onDelete, isChecked, onCheckChange, type, checkRoutes, language }) => {
   useEffect(() => {}, []);
 
   /** 북마크 버튼 클릭 => 이후 api 요청 추가 */
-  const handleBookmarkClick = (bookmark) => {
-    if (bookmark === "off") {
-      setBookmark("on");
-    } else {
-      setBookmark("off");
-    }
-  };
+  // const handleBookmarkClick = (bookmark) => {
+  //   if (bookmark === "off") {
+  //     setBookmark("on");
+  //   } else {
+  //     setBookmark("off");
+  //   }
+  // };
   /** 체크박스 클릭 핸들러 */
   const handleCheckClick = () => {
     onCheckChange();
-    console.log("임시 체크박스 클릭 핸들러입니다.");
   };
 
   return (
@@ -31,7 +29,9 @@ const AttractionItem = ({ onDelete, isChecked, onCheckChange, type, checkRoutes,
           {type === "CHECK" && (
             <StyledCheckBtn onClick={() => handleCheckClick()}>
               <img
-                src={`/images/Icon/check_${isChecked ? (checkRoutes[0] === id ? `on_${language}` : "on") : "off"}.svg`}
+                src={`/images/Icon/check_${
+                  isChecked ? (checkRoutes[0] === data.id ? `on_${language}` : "on") : "off"
+                }.svg`}
                 alt="체크버튼"
               />
             </StyledCheckBtn>
@@ -39,23 +39,17 @@ const AttractionItem = ({ onDelete, isChecked, onCheckChange, type, checkRoutes,
           <figure>
             <img src="" alt="관광지 이미지" />
             <figcaption>
-              <h3>리스트이름</h3>
-              <p>리스트내용</p>
+              <h3>{data.name}</h3>
+              <p>{data.simpleExplanation}</p>
             </figcaption>
           </figure>
         </AtrctItemInfo>
         {type === "DELETE" ? (
           <StyledIconBtn>
-            <img src={`/images/Icon/delete.svg`} alt="삭제버튼" onClick={onDelete} />
+            <IcDelete alt="delete Icon" onClick={onDelete} />
           </StyledIconBtn>
         ) : (
-          <StyledIconBtn>
-            <img
-              src={`/images/Icon/bookmark_${bookmark}.svg`}
-              alt="북마크버튼"
-              onClick={() => handleBookmarkClick(bookmark)}
-            />
-          </StyledIconBtn>
+          <StyledIconBtn>{data.bookmarked ? <IcBookMarkOn /> : <IcBookMarkOff />}</StyledIconBtn>
         )}
       </AtrctItemContents>
     </AtrctItemContainer>

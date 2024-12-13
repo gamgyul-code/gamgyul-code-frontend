@@ -14,7 +14,7 @@ const AttractionListPage = () => {
   const curLocation = useLocation();
   const id = curLocation.state.id;
   const type = curLocation.state.type;
-  const [data, setData] = useState([]);
+  const [spotData, setSpotData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   // const language = window.localStorage.getItem("lanType");
   const language = "KR";
@@ -36,10 +36,40 @@ const AttractionListPage = () => {
     privateApi
       .get(`/spots/${type}/${id}`)
       .then((response) => {
-        console.log("Response", response);
+        console.log("Spot list Response", response.data);
+        // setSpotData(response.data);
+        setSpotData([
+          {
+            spotTranslationId: 1,
+            spotId: 1,
+            name: "성산일출봉",
+            imgUrl: "http://~~~.com/~~~.jpg",
+            simpleExplanation: "설문대할망이 태어난 장소",
+            bookmarked: true,
+            spotCategories: "HISTORY, LOVE",
+          },
+          {
+            spotTranslationId: 2,
+            spotId: 2,
+            name: "성산일출봉",
+            imgUrl: "http://~~~.com/~~~.jpg",
+            simpleExplanation: "설문대할망이 태어난 장소",
+            bookmarked: true,
+            spotCategories: "HISTORY, LOVE",
+          },
+          {
+            spotTranslationId: 3,
+            spotId: 3,
+            name: "성산일출봉",
+            imgUrl: "http://~~~.com/~~~.jpg",
+            simpleExplanation: "설문대할망이 태어난 장소",
+            bookmarked: true,
+            spotCategories: "HISTORY, LOVE",
+          },
+        ]);
       })
       .catch((error) => {
-        console.log("Error", error);
+        console.log("Spot list Error", error);
       });
   }, []);
 
@@ -58,13 +88,9 @@ const AttractionListPage = () => {
         <StyledListSection>
           <nav>
             <ul>
-              {/* {data.map((element, index) => {
-              return <AttractionItem />;
-            })} */}
-
-              <AttractionItem />
-              <AttractionItem />
-              <AttractionItem />
+              {spotData.map((data) => {
+                return <AttractionItem key={data.id} data={data} />;
+              })}
             </ul>
           </nav>
         </StyledListSection>
