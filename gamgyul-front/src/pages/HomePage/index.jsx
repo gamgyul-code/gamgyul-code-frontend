@@ -10,6 +10,8 @@ import { BasicLayout, Container } from "../../components/common/BasicLayout/layo
 import NavigationBar from "../../components/common/NavigationBar";
 import { IcRefresh } from "../../assets";
 import homeBanner from "../../assets/background/homeBanner.png";
+import { privateApi } from "../../api/axiosInstance";
+import RouterLiItem from "../../components/Home/RouterLiItem";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -20,106 +22,115 @@ const HomePage = () => {
   const language = "KR";
   const text = HOME_PAGE_TEXT[language];
 
+  /** 데이터 변환 */
+  const normalizeData = (data) => ({
+    ...data,
+    name: data.routeName || data.name,
+    img: data.imgUrl || data.imgRoute,
+  });
+
   const themeCategory = [
-    { id: "halmang", name: "HALMANG", imgRoute: "", textKey: "CATEGORY_SEOLMUNDAE" },
-    { id: "love", name: "LOVE", imgRoute: "", textKey: "CATEGORY_LOVE" },
-    { id: "history", name: "HISTORY", imgRoute: "", textKey: "CATEGORY_HISTORY" },
-    { id: "myth", name: "MYTH", imgRoute: "", textKey: "CATEGORY_MYTH" },
+    { id: "halmang", imgRoute: "", textKey: "CATEGORY_SEOLMUNDAE" },
+    { id: "love", imgRoute: "", textKey: "CATEGORY_LOVE" },
+    { id: "history", imgRoute: "", textKey: "CATEGORY_HISTORY" },
+    { id: "myth", imgRoute: "", textKey: "CATEGORY_MYTH" },
   ];
 
   const regionsAtrct = [
-    {
-      key: "REGIONS_WESTERN_JEJU",
-      name: "제주시 서쪽 관광지",
-      imgRoute: "이미지URL",
-    },
-    {
-      key: "REGIONS_JEJU",
-      name: "제주시 관광지",
-      imgRoute: "이미지URL",
-    },
-    {
-      key: "REGIONS_EASTERN_JEJU",
-      name: "제주시 동쪽 관광지",
-      imgRoute: "이미지URL",
-    },
-    {
-      key: "REGIONS_WESTERN_SEOGWIPO",
-      name: "서귀포시 서쪽 관광지",
-      imgRoute: "이미지URL",
-    },
-    {
-      key: "REGIONS_SEOGWIPO",
-      name: "서귀포시 관광지",
-      imgRoute: "이미지URL",
-    },
-    {
-      key: "REGIONS_EASTERN_SEOGWIPO",
-      name: "서귀포시 동쪽 관광지",
-      imgRoute: "이미지URL",
-    },
+    { id: "western-jeju-city", key: "REGIONS_WESTERN_JEJU", name: "제주시 서쪽", imgRoute: "이미지URL" },
+    { id: "jeju-city", key: "REGIONS_JEJU", name: "제주시", imgRoute: "이미지URL" },
+    { id: "eastern-jeju-city", key: "REGIONS_EASTERN_JEJU", name: "제주시 동쪽", imgRoute: "이미지URL" },
+    { id: "western-seogwipo-city", key: "REGIONS_WESTERN_SEOGWIPO", name: "서귀포시 서쪽", imgRoute: "이미지URL" },
+    { id: "seogwipo-city", key: "REGIONS_SEOGWIPO", name: "서귀포시", imgRoute: "이미지URL" },
+    { id: "eastern-seogwipo-city", key: "REGIONS_EASTERN_SEOGWIPO", name: "서귀포시 동쪽", imgRoute: "이미지URL" },
   ];
 
-  // useEffect(() => {
-  //   const token = "토큰";
-
-  //   axios
-  //     .get("요청 URL", {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       withCredentials: true,
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       console.log(response.data);
-  //     });
-  // }, []);
-
   useEffect(() => {
-    // API 요청 + data 세팅 (현재 임시 데이터)
-    const fetchData = async () => {
-      try {
-        // const response = await fetch("API_URL");
+    // 임시 토큰 설정 => 머지 후 삭제 예정
+    let accessToken = "token";
+    let refreshToken = "token";
+    window.localStorage.setItem("accessToken", accessToken);
+    window.localStorage.setItem("refreshToken", refreshToken);
+
+    let language = "kor";
+
+    // 임시 => 머지 후 삭제 예정
+    privateApi
+      .get(`/members/language/${language}`)
+      .then((response) => {
+        console.log("language Response", response);
+      })
+      .catch((error) => {
+        console.log("language Error", error);
+      });
+
+    switch (language) {
+      case "kor":
+        language = "KR";
+        break;
+      case "eng":
+        language = "EN";
+      case "chn":
+        language = "CH";
+      case "jpn":
+        language = "JP";
+    }
+    window.localStorage.setItem("lanType", language);
+
+    // 추천 경로 리스트 API 요청
+    privateApi
+      .get("/routes/recommend")
+      .then((response) => {
+        console.log("recommend route Response", response);
+        // setRouteData(response.data);
         setRouteData([
           {
-            name: "여행루트이름1",
-            img: "이미지URL1",
+            id: 1,
+            routeName: "여행루트이름1",
+            imgUrl: "이미지URL1",
+            bookmark: true,
           },
           {
-            name: "여행루트이름2",
-            img: "이미지URL2",
+            id: 2,
+            routeName: "여행루트이름2",
+            imgUrl: "이미지URL2",
+            bookmark: true,
           },
           {
-            name: "여행루트이름3",
-            img: "이미지URL3",
+            id: 3,
+            routeName: "여행루트이름3",
+            imgUrl: "이미지URL3",
+            bookmark: true,
           },
           {
-            name: "여행루트이름4",
-            img: "이미지URL4",
+            id: 4,
+            routeName: "여행루트이름4",
+            imgUrl: "이미지URL4",
+            bookmark: true,
           },
           {
-            name: "여행루트이름5",
-            img: "이미지URL5",
+            id: 5,
+            routeName: "여행루트이름5",
+            imgUrl: "이미지URL5",
+            bookmark: true,
           },
           {
-            name: "여행루트이름6",
-            img: "이미지URL6",
+            id: 6,
+            routeName: "여행루트이름6",
+            imgUrl: "이미지URL6",
+            bookmark: true,
           },
           {
-            name: "여행루트이름7",
-            img: "이미지URL7",
-          },
-          {
-            name: "여행루트이름8",
-            img: "이미지URL8",
+            id: 7,
+            routeName: "여행루트이름7",
+            imgUrl: "이미지URL7",
+            bookmark: true,
           },
         ]);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
+      })
+      .catch((error) => {
+        console.log("recommend route Error", error);
+      });
   }, []);
 
   useEffect(() => {
@@ -133,12 +144,13 @@ const HomePage = () => {
   const handleListClick = (props) => {
     // props -> [데이터, 타입(ROUTE, ATRCT)] (타입에 따라 넘어가는 페이지가 다름)
     const [data, type] = props;
-    console.log(data);
     if (type === "ATRCT") {
       navigate(`/spots/${data.type}/${data.id}`, { state: { type: data.type, id: data.id } });
     } else if (type === "ROUTE") {
       // routeType => SERVICE : 서비스 제공 루트 / CUSTOM : 사용자 커스텀 루트
-      navigate(`/route/${data.id}`, { state: { routeType: "SERVICE" } });
+      navigate(`/route/recommend/${data.id}`, {
+        state: { routeId: data.id, routeType: "SERVICE", bookmark: data.bookmark },
+      });
     }
   };
 
@@ -154,12 +166,10 @@ const HomePage = () => {
         {/* 홈페이지의 상단 이미지 + 소개 내용 */}
         <StyledHomeHeader>
           <img src={homeBanner} alt="" />
-          <Container>
-            <div>
-              <p>{text.HEADER_MAIN}</p>
-              <p>{text.HEADER_SUB}</p>
-            </div>
-          </Container>
+          <div>
+            <p>{text.HEADER_MAIN}</p>
+            <p>{text.HEADER_SUB}</p>
+          </div>
         </StyledHomeHeader>
         {/* 카테고리별 라우팅 (다른 페이지로 이동) */}
         <Container>
@@ -168,9 +178,7 @@ const HomePage = () => {
             <nav>
               <ul>
                 {themeCategory.map((category) => (
-                  <li
-                    onClick={() => handleListClick([{ id: category.id, name: category.name, type: "tale" }, "ATRCT"])}
-                  >
+                  <li key={category.id} onClick={() => handleListClick([{ id: category.id, type: "tale" }, "ATRCT"])}>
                     <img src={category.imgRoute} alt="" />
                     <p>{text[category.textKey]}</p>
                   </li>
@@ -191,7 +199,7 @@ const HomePage = () => {
           </StyledFolktaleContainer>
           <nav>
             <ul>
-              {shuffledRoutes.map((element, index) => {
+              {shuffledRoutes.map(normalizeData).map((element, index) => {
                 return (
                   <RouterLiItem
                     key={`folktale-${index}`}
@@ -210,12 +218,12 @@ const HomePage = () => {
             <ul>
               {regionsAtrct &&
                 regionsAtrct.length > 0 &&
-                regionsAtrct.map((element, index) => {
+                regionsAtrct.map(normalizeData).map((element, index) => {
                   return (
                     <RouterLiItem
                       key={`region-${index}`}
                       data={element}
-                      onClick={() => handleListClick([{ element, type: "regions" }, "ATRCT"])}
+                      onClick={() => handleListClick([{ id: element.id, type: "regions" }, "ATRCT"])}
                     />
                   );
                 })}
@@ -229,43 +237,6 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
-/** 각 라우터별 li 아이템 컴포넌트 (분리 필요) */
-const RouterLiItem = ({ onClick, data }) => {
-  return (
-    <StyledLiRouter onClick={onClick}>
-      <img src="" alt={data.img} />
-      <p>{data.name}</p>
-    </StyledLiRouter>
-  );
-};
-
-/** 임시 카테고리 li태그 스타일링 (추후 컴포넌트화 예정) */
-const StyledLiRouter = styled.li`
-  width: 150px;
-  height: 216px;
-  border-radius: 24px;
-  background-color: ${theme.color.sub2};
-  flex: 0 0 auto;
-  overflow: hidden;
-  cursor: pointer;
-
-  img {
-    width: 150px;
-    height: 150px;
-    display: block;
-    object-fit: cover;
-    background-color: black;
-  }
-
-  p {
-    ${applyFontStyles(theme.font.body2)}
-    color: ${theme.color.black};
-    width: calc(100% - 20px);
-    height: calc(100% - 168px);
-    padding: 9px 10px;
-  }
-`;
 
 const StyledHomeHeader = styled.header`
   width: 100%;
@@ -281,7 +252,7 @@ const StyledHomeHeader = styled.header`
   div {
     width: calc(100% - 40px);
     position: absolute;
-    top: 24px;
+    top: 78px;
     left: 50%;
     transform: translateX(-50%);
   }
