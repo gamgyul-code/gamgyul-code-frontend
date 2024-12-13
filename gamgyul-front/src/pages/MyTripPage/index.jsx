@@ -11,6 +11,7 @@ import NavigationBar from "../../components/common/NavigationBar";
 import Modal from "../../components/common/Modal";
 import Toast from "../../components/common/Toast";
 import { MY_TRIP_PAGE_TEXT } from "../../constants/String";
+import { privateApi } from "../../api/axiosInstance";
 
 const MyTripPage = () => {
   const navigate = useNavigate();
@@ -20,15 +21,135 @@ const MyTripPage = () => {
   const [isToastVisible, setIsToastVisible] = useState(false);
   const [checkRoutes, setCheckRoutes] = useState([]);
 
+  const [bookmarkedSpots, setBookmarkedSpots] = useState([]);
+  const [bookmarkedRoutes, setBookmarkedRoutes] = useState([]);
+  const [savedRoutes, setSavedRoutes] = useState([]);
+
   // const language = window.localStorage.getItem("lanType");
   const language = "KR";
   const text = MY_TRIP_PAGE_TEXT[language];
+
+  /** 데이터 변환 */
+  const normalizeData = (data) => ({
+    ...data,
+    id: data.id || data.spotId,
+    name: data.routeName || data.name,
+    bookmarked: data.bookmark || data.bookmarked,
+  });
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const tab = queryParams.get("tab");
     tab === "routes" && setActiveTab("routes");
   }, [location.search]);
+
+  // 북마크한 장소
+  useEffect(() => {
+    privateApi
+      .get("/spots/bookmarks")
+      .then((response) => {
+        console.log("Spot bookmarks Response", response.data);
+        // setBookmarkedSpots(response.data);
+        setBookmarkedSpots([
+          {
+            spotTranslationId: 1,
+            spotId: 1,
+            name: "성산일출봉",
+            imgUrl: "http://~~~.com/~~~.jpg",
+            simpleExplanation: "설문대할망이 태어난 장소",
+            bookmarked: true,
+            spotCategories: "HISTORY, LOVE",
+          },
+          {
+            spotTranslationId: 2,
+            spotId: 2,
+            name: "성산일출봉",
+            imgUrl: "http://~~~.com/~~~.jpg",
+            simpleExplanation: "설문대할망이 태어난 장소",
+            bookmarked: true,
+            spotCategories: "HISTORY, LOVE",
+          },
+          {
+            spotTranslationId: 3,
+            spotId: 3,
+            name: "성산일출봉",
+            imgUrl: "http://~~~.com/~~~.jpg",
+            simpleExplanation: "설문대할망이 태어난 장소",
+            bookmarked: true,
+            spotCategories: "HISTORY, LOVE",
+          },
+        ]);
+      })
+      .catch((error) => {
+        console.log("Spot bookmarks Error", error);
+      });
+  }, []);
+
+  // 북마크한 경로
+  useEffect(() => {
+    privateApi
+      .get("/bookmarks/recommend-routes")
+      .then((response) => {
+        console.log("recommend-routes Response", response.data);
+        // setBookmarkedRoutes(response.data);
+        setBookmarkedRoutes([
+          {
+            id: 1,
+            routeName: "나의 경로",
+            imgUrl: "http://~~~.com/~~~.jpg",
+            bookmark: true,
+          },
+          {
+            id: 2,
+            routeName: "나의 경로",
+            imgUrl: "http://~~~.com/~~~.jpg",
+            bookmark: true,
+          },
+          {
+            id: 3,
+            routeName: "나의 경로",
+            imgUrl: "http://~~~.com/~~~.jpg",
+            bookmark: true,
+          },
+        ]);
+      })
+      .catch((error) => {
+        console.log("recommend-routes Error", error);
+      });
+  }, []);
+
+  // 저장한 (내)경로
+  useEffect(() => {
+    privateApi
+      .get("/routes")
+      .then((response) => {
+        console.log("my routes Response", response.data);
+        // setSavedRoutes(response.data);
+        setSavedRoutes([
+          {
+            id: 1,
+            routeName: "나의 경로",
+            imgUrl: "http://~~~.com/~~~.jpg",
+            bookmark: true,
+          },
+          {
+            id: 2,
+            routeName: "나의 경로",
+            imgUrl: "http://~~~.com/~~~.jpg",
+            bookmark: true,
+          },
+          {
+            id: 3,
+            routeName: "나의 경로",
+            imgUrl: "http://~~~.com/~~~.jpg",
+            bookmark: true,
+          },
+        ]);
+      })
+      .catch((error) => {
+        console.log("my routes Error", error);
+      });
+  }, []);
 
   /** 루트 아이템 체크 */
   const handleCheckChange = (id) => {
@@ -59,7 +180,7 @@ const MyTripPage = () => {
     console.log("내 경로 만들기 버튼 클릭");
     console.log(checkRoutes);
     const customId = 4123; // 커스텀 고유 번호 필요
-    navigate(`/route/${customId}`, { state: { routeType: "CUSTOM", routeData: checkRoutes } });
+    navigate(`/route/${customId}`, { state: { routeId: customId, routeType: "CUSTOM", routeData: checkRoutes } });
   };
 
   /** 삭제 아이콘 클릭 */
@@ -80,74 +201,47 @@ const MyTripPage = () => {
   return (
     <MyTripLayout>
       {isModalOpen && <Modal type="DELETE" onClick={handleModalCheck} onClose={handleCloseModal} />}
+      <StyledMyTripHeader>
+        <Container>
+          <h2>{text.HEADER_MAIN}</h2>
+        </Container>
+        <nav aria-label="내 여행 (장소 / 경로)">
+          <TabButton
+            onClick={() => setActiveTab("places")}
+            isActive={activeTab === "places"}
+            fontSize={theme.font.body1}
+            btnCnt={2}
+          >
+            {text.NAV_PLACE}
+          </TabButton>
+          <TabButton
+            onClick={() => setActiveTab("routes")}
+            isActive={activeTab === "routes"}
+            fontSize={theme.font.body1}
+            btnCnt={2}
+          >
+            {text.NAV_ROUTE}
+          </TabButton>
+        </nav>
+      </StyledMyTripHeader>
       <MyTripContainer>
-        <StyledMyTripHeader>
-          <Container>
-            <h2>{text.HEADER_MAIN}</h2>
-          </Container>
-          <nav aria-label="내 여행 (장소 / 경로)">
-            <TabButton
-              onClick={() => setActiveTab("places")}
-              isActive={activeTab === "places"}
-              fontSize={theme.font.body1}
-              btnCnt={2}
-            >
-              {text.NAV_PLACE}
-            </TabButton>
-            <TabButton
-              onClick={() => setActiveTab("routes")}
-              isActive={activeTab === "routes"}
-              fontSize={theme.font.body1}
-              btnCnt={2}
-            >
-              {text.NAV_ROUTE}
-            </TabButton>
-          </nav>
-        </StyledMyTripHeader>
-
         {/* API 연결 후 넘겨주는 id 변경 */}
         {activeTab === "places" && (
           <StyledPlacesSection>
-            <AttractionItem
-              type="CHECK"
-              isChecked={checkRoutes.includes(1)}
-              onCheckChange={() => handleCheckChange(1)}
-              checkRoutes={checkRoutes}
-              id={1}
-              language={language}
-            />
-            <AttractionItem
-              type="CHECK"
-              isChecked={checkRoutes.includes(2)}
-              onCheckChange={() => handleCheckChange(2)}
-              checkRoutes={checkRoutes}
-              id={2}
-              language={language}
-            />
-            <AttractionItem
-              type="CHECK"
-              isChecked={checkRoutes.includes(3)}
-              onCheckChange={() => handleCheckChange(3)}
-              checkRoutes={checkRoutes}
-              id={3}
-              language={language}
-            />
-            <AttractionItem
-              type="CHECK"
-              isChecked={checkRoutes.includes(4)}
-              onCheckChange={() => handleCheckChange(4)}
-              checkRoutes={checkRoutes}
-              id={4}
-              language={language}
-            />
-            <AttractionItem
-              type="CHECK"
-              isChecked={checkRoutes.includes(5)}
-              onCheckChange={() => handleCheckChange(5)}
-              checkRoutes={checkRoutes}
-              id={5}
-              language={language}
-            />
+            {bookmarkedSpots.map(normalizeData).map((data) => {
+              return (
+                <AttractionItem
+                  key={data.id}
+                  data={data}
+                  type="CHECK"
+                  isChecked={checkRoutes.includes(data.id)}
+                  onCheckChange={() => handleCheckChange(data.id)}
+                  checkRoutes={checkRoutes}
+                  id={data.id}
+                  language={language}
+                />
+              );
+            })}
 
             {isToastVisible && <Toast>{text.ALERT_TOAST}</Toast>}
             {checkRoutes.length <= 1 ? (
@@ -167,19 +261,27 @@ const MyTripPage = () => {
               <Container>
                 <h3>{text.SAVED_ROUTE}</h3>
               </Container>
-              <AttractionItem />
-              <AttractionItem />
-              <AttractionItem />
+              {bookmarkedRoutes.map(normalizeData).map((data) => {
+                return <AttractionItem key={data.id} data={data} />;
+              })}
             </StyledRoutesSection>
             <StyledRoutesSection>
               <Container>
                 <h3>{text.CREATED_ROUTE}</h3>
               </Container>
-              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
-              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
-              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
-              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
-              <AttractionItem type="DELETE" onDelete={handleDeleteClick} />
+              {savedRoutes.map(normalizeData).map((data) => {
+                return (
+                  <AttractionItem
+                    key={data.id}
+                    data={data}
+                    type="DELETE"
+                    onClick={() => {
+                      console.log("클릭");
+                    }}
+                    onDelete={handleDeleteClick}
+                  />
+                );
+              })}
             </StyledRoutesSection>
           </>
         )}
@@ -190,10 +292,15 @@ const MyTripPage = () => {
   );
 };
 
-const MyTripContainer = styled.div``;
+const MyTripContainer = styled.div`
+  height: calc(100vh - 253px);
+  overflow-y: scroll;
+  padding: 0 0 32px 0;
+  box-sizing: border-box;
+`;
 
 const StyledPlacesSection = styled.section`
-  margin: 8px 0 80px 0;
+  margin: 8px 0 48px 0;
 `;
 
 const StyledRoutesSection = styled.section`
@@ -215,6 +322,8 @@ const StyledMyTripHeader = styled.header`
 const MyTripLayout = styled(BasicLayout)`
   background-color: ${theme.color.white};
   position: relative;
+  padding: 0;
+  height: 100vh;
 `;
 
 const MyTripButton = styled(Button)`
