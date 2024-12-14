@@ -1,16 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Button from "../../components/common/Button";
+import { IcCall, IcPlace, IcTime, IcUserFee, NaviButton } from "../../assets";
 import { TabButton } from "../../components/common/Button/TabButton.style";
-import TempModal from "../../components/common/TempModal";
 import { theme } from "../../style/theme";
 import { applyFontStyles } from "../../utils/fontStyles";
-import { StyledBottomWrapper } from "../ThemeFormPage";
 
 const MapDetailPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [mapDetailData, setMapDetailData] = useState(null);
   const [isSaved, setIsSaved] = useState(false);
   const [activeTab, setActiveTab] = useState("tale");
@@ -19,23 +15,13 @@ const MapDetailPage = () => {
     setIsSaved(!isSaved); // 클릭할 때마다 상태를 토글
   };
 
-  /** 모달 임시 클릭 (달성 조건 추가 필요) */
-  const handleButtonClick = () => {
-    setIsModalOpen(true);
-  };
-
-  /** 모달 닫기 */
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
   useEffect(() => {
     // api 통신
     axios
       .get("https://k0bcc2aad5ee3a.user-app.krampoline.com/api/readings/intro")
       .then((response) => {
         // 요청이 성공했을 때 실행될 코드입니다.
-        console.log(response);
+
         setMapDetailData(response.data);
         const dataId = response.data.id;
         window.localStorage.setItem("placeId", dataId);
@@ -46,9 +32,73 @@ const MapDetailPage = () => {
       });
   }, []);
 
+  // 더미 데이터
+  const dummyData = {
+    tale: "(서울=연합뉴스) 양정우 기자 = 행정안전부가 대통령실에서 회신받아 11일 공개한 '비상계엄 선포 관련 국무회의 회의록' 관련 자료를 보면 당시 국무회의가 최소한의 요건만 갖춘 채 '날림'으로 진행된 게 아니냐는 추측을 가능케 한다.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    myth: "이 장소는 역사를 간직한 장소로, 18세기에 발견되었습니다.",
+    topography: "이곳은 평야와 산맥이 어우러진 지형입니다.",
+    caution: "출입 시 안전 장비를 착용하시고, 낙석에 유의하세요.",
+  };
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case "tale":
+        return <StyledDetailText>{dummyData.tale}</StyledDetailText>;
+      case "myth":
+        return <StyledDetailText>{dummyData.myth}</StyledDetailText>;
+      case "topography":
+        return <StyledDetailText>{dummyData.topography}</StyledDetailText>;
+      case "caution":
+        return <StyledDetailText>{dummyData.caution}</StyledDetailText>;
+      default:
+        return null;
+    }
+  };
+
+  // map api
+  const handleClickNavi = () => {
+    const isAndroid = /android/i.test(navigator.userAgent);
+    const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const urlString = "myapp";
+    const routeData = [
+      { lat: 33.4995, lng: 126.5388, title: "출발지" },
+      { lat: 33.4995, lng: 126.5388, title: "목적지" },
+    ];
+
+    const actionString = routeData
+      .map((element, idx) => {
+        if (idx === 0) {
+          return `slat=${element.lat}&slng=${element.lng}&sname=${encodeURIComponent(element.title)}`;
+        } else if (idx === routeData.length - 1) {
+          return `dlat=${element.lat}&dlng=${element.lng}&dname=${encodeURIComponent(element.title)}`;
+        } else {
+          return `v${idx}lat=${element.lat}&v${idx}lng=${element.lng}&v${idx}name=${encodeURIComponent(element.title)}`;
+        }
+      })
+      .join("&");
+
+    console.log("Action String:", actionString);
+
+    if (isAndroid) {
+      console.log("Android 환경");
+      location.href = `intent://route/car?${actionString}&appname=${urlString}#Intent;scheme=nmap;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;end`;
+    } else if (isiOS) {
+      console.log("iOS 환경");
+      const clickedAt = +new Date();
+      location.href = `nmap://route/car?${actionString}&appname=${urlString}`;
+
+      setTimeout(() => {
+        if (+new Date() - clickedAt < 2000) {
+          location.href = "http://m.androidapp.naver.com/naverapp"; // 네이버 지도 iOS 앱 링크
+        }
+      }, 1500);
+    } else {
+      alert("이 디바이스에서는 네이버 지도 앱이 지원되지 않습니다.");
+    }
+  };
+
   return (
     <>
-      {isModalOpen && <TempModal onClose={handleCloseModal} />}
       <StyledFormLayout>
         <StyledPictureStamp>
           <StyledLocationPicture style={{ backgroundImage: `url(${mapDetailData?.placePictureUrl})` }} />
@@ -56,29 +106,28 @@ const MapDetailPage = () => {
         <StyledContentWrapper>
           <StyledContentTop>
             <StyledMapItem>
-              <StyledBadge>연간 방문객 보통</StyledBadge>
+              <StyledSubTitleText style={{ display: "block" }}>{mapDetailData?.name}</StyledSubTitleText>
               <Icon
                 src={isSaved ? `/images/TouristMap/book_on.svg` : `/images/TouristMap/book_off.svg`}
                 onClick={handleIconClick} // 아이콘 클릭 이벤트 추가
               />
             </StyledMapItem>
-            <StyledSubTitleText style={{ display: "block", marginBottom: "16px" }}>
-              {mapDetailData?.name}
-            </StyledSubTitleText>
             <StyledInfoItem>
-              <StyledIcon src="images/Icon/location.svg" alt="위치 아이콘" />
+              <IcPlace />
               <StyledBody2Gray>{mapDetailData?.address}</StyledBody2Gray>
             </StyledInfoItem>
             <StyledInfoItem>
-              <StyledIcon src="images/Icon/call.svg" alt="전화 아이콘" />
+              <IcCall />
               <StyledBody2Gray>{mapDetailData?.phoneNumber}</StyledBody2Gray>
             </StyledInfoItem>
             <StyledInfoItem>
-              <StyledIcon src="images/Icon/alarm.svg" alt="시간 아이콘" />
-              <StyledBody2Gray>{mapDetailData?.time}</StyledBody2Gray>
+              <IcTime />
+              <StyledBody2Gray>
+                {mapDetailData?.time}/{mapDetailData?.time}
+              </StyledBody2Gray>
             </StyledInfoItem>
             <StyledInfoItem>
-              <StyledIcon src="images/Icon/money.svg" alt="이용료 아이콘" />
+              <IcUserFee />
               <StyledBody2Gray>{mapDetailData?.fee}</StyledBody2Gray>
             </StyledInfoItem>
           </StyledContentTop>
@@ -116,31 +165,14 @@ const MapDetailPage = () => {
               주의사항
             </TabButton>
           </nav>
-          <StyledHrTag />
-          <StyledDetailWrap>
-            <StyledBody2Primary>Korean traditional stories</StyledBody2Primary>
-            <StyledDetailText>{mapDetailData?.tale}</StyledDetailText>
-          </StyledDetailWrap>
-          <StyledHrTag />
-          <StyledDetailWrap>
-            <StyledBody2Primary>history</StyledBody2Primary>
-            <StyledDetailText>{mapDetailData?.history}</StyledDetailText>
-          </StyledDetailWrap>
-          <StyledHrTag />
-          <StyledDetailWrap>
-            <StyledBody2Primary>terrain</StyledBody2Primary>
-            <StyledDetailText>{mapDetailData?.terrain}</StyledDetailText>
-          </StyledDetailWrap>
-          <StyledHrTag />
-          <StyledDetailWrap>
-            <StyledBody2Primary>caution</StyledBody2Primary>
-            <StyledDetailText>{mapDetailData?.caution}</StyledDetailText>
-          </StyledDetailWrap>
-          <StyledBtnWrapper>
-            <Link to="/map">
-              <Button>View nearby travel destinations</Button>
-            </Link>
-          </StyledBtnWrapper>
+          <InfoContainer>
+            <StyledDetailWrap>
+              <StyledDetailText> {renderTabContent()}</StyledDetailText>
+            </StyledDetailWrap>
+            <StyledBtnWrapper onClick={handleClickNavi}>
+              <NaviButton />
+            </StyledBtnWrapper>
+          </InfoContainer>
         </StyledContentWrapper>
       </StyledFormLayout>
     </>
@@ -156,6 +188,11 @@ export const StyledSubTitleText = styled.span`
 export const StyledBody2Text = styled.span`
   color: ${theme.color.black};
   ${applyFontStyles(theme.font.body4)}
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+  width: 250px;
 `;
 
 /** body2 gray 텍스트 스타일링 */
@@ -174,8 +211,11 @@ export const StyledHrTag = styled.hr`
 /** 설화 텍스트 박스 스타일링 */
 export const StyledDetailText = styled(StyledBody2Text)`
   width: 100%;
-  line-height: 36px;
+  line-height: 1.5; /* 줄 간격 */
   text-align: left;
+  white-space: normal; /* 자동 줄바꿈 허용 */
+  word-wrap: break-word; /* 긴 단어 줄바꿈 */
+  word-break: break-word; /* 단어 단위로 줄바꿈 */
 `;
 
 const StyledContentTop = styled.section`
@@ -193,10 +233,13 @@ const StyledFormLayout = styled.article`
 `;
 
 /** 스크롤 필요한 ButtonWrapper 스타일링 */
-export const StyledBtnWrapper = styled(StyledBottomWrapper)`
-  position: fixed;
-  width: 353px;
-  margin: 0 auto;
+export const StyledBtnWrapper = styled.button`
+  position: absolute; /* 부모 요소를 기준으로 위치 조정 */
+  bottom: 16px; /* 부모 요소의 아래에서 16px */
+  right: 16px; /* 부모 요소의 오른쪽에서 16px */
+  border: 0;
+  background-color: transparent;
+  z-index: 1000; /* 다른 요소 위에 나타나도록 */
 `;
 
 /** 장소 사진 이미지 스타일링 */
@@ -206,13 +249,6 @@ const StyledLocationPicture = styled.div`
   background-color: #ccc;
 
   background-repeat: no-repeat;
-`;
-
-const StyledBadge = styled.p`
-  border: 1px solid yellow;
-  padding: 4px 8px;
-  ${applyFontStyles(theme.font.caption1)};
-  border-radius: 20px;
 `;
 
 const StyledMapItem = styled.div`
@@ -226,17 +262,6 @@ const Icon = styled.img`
   height: 24px;
 `;
 
-/** 장소 스탬프 이미지 스타일링 */
-const StyledLocationStamp = styled.div`
-  width: 86px;
-  height: 86px;
-  background-color: blue;
-
-  top: 269px;
-  right: 20px;
-  border-radius: 50%;
-`;
-
 /** 장소 스탬프+이미지 wrapper */
 const StyledPictureStamp = styled.div`
   width: 100%;
@@ -246,13 +271,18 @@ const StyledPictureStamp = styled.div`
 `;
 
 /** 콘텐츠 wrapper */
+const InfoContainer = styled.div`
+  padding: 24px 20px;
+`;
+
 const StyledContentWrapper = styled.div`
-  padding-bottom: 100px;
+  padding-bottom: 50px;
 `;
 
 const StyledDetailWrap = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative; /* 자식의 absolute 위치 기준 */
 
   *:nth-child(1) {
     margin-bottom: 10px;
@@ -267,16 +297,6 @@ const StyledInfoItem = styled.div`
   *:nth-child(2) {
     margin-left: 16px;
   }
-`;
-
-const StyledBody2Primary = styled(StyledBody2Gray)`
-  color: ${theme.color.primary};
-`;
-
-/** 아이콘 스타일링 */
-const StyledIcon = styled.img`
-  width: 24px;
-  height: 24px;
 `;
 
 export default MapDetailPage;
