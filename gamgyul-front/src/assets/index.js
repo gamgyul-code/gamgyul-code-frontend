@@ -21,6 +21,7 @@ import IcMapOn from "./icon/ic_map_on.svg?react";
 import IcMyth from "./icon/ic_myth.svg?react";
 import IcMythWhite from "./icon/ic_myth_white.svg?react";
 import IcNaver from "./icon/ic_naver.svg?react";
+import NaviButton from "./icon/ic_naviButton.svg?react";
 import IcPin1Off from "./icon/ic_pin1_off.svg?react";
 import IcPin1On from "./icon/ic_pin1_on.svg?react";
 import IcPin2Off from "./icon/ic_pin2_off.svg?react";
@@ -103,5 +104,6 @@ export {
   IcTripOff,
   IcTripOn,
   IcUserFee,
+  NaviButton,
   google,
 };
