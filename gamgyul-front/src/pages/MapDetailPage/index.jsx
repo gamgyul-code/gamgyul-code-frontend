@@ -224,7 +224,7 @@ const StyledContentTop = styled.section`
 const StyledFormLayout = styled.article`
   overflow-y: scroll;
   background-color: ${theme.color.white};
-  border: 1px solid blue;
+
   height: 100vh;
   max-width: ${theme.maxWidth};
   margin: 0 auto;
