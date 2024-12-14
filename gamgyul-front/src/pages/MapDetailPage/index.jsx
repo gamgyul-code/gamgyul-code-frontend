@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { IcCall, IcPlace, IcTime, IcUserFee, NaviButton } from "../../assets";
+import { IcBookMarkOff, IcBookMarkOn, IcCall, IcPlace, IcTime, IcUserFee, NaviButton } from "../../assets";
 import { TabButton } from "../../components/common/Button/TabButton.style";
 import { theme } from "../../style/theme";
 import { applyFontStyles } from "../../utils/fontStyles";
@@ -11,8 +11,9 @@ const MapDetailPage = () => {
   const [isSaved, setIsSaved] = useState(false);
   const [activeTab, setActiveTab] = useState("tale");
 
+  // 북마크
   const handleIconClick = () => {
-    setIsSaved(!isSaved); // 클릭할 때마다 상태를 토글
+    setIsSaved(!isSaved);
   };
 
   useEffect(() => {
@@ -107,10 +108,7 @@ const MapDetailPage = () => {
           <StyledContentTop>
             <StyledMapItem>
               <StyledSubTitleText style={{ display: "block" }}>{mapDetailData?.name}</StyledSubTitleText>
-              <Icon
-                src={isSaved ? `/images/TouristMap/book_on.svg` : `/images/TouristMap/book_off.svg`}
-                onClick={handleIconClick} // 아이콘 클릭 이벤트 추가
-              />
+              <span onClick={handleIconClick}>{isSaved ? <IcBookMarkOn /> : <IcBookMarkOff />}</span>
             </StyledMapItem>
             <StyledInfoItem>
               <IcPlace />
@@ -134,7 +132,7 @@ const MapDetailPage = () => {
           <nav aria-label="내 여행 (장소 / 경로)">
             <TabButton
               onClick={() => setActiveTab("tale")}
-              isActive={activeTab === "tale"}
+              $isActive={activeTab === "tale"}
               fontSize={theme.font.body1}
               btnCnt={4}
             >
@@ -142,7 +140,7 @@ const MapDetailPage = () => {
             </TabButton>
             <TabButton
               onClick={() => setActiveTab("myth")}
-              isActive={activeTab === "myth"}
+              $isActive={activeTab === "myth"}
               fontSize={theme.font.body1}
               btnCnt={4}
             >
@@ -150,7 +148,7 @@ const MapDetailPage = () => {
             </TabButton>
             <TabButton
               onClick={() => setActiveTab("topography")}
-              isActive={activeTab === "topography"}
+              $isActive={activeTab === "topography"}
               fontSize={theme.font.body1}
               btnCnt={4}
             >
@@ -158,7 +156,7 @@ const MapDetailPage = () => {
             </TabButton>
             <TabButton
               onClick={() => setActiveTab("caution")}
-              isActive={activeTab === "caution"}
+              $isActive={activeTab === "caution"}
               fontSize={theme.font.body1}
               btnCnt={4}
             >
@@ -169,10 +167,10 @@ const MapDetailPage = () => {
             <StyledDetailWrap>
               <StyledDetailText> {renderTabContent()}</StyledDetailText>
             </StyledDetailWrap>
-            <StyledBtnWrapper onClick={handleClickNavi}>
-              <NaviButton />
-            </StyledBtnWrapper>
           </InfoContainer>
+          <StyledBtnWrapper onClick={handleClickNavi}>
+            <NaviButton />
+          </StyledBtnWrapper>
         </StyledContentWrapper>
       </StyledFormLayout>
     </>
@@ -230,16 +228,15 @@ const StyledFormLayout = styled.article`
   height: 100vh;
   max-width: ${theme.maxWidth};
   margin: 0 auto;
+  position: relative; /* 자식의 absolute 위치 기준 */
 `;
 
 /** 스크롤 필요한 ButtonWrapper 스타일링 */
 export const StyledBtnWrapper = styled.button`
-  position: absolute; /* 부모 요소를 기준으로 위치 조정 */
-  bottom: 16px; /* 부모 요소의 아래에서 16px */
-  right: 16px; /* 부모 요소의 오른쪽에서 16px */
   border: 0;
   background-color: transparent;
-  z-index: 1000; /* 다른 요소 위에 나타나도록 */
+  position: absolute;
+  right: 20px;
 `;
 
 /** 장소 사진 이미지 스타일링 */
@@ -255,19 +252,12 @@ const StyledMapItem = styled.div`
   display: flex;
   margin-bottom: 8px;
   justify-content: space-between;
-`;
-
-const Icon = styled.img`
-  width: 24px;
-  height: 24px;
+  align-items: center;
 `;
 
 /** 장소 스탬프+이미지 wrapper */
 const StyledPictureStamp = styled.div`
   width: 100%;
-  height: 375px
-  position: relative;
-
 `;
 
 /** 콘텐츠 wrapper */
@@ -282,7 +272,6 @@ const StyledContentWrapper = styled.div`
 const StyledDetailWrap = styled.div`
   display: flex;
   flex-direction: column;
-  position: relative; /* 자식의 absolute 위치 기준 */
 
   *:nth-child(1) {
     margin-bottom: 10px;
