@@ -132,7 +132,7 @@ const MapDetailPage = () => {
           <nav aria-label="내 여행 (장소 / 경로)">
             <TabButton
               onClick={() => setActiveTab("tale")}
-              $isActive={activeTab === "tale"}
+              isActive={activeTab === "tale"}
               fontSize={theme.font.body1}
               btnCnt={4}
             >
@@ -140,7 +140,7 @@ const MapDetailPage = () => {
             </TabButton>
             <TabButton
               onClick={() => setActiveTab("myth")}
-              $isActive={activeTab === "myth"}
+              isActive={activeTab === "myth"}
               fontSize={theme.font.body1}
               btnCnt={4}
             >
@@ -148,7 +148,7 @@ const MapDetailPage = () => {
             </TabButton>
             <TabButton
               onClick={() => setActiveTab("topography")}
-              $isActive={activeTab === "topography"}
+              isActive={activeTab === "topography"}
               fontSize={theme.font.body1}
               btnCnt={4}
             >
@@ -156,7 +156,7 @@ const MapDetailPage = () => {
             </TabButton>
             <TabButton
               onClick={() => setActiveTab("caution")}
-              $isActive={activeTab === "caution"}
+              isActive={activeTab === "caution"}
               fontSize={theme.font.body1}
               btnCnt={4}
             >
