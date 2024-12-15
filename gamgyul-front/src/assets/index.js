@@ -14,6 +14,8 @@ import IcHistory from "./icon/ic_history.svg?react";
 import IcHistoryWhite from "./icon/ic_history_white.svg?react";
 import IcHomeOff from "./icon/ic_home_off.svg?react";
 import IcHomeOn from "./icon/ic_home_on.svg?react";
+import IcInfoPlace from "./icon/ic_info_place.svg?react";
+import IcInfoTime from "./icon/ic_info_time.svg?react";
 import IcKaKao from "./icon/ic_kakao.svg?react";
 import IcLeftArrow from "./icon/ic_left_arrow.svg?react";
 import IcMapOff from "./icon/ic_map_off.svg?react";
@@ -53,6 +55,7 @@ import IcTripOn from "./icon/ic_trip_on.svg?react";
 import IcUserFee from "./icon/ic_user_fee.svg?react";
 
 export {
+  google,
   IcAlert,
   IcBookMarkOff,
   IcBookMarkOn,
@@ -68,6 +71,8 @@ export {
   IcHistoryWhite,
   IcHomeOff,
   IcHomeOn,
+  IcInfoPlace,
+  IcInfoTime,
   IcKaKao,
   IcLeftArrow,
   IcMapOff,
@@ -105,5 +110,4 @@ export {
   IcTripOn,
   IcUserFee,
   NaviButton,
-  google,
 };
