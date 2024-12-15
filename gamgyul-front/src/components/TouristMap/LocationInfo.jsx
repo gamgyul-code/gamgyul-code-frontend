@@ -1,58 +1,76 @@
 import { useState } from "react";
 import { styled } from "styled-components";
+import { IcBookMarkOff, IcBookMarkOn, IcInfoPlace, IcInfoTime } from "../../assets";
 import { theme } from "./../../style/theme";
 import { applyFontStyles } from "./../../utils/fontStyles";
-const LocationInfo = () => {
-  const [isSaved, setIsSaved] = useState(false);
 
+const LocationInfo = ({ handleClickPopUp }) => {
+  const [isSaved, setIsSaved] = useState(false);
+  const [locationInfoData, setLocationInfoData] = useState(null);
+
+  // 북마크
   const handleIconClick = () => {
-    setIsSaved(!isSaved); // 클릭할 때마다 상태를 토글
+    setIsSaved(!isSaved);
   };
 
   return (
-    <LocationInfoContainer>
-      <LocationImg>
-        <Img />
-      </LocationImg>
-      <Location>
-        <InfoContainer>
-          <Title>한라산 정상</Title>
-          <Info>설문대 할망 관련 장소 경기도 고양시 일산서ssssssssssss구</Info>
-          <Badge>연간 방문객 보통</Badge>
-        </InfoContainer>
-        <Icon
-          src={isSaved ? `/images/TouristMap/book_on.svg` : `/images/TouristMap/book_off.svg`}
-          onClick={handleIconClick} // 아이콘 클릭 이벤트 추가
-        />
-      </Location>
+    <LocationInfoContainer
+      onClick={() => {
+        handleClickPopUp();
+      }}
+    >
+      <LocationImg>{locationInfoData?.imgUrl}</LocationImg>
+      <LocationContainer>
+        <InfoTop>
+          <InfoContainer>
+            <Title>{locationInfoData?.name}</Title>
+            <Info>{locationInfoData?.simpleExplanation}</Info>
+          </InfoContainer>
+          <span onClick={handleIconClick}>{isSaved ? <IcBookMarkOn /> : <IcBookMarkOff />}</span>
+        </InfoTop>
+        <InfoBottom>
+          <InfoText>
+            <IcInfoPlace />
+            {locationInfoData?.address}
+          </InfoText>
+          <InfoText>
+            <IcInfoTime />
+            {locationInfoData?.openingHours}
+          </InfoText>
+        </InfoBottom>
+      </LocationContainer>
     </LocationInfoContainer>
   );
 };
 
 const LocationInfoContainer = styled.article`
   width: 335px;
-  height: 139px;
+  height: 130px;
   display: flex;
   border-radius: 20px;
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.1);
 `;
 
+const LocationContainer = styled.div`
+  padding: 16px 0 0 14px;
+`;
+
 const LocationImg = styled.div`
   width: 106px;
-  height: 139px;
+  height: 130px;
   background-color: aqua;
   border-radius: 20px 0 0 20px;
 `;
 
-const Img = styled.img``;
-
-const Location = styled.div`
+const InfoTop = styled.div`
   display: flex;
-  padding: 16px;
 `;
+
+const InfoBottom = styled.div``;
 
 const InfoContainer = styled.div`
   width: 165px;
+  margin-right: 10px;
 `;
 
 const Title = styled.p`
@@ -61,7 +79,7 @@ const Title = styled.p`
 `;
 
 const Info = styled.p`
-  ${applyFontStyles(theme.font.body3)};
+  ${applyFontStyles(theme.font.caption1)};
   width: 165px;
   margin-bottom: 11px;
   overflow: hidden;
@@ -69,16 +87,14 @@ const Info = styled.p`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-`;
-const Badge = styled.p`
-  border: 1px solid yellow;
-  padding: 4px 8px;
-  ${applyFontStyles(theme.font.caption1)};
-  border-radius: 20px;
-`;
-const Icon = styled.img`
-  width: 24px;
-  height: 24px;
+  color: ${theme.color.primary};
 `;
 
+const InfoText = styled.p`
+  ${applyFontStyles(theme.font.body3)};
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  margin-bottom: 1px;
+`;
 export default LocationInfo;

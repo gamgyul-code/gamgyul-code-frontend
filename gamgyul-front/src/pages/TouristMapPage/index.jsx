@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { BasicLayout } from "../../components/common/BasicLayout/layout.style";
 import SaveLocationBtn from "../../components/TouristMap/SaveLocationBtn";
@@ -8,6 +9,13 @@ import LocationInfo from "./../../components/TouristMap/LocationInfo";
 import { theme } from "./../../style/theme";
 
 const TouristMapPage = () => {
+  const navigate = useNavigate();
+
+  const handleClickPopUp = () => {
+    // 추후 라우터 수정
+    navigate("/login");
+  };
+
   return (
     <TouristMapPageContainer>
       <Nav>
@@ -15,7 +23,7 @@ const TouristMapPage = () => {
       </Nav>
       <TouristModal />
       <SaveLocationBtn />
-      <LocationInfo />
+      <LocationInfo handleClickPopUp={handleClickPopUp} />
       <NavigationBar />
     </TouristMapPageContainer>
   );
