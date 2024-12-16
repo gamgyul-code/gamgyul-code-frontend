@@ -4,6 +4,8 @@ export const theme = {
     primary: "#1EB17B",
     sub1: "#B6E4CB",
     sub2: "#DFEFC6",
+    sub3: "#EBF3DE",
+    sub4: "#DCF3B8",
     stroke: "#1A9B6C",
     background: "#F6FAED",
     black: "#2C2C2E",
