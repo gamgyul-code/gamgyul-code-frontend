@@ -1,0 +1,145 @@
+import styled from "styled-components";
+import { IcLeftArrow } from "../../assets";
+import { Container } from "../common/BasicLayout/layout.style";
+import { applyFontStyles } from "../../utils/fontStyles";
+import { theme } from "../../style/theme";
+import TripRouteItem from "./TripRouteItem";
+import { StyledIconBtn } from "../common/Button/StyledIconBtn.style";
+import Button from "../common/Button";
+import { useState } from "react";
+
+const RouteEditSection = ({ setIsEditing, routeData }) => {
+  const [activeRoute, setActiveRoute] = useState(null);
+  const handleBackClick = () => {
+    setIsEditing(false);
+  };
+
+  /** 루트 아이템 체크 */
+  const handleCheckChange = (id) => {
+    // 이미 체크된 항목을 클릭했을 때 체크 해제
+    if (activeRoute === id) {
+      setActiveRoute(null);
+      return;
+    }
+
+    setActiveRoute(id);
+  };
+  const handlePlaceClick = (index) => {
+    // 상세 페이지로 이동
+    setActiveRoute(index);
+  };
+  console.log("EditSection의 routeData는?", routeData);
+  return (
+    <RouteEditContainer>
+      <RouteEditHeader>
+        <Container>
+          <StyledBackBtn onClick={handleBackClick}>
+            <IcLeftArrow />
+          </StyledBackBtn>
+        </Container>
+      </RouteEditHeader>
+      <RouteEditMain>
+        <Container>
+          <h2>
+            내가 만든 경로를
+            <br />
+            수정합니다.
+          </h2>
+        </Container>
+        <ol>
+          {/* 장소 묶음 */}
+          {/* <TripRouteItem /> */}
+          {routeData.map((route, index) => (
+            <TripRouteItem
+              data={route}
+              // isActive={}
+              // onClick={() => handlePlaceClick(route.id)}
+              isChecked={index === activeRoute}
+              onCheckChange={() => handleCheckChange(index)}
+              isActive={index === activeRoute}
+              isEditing={true}
+            />
+          ))}
+        </ol>
+        <RouteEditFooter>
+          <Container>
+            <StyledLocationBtns>
+              {/* 올리기 내리기 버튼 묶음 */}
+              <Button>올리기</Button>
+              <Button>내리기</Button>
+            </StyledLocationBtns>
+            <Button>삭제</Button>
+            <Button>완료</Button>
+          </Container>
+        </RouteEditFooter>
+      </RouteEditMain>
+    </RouteEditContainer>
+  );
+};
+export default RouteEditSection;
+
+const RouteEditContainer = styled.section`
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: ${theme.color.background};
+`;
+
+const RouteEditHeader = styled.header`
+  width: 100%;
+  height: 96px;
+  position: relative;
+`;
+
+const RouteEditFooter = styled.footer`
+  width: ${theme.maxWidth};
+  height: 232px;
+  position: fixed;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(246, 250, 237, 0) 0.95%, #f6faed 11.14%);
+
+  & > div > button {
+    margin-top: 8px;
+  }
+`;
+
+const RouteEditMain = styled.main`
+  width: 100%;
+  height: calc(100vh - 96px);
+  padding: 24px 0 0 0;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  h2 {
+    ${applyFontStyles(theme.font.subtitle)}
+    white-space: pre-line;
+    margin-bottom: 24px;
+  }
+`;
+
+const StyledBackBtn = styled(StyledIconBtn)`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  bottom: 12px;
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+`;
+
+const StyledLocationBtns = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+
+  button {
+    width: 100%;
+  }
+  button:first-child {
+    margin-right: 8px;
+  }
+`;

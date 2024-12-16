@@ -14,10 +14,11 @@ const TripRouteItem = ({
   onClick,
   isChecked,
   onCheckChange,
-  onDragStart,
-  onDragEnter,
-  onDrop,
   distance,
+  // key,
+  // onDragStart,
+  // onDragEnter,
+  // onDrop,
 }) => {
   return (
     <RouteItemContainer $isActive={isActive} onClick={onClick}>
@@ -37,19 +38,22 @@ const TripRouteItem = ({
 
         <RouteItemDetails>
           <h3>{data.title}</h3>
-          <p>{data.subtitle}</p>
+          {data.subtitle && <p>{data.subtitle}</p>}
         </RouteItemDetails>
-        {isEditing && (
+
+        {/* DnD */}
+        {/* {isEditing && (
           <StyledDragBtn
+            data-index={key}
             draggable={isEditing}
             onDragStart={(e) => onDragStart(e)}
             onDragEnter={(e) => onDragEnter(e)}
             onDragOver={(e) => e.preventDefault()}
-            onDrop={(e) => onDrop(e)}
+            onDrop={onDrop}
           >
             <img src={"/images/Icon/drag_handle.svg"} alt="drag handle" />
           </StyledDragBtn>
-        )}
+        )} */}
       </RouteItemContents>
     </RouteItemContainer>
   );
