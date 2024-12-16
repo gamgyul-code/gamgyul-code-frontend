@@ -30,6 +30,7 @@ function App() {
           <Route path="/spots/:type/:id" element={<AttractionListPage />} />
           <Route path="/trip" element={<MyTripPage />} />
           <Route path="/route/:id" element={<TripRoutePage />} />
+          <Route path="/route/recommend/:id" element={<TripRoutePage />} />
           <Route path="/route-complete" element={<MyRouteCompletePage />} />
 
           {/* 추가 페이지 (임시) */}
