@@ -17,7 +17,6 @@ const TouristMapPage = () => {
   const { naver } = window;
 
   useEffect(() => {
-    // 네이버 지도 옵션 선택
     const mapOptions = {
       // 지도의 초기 중심 좌표
       center: new naver.maps.LatLng(37.5666103, 126.9783882),
@@ -27,7 +26,12 @@ const TouristMapPage = () => {
       tileDuration: 200, // 지도 타일을 전환할 때 페이드 인 효과의 지속 시간(밀리초)
       zoom: 14, // 지도의 초기 줌 레벨
     };
+
     mapRef.current = new naver.maps.Map("map", mapOptions);
+    new naver.maps.Marker({
+      position: new naver.maps.LatLng(37.5666103, 126.9783882),
+      map: mapRef.current,
+    });
   }, []);
 
   return (
