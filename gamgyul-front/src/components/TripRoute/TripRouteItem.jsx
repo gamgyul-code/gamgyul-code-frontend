@@ -21,7 +21,7 @@ const TripRouteItem = ({
   // onDrop,
 }) => {
   return (
-    <RouteItemContainer $isActive={isActive} onClick={onClick}>
+    <RouteItemContainer $isActive={isActive}>
       <RouteItemContents $isEditing={isEditing}>
         {isEditing ? (
           <StyledIconBtn onClick={() => onCheckChange()}>
@@ -36,7 +36,7 @@ const TripRouteItem = ({
           </RouteNumberLine>
         )}
 
-        <RouteItemDetails>
+        <RouteItemDetails onClick={onClick}>
           <h3>{data.title}</h3>
           {data.subtitle && <p>{data.subtitle}</p>}
         </RouteItemDetails>

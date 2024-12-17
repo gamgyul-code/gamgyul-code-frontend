@@ -298,8 +298,8 @@ const TripRoutePage = () => {
                         data={data}
                         isActive={index === activeRoute}
                         onClick={() => handleRouteClick(index)}
-                        isChecked={checkRoutes.includes(index)}
                         distance={index < distances.length ? distances[index] : null}
+                        // isChecked={checkRoutes.includes(index)}
                         // onCheckChange={() => handleCheckChange(index)}
                         // onDragStart={(e) => handleDragStart(e, index)}
                         // onDragEnter={(e) => handleDragEnter(e, index)}
