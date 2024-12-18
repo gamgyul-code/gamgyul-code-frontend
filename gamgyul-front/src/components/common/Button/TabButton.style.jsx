@@ -9,5 +9,6 @@ export const TabButton = styled.button`
   height: 48px;
   border: none;
   border-bottom: 3px solid ${({ isActive }) => (isActive ? theme.color.primary : theme.color.gray3)};
-  color: ${({ isActive }) => !isActive && theme.color.gray2};
+  color: ${({ isActive }) => (!isActive ? theme.color.gray2 : theme.color.black)};
+  cursor: pointer;
 `;
