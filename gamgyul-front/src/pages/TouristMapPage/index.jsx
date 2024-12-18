@@ -27,10 +27,22 @@ const TouristMapPage = () => {
       zoom: 14, // 지도의 초기 줌 레벨
     };
 
-    mapRef.current = new naver.maps.Map("map", mapOptions);
-    new naver.maps.Marker({
-      position: new naver.maps.LatLng(37.5666103, 126.9783882),
-      map: mapRef.current,
+    const markersData = [
+      { lat: 37.5666103, lng: 126.9783882, title: "Marker 1" },
+      { lat: 37.567, lng: 126.978, title: "Marker 2" },
+      { lat: 37.565, lng: 126.976, title: "Marker 3" },
+    ];
+
+    const mapInstance = new naver.maps.Map("map", mapOptions);
+    mapRef.current = mapInstance;
+
+    // 여러 마커 생성
+    markersData.forEach(({ lat, lng, title }) => {
+      new naver.maps.Marker({
+        position: new naver.maps.LatLng(lat, lng),
+        map: mapInstance,
+        title: title,
+      });
     });
   }, []);
 
