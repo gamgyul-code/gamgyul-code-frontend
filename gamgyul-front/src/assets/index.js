@@ -20,6 +20,7 @@ import IcKaKao from "./icon/ic_kakao.svg?react";
 import IcLeftArrow from "./icon/ic_left_arrow.svg?react";
 import IcMapOff from "./icon/ic_map_off.svg?react";
 import IcMapOn from "./icon/ic_map_on.svg?react";
+import IcMyLocation from "./icon/ic_myLocation.svg?react";
 import IcMyth from "./icon/ic_myth.svg?react";
 import IcMythWhite from "./icon/ic_myth_white.svg?react";
 import IcNaver from "./icon/ic_naver.svg?react";
@@ -77,6 +78,7 @@ export {
   IcLeftArrow,
   IcMapOff,
   IcMapOn,
+  IcMyLocation,
   IcMyth,
   IcMythWhite,
   IcNaver,
