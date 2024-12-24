@@ -3,28 +3,28 @@ import { styled } from "styled-components";
 import { theme } from "./../../style/theme";
 import { applyFontStyles } from "./../../utils/fontStyles";
 
-const ThemeNavFilter = () => {
+const ThemeNavFilter = ({ onFilterSelect }) => {
   const filters = [
     {
-      id: 1,
+      id: "halmang",
       label: "설문대할망",
       icon: "/images/TouristMap/ic_grandma.svg",
       activeIcon: "/images/TouristMap/ic_grandma_on.svg",
     },
     {
-      id: 2,
+      id: "love",
       label: "사랑",
       icon: "/images/TouristMap/ic_heart.svg",
       activeIcon: "/images/TouristMap/ic_heart_on.svg",
     },
     {
-      id: 3,
+      id: "history",
       label: "역사",
       icon: "/images/TouristMap/ic_myth.svg",
       activeIcon: "/images/TouristMap/ic_myth_on.svg",
     },
     {
-      id: 4,
+      id: "myth",
       label: "신화",
       icon: "/images/TouristMap/ic_history.svg",
       activeIcon: "/images/TouristMap/ic_history_on.svg",
@@ -35,6 +35,7 @@ const ThemeNavFilter = () => {
 
   const handleFilterClick = (id) => {
     setActiveFilter(id);
+    onFilterSelect(id); // 선택한 필터 ID를 상위로 전달
   };
 
   return (
