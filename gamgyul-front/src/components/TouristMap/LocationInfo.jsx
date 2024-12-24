@@ -14,11 +14,7 @@ const LocationInfo = ({ handleClickPopUp }) => {
   };
 
   return (
-    <LocationInfoContainer
-      onClick={() => {
-        handleClickPopUp();
-      }}
-    >
+    <LocationInfoContainer>
       <LocationImg>{locationInfoData?.imgUrl}</LocationImg>
       <LocationContainer>
         <InfoTop>
