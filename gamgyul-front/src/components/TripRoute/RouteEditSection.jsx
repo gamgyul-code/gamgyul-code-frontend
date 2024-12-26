@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IcLeftArrow } from "../../assets";
+import { IcDownArrow, IcLeftArrow, IcUpArrow } from "../../assets";
 import { Container } from "../common/BasicLayout/layout.style";
 import { applyFontStyles } from "../../utils/fontStyles";
 import { theme } from "../../style/theme";
@@ -7,30 +7,91 @@ import TripRouteItem from "./TripRouteItem";
 import { StyledIconBtn } from "../common/Button/StyledIconBtn.style";
 import Button from "../common/Button";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Modal from "../common/Modal";
 
-const RouteEditSection = ({ setIsEditing, routeData }) => {
-  const [activeRoute, setActiveRoute] = useState(null);
+const RouteEditSection = ({ setIsEditing, routeData, setRouteData }) => {
+  const navigate = useNavigate();
+  const [activeRoute, setActiveRoute] = useState(0);
+  const [copyRouteData, setCopyRouteData] = useState([...routeData]);
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
+
+  /** 뒤로가기 (Editing False 변경) */
   const handleBackClick = () => {
     setIsEditing(false);
   };
 
   /** 루트 아이템 체크 */
-  const handleCheckChange = (id) => {
+  const handleCheckChange = (index) => {
     // 이미 체크된 항목을 클릭했을 때 체크 해제
-    if (activeRoute === id) {
-      setActiveRoute(null);
-      return;
-    }
-
-    setActiveRoute(id);
-  };
-  const handlePlaceClick = (index) => {
-    // 상세 페이지로 이동
+    // if (activeRoute === index) {
+    //   setActiveRoute(null);
+    //   return;
+    // }
     setActiveRoute(index);
   };
-  console.log("EditSection의 routeData는?", routeData);
+
+  /** 관광지 상세 페이지 이동 */
+  const handlePlaceClick = (id) => {
+    navigate(`/spots/${id}`);
+  };
+
+  /** 올리기 버튼 클릭 */
+  const handleMoveUp = () => {
+    if (activeRoute > 0) {
+      const updateRoutes = [...copyRouteData];
+      [updateRoutes[activeRoute - 1], updateRoutes[activeRoute]] = [
+        updateRoutes[activeRoute],
+        updateRoutes[activeRoute - 1],
+      ];
+      setCopyRouteData(updateRoutes);
+      setActiveRoute(activeRoute - 1);
+    }
+  };
+
+  /** 내리기 버튼 클릭 */
+  const handleMoveDown = () => {
+    if (activeRoute < copyRouteData.length - 1) {
+      const updateRoutes = [...copyRouteData];
+      [updateRoutes[activeRoute], updateRoutes[activeRoute + 1]] = [
+        updateRoutes[activeRoute + 1],
+        updateRoutes[activeRoute],
+      ];
+      setCopyRouteData(updateRoutes);
+      setActiveRoute(activeRoute + 1);
+    }
+  };
+
+  /** 삭제하기 클릭 */
+  const handleDeleteClick = () => {
+    setIsDeleteModal(true);
+  };
+
+  /** 모달 확인 클릭 (삭제 확인) */
+  const handleConfirmDelete = () => {
+    if (copyRouteData.length > 0) {
+      const updateRoutes = copyRouteData.filter((_, index) => index !== activeRoute);
+      setCopyRouteData(updateRoutes);
+      setActiveRoute((prev) => (prev > 0 ? prev - 1 : 0));
+    }
+
+    setIsDeleteModal(false);
+  };
+
+  /** 모달 닫기 */
+  const handleCloseDeleteModal = () => {
+    setIsDeleteModal(false);
+  };
+
+  /** 완료 클릭 */
+  const handleCompleteClick = () => {
+    setRouteData(copyRouteData);
+    setIsEditing(false);
+  };
+
   return (
     <RouteEditContainer>
+      {isDeleteModal && <Modal type="DELETE" onClick={handleConfirmDelete} onClose={handleCloseDeleteModal} />}
       <RouteEditHeader>
         <Container>
           <StyledBackBtn onClick={handleBackClick}>
@@ -49,11 +110,11 @@ const RouteEditSection = ({ setIsEditing, routeData }) => {
         <ol>
           {/* 장소 묶음 */}
           {/* <TripRouteItem /> */}
-          {routeData.map((route, index) => (
+          {copyRouteData.map((route, index) => (
             <TripRouteItem
+              key={index}
               data={route}
-              // isActive={}
-              // onClick={() => handlePlaceClick(route.id)}
+              onClick={() => handlePlaceClick(route.spotId)}
               isChecked={index === activeRoute}
               onCheckChange={() => handleCheckChange(index)}
               isActive={index === activeRoute}
@@ -65,11 +126,17 @@ const RouteEditSection = ({ setIsEditing, routeData }) => {
           <Container>
             <StyledLocationBtns>
               {/* 올리기 내리기 버튼 묶음 */}
-              <Button>올리기</Button>
-              <Button>내리기</Button>
+              <Button disabled={activeRoute === 0} onClick={handleMoveUp} isIcon={true}>
+                올리기
+                <IcUpArrow />
+              </Button>
+              <Button disabled={activeRoute === copyRouteData.length - 1} onClick={handleMoveDown} isIcon={true}>
+                내리기
+                <IcDownArrow />
+              </Button>
             </StyledLocationBtns>
-            <Button>삭제</Button>
-            <Button>완료</Button>
+            <Button onClick={handleDeleteClick}>삭제하기</Button>
+            <Button onClick={handleCompleteClick}>완료</Button>
           </Container>
         </RouteEditFooter>
       </RouteEditMain>

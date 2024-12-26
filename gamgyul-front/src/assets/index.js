@@ -50,6 +50,9 @@ import IcTime from "./icon/ic_time.svg?react";
 import IcTripOff from "./icon/ic_trip_off.svg?react";
 import IcTripOn from "./icon/ic_trip_on.svg?react";
 import IcUserFee from "./icon/ic_user_fee.svg?react";
+import IcRadioButton from "./icon/ic_radio_button.svg?react";
+import IcDownArrow from "./icon/ic_down_arrow.svg?react";
+import IcUpArrow from "./icon/ic_up_arrow.svg?react";
 
 export {
   IcAlert,
@@ -104,4 +107,7 @@ export {
   IcTripOn,
   IcUserFee,
   google,
+  IcRadioButton,
+  IcDownArrow,
+  IcUpArrow,
 };
