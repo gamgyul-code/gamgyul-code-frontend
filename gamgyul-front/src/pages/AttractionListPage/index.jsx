@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { BasicLayout, Container } from "../../components/common/BasicLayout/layout.style";
 import styled from "styled-components";
 import { theme } from "../../style/theme";
@@ -11,6 +11,7 @@ import { ATRCT_LIST_PAGE_TEXT } from "../../constants/String";
 import { privateApi } from "../../api/axiosInstance";
 
 const AttractionListPage = () => {
+  const navigate = useNavigate();
   const curLocation = useLocation();
   const id = curLocation.state.id;
   const type = curLocation.state.type;
@@ -37,41 +38,16 @@ const AttractionListPage = () => {
       .get(`/spots/${type}/${id}`)
       .then((response) => {
         console.log("Spot list Response", response.data);
-        // setSpotData(response.data);
-        setSpotData([
-          {
-            spotTranslationId: 1,
-            spotId: 1,
-            name: "성산일출봉",
-            imgUrl: "http://~~~.com/~~~.jpg",
-            simpleExplanation: "설문대할망이 태어난 장소",
-            bookmarked: true,
-            spotCategories: "HISTORY, LOVE",
-          },
-          {
-            spotTranslationId: 2,
-            spotId: 2,
-            name: "성산일출봉",
-            imgUrl: "http://~~~.com/~~~.jpg",
-            simpleExplanation: "설문대할망이 태어난 장소",
-            bookmarked: true,
-            spotCategories: "HISTORY, LOVE",
-          },
-          {
-            spotTranslationId: 3,
-            spotId: 3,
-            name: "성산일출봉",
-            imgUrl: "http://~~~.com/~~~.jpg",
-            simpleExplanation: "설문대할망이 태어난 장소",
-            bookmarked: true,
-            spotCategories: "HISTORY, LOVE",
-          },
-        ]);
+        setSpotData(response.data);
       })
       .catch((error) => {
         console.log("Spot list Error", error);
       });
   }, []);
+
+  const handleItemClick = (id) => {
+    navigate(`/spots/${id}`);
+  };
 
   return (
     <AttractionListLayout>
@@ -89,7 +65,14 @@ const AttractionListPage = () => {
           <nav>
             <ul>
               {spotData.map((data) => {
-                return <AttractionItem key={data.id} data={data} />;
+                return (
+                  <AttractionItem
+                    key={`attraction-${data.spotId}`}
+                    data={data}
+                    category={id}
+                    onClick={() => handleItemClick(data.spotId)}
+                  />
+                );
               })}
             </ul>
           </nav>

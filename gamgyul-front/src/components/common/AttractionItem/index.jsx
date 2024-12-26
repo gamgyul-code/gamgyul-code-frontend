@@ -1,46 +1,67 @@
 import styled from "styled-components";
 import { theme } from "../../../style/theme";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { applyFontStyles } from "../../../utils/fontStyles";
 import { StyledIconBtn } from "../Button/StyledIconBtn.style";
 import { IcBookMarkOff, IcBookMarkOn, IcDelete } from "../../../assets";
+import { privateApi } from "../../../api/axiosInstance";
 
 /** 관광지 아이템 컴포넌트 */
-const AttractionItem = ({ data, onDelete, isChecked, onCheckChange, type, checkRoutes, language }) => {
-  useEffect(() => {}, []);
+const AttractionItem = ({
+  data,
+  onDelete,
+  isChecked,
+  onCheckChange,
+  type,
+  checkRoutes,
+  language,
+  onClick,
+  category,
+}) => {
+  const [bookmarked, setBookmarked] = useState(data.bookmarked);
 
-  /** 북마크 버튼 클릭 => 이후 api 요청 추가 */
-  // const handleBookmarkClick = (bookmark) => {
-  //   if (bookmark === "off") {
-  //     setBookmark("on");
-  //   } else {
-  //     setBookmark("off");
-  //   }
-  // };
+  /** 북마크 버튼 클릭 */
+  const handleBookmarkClick = (e) => {
+    e.stopPropagation();
+    const apiRequest = bookmarked
+      ? privateApi.delete(`/bookmarks/spots/${data.spotId}`)
+      : privateApi.post(`/bookmarks/spots/${data.spotId}/${category}`);
+
+    apiRequest
+      .then((response) => {
+        setBookmarked(!bookmarked);
+        console.log("AttractionBookmark", response);
+      })
+      .catch((error) => {
+        console.log("AttractionBookmark Error", error);
+      });
+  };
+
   /** 체크박스 클릭 핸들러 */
-  const handleCheckClick = () => {
+  const handleCheckClick = (e) => {
+    e.stopPropagation();
     onCheckChange();
   };
 
   return (
-    <AtrctItemContainer>
+    <AtrctItemContainer onClick={onClick}>
       <AtrctItemContents>
         <AtrctItemInfo>
           {type === "CHECK" && (
-            <StyledCheckBtn onClick={() => handleCheckClick()}>
+            <StyledCheckBtn onClick={handleCheckClick}>
               <img
                 src={`/images/Icon/check_${
                   isChecked ? (checkRoutes[0] === data.id ? `on_${language}` : "on") : "off"
                 }.svg`}
-                alt="체크버튼"
+                alt="check button"
               />
             </StyledCheckBtn>
           )}
           <figure>
-            <img src="" alt="관광지 이미지" />
+            <img src={data.imgUrl} alt={`${data.name} img`} />
             <figcaption>
               <h3>{data.name}</h3>
-              <p>{data.simpleExplanation}</p>
+              {data.simpleExplanation && <p>{data.simpleExplanation}</p>}
             </figcaption>
           </figure>
         </AtrctItemInfo>
@@ -49,7 +70,9 @@ const AttractionItem = ({ data, onDelete, isChecked, onCheckChange, type, checkR
             <IcDelete alt="delete Icon" onClick={onDelete} />
           </StyledIconBtn>
         ) : (
-          <StyledIconBtn>{data.bookmarked ? <IcBookMarkOn /> : <IcBookMarkOff />}</StyledIconBtn>
+          <StyledIconBtn onClick={handleBookmarkClick}>
+            {bookmarked ? <IcBookMarkOn /> : <IcBookMarkOff />}
+          </StyledIconBtn>
         )}
       </AtrctItemContents>
     </AtrctItemContainer>
@@ -94,7 +117,7 @@ const AtrctItemContents = styled.li`
 /** 관광지 아이템 컴포넌트 스타일링 */
 const AtrctItemContainer = styled.div`
   padding: 0 20px;
-
+  cursor: pointer;
   &:hover {
     background: #1eb17b0d;
   }
