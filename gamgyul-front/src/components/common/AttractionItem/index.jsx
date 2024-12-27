@@ -17,6 +17,7 @@ const AttractionItem = ({
   language,
   onClick,
   category,
+  onBookmarkChange,
 }) => {
   const [bookmarked, setBookmarked] = useState(data.bookmarked);
 
@@ -31,6 +32,10 @@ const AttractionItem = ({
       .then((response) => {
         setBookmarked(!bookmarked);
         console.log("AttractionBookmark", response);
+
+        if (onBookmarkChange) {
+          onBookmarkChange();
+        }
       })
       .catch((error) => {
         console.log("AttractionBookmark Error", error);

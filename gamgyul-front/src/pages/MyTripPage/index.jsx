@@ -25,7 +25,7 @@ const MyTripPage = () => {
   const [bookmarkedRoutes, setBookmarkedRoutes] = useState([]);
   const [savedRoutes, setSavedRoutes] = useState([]);
 
-  // const language = window.localStorage.getItem("lanType");
+  // const language = window.localStorage.getItem("language");
   const language = "KR";
   const text = MY_TRIP_PAGE_TEXT[language];
 
@@ -43,47 +43,26 @@ const MyTripPage = () => {
     tab === "routes" && setActiveTab("routes");
   }, [location.search]);
 
-  // 북마크한 장소
-  useEffect(() => {
+  /** 북마크한 장소 */
+  const fetchBookmarkSpots = () => {
     privateApi
       .get("/spots/bookmarks")
       .then((response) => {
         console.log("Spot bookmarks Response", response.data);
-        // setBookmarkedSpots(response.data);
-        setBookmarkedSpots([
-          {
-            spotTranslationId: 1,
-            spotId: 1,
-            name: "성산일출봉",
-            imgUrl: "http://~~~.com/~~~.jpg",
-            simpleExplanation: "설문대할망이 태어난 장소",
-            bookmarked: true,
-            spotCategories: "HISTORY, LOVE",
-          },
-          {
-            spotTranslationId: 2,
-            spotId: 2,
-            name: "성산일출봉",
-            imgUrl: "http://~~~.com/~~~.jpg",
-            simpleExplanation: "설문대할망이 태어난 장소",
-            bookmarked: true,
-            spotCategories: "HISTORY, LOVE",
-          },
-          {
-            spotTranslationId: 3,
-            spotId: 3,
-            name: "성산일출봉",
-            imgUrl: "http://~~~.com/~~~.jpg",
-            simpleExplanation: "설문대할망이 태어난 장소",
-            bookmarked: true,
-            spotCategories: "HISTORY, LOVE",
-          },
-        ]);
+        setBookmarkedSpots(response.data);
       })
       .catch((error) => {
         console.log("Spot bookmarks Error", error);
       });
+  };
+
+  useEffect(() => {
+    fetchBookmarkSpots();
   }, []);
+
+  const handleBookmarkSpots = () => {
+    fetchBookmarkSpots();
+  };
 
   // 북마크한 경로
   useEffect(() => {
@@ -150,6 +129,21 @@ const MyTripPage = () => {
         console.log("my routes Error", error);
       });
   }, []);
+
+  /** 아이템 클릭 */
+  const handleItemClick = (props) => {
+    // props -> [데이터, 타입(ROUTE, ATRCT)] (타입에 따라 넘어가는 페이지가 다름)
+    const [data, type, routeType] = props;
+    console.log(data, type, routeType);
+    if (type === "PLACE") {
+      navigate(`/spots/${data.id}`);
+    } else if (type === "ROUTE") {
+      // routeType => SERVICE : 서비스 제공 루트 / DONE : 저장한 사용자 커스텀 루트
+      navigate(`/route/recommend/${data.id}`, {
+        state: { routeId: data.id, routeType: "SERVICE", bookmark: data.bookmark },
+      });
+    }
+  };
 
   /** 루트 아이템 체크 */
   const handleCheckChange = (id) => {
@@ -237,8 +231,9 @@ const MyTripPage = () => {
                   isChecked={checkRoutes.includes(data.id)}
                   onCheckChange={() => handleCheckChange(data.id)}
                   checkRoutes={checkRoutes}
-                  id={data.id}
                   language={language}
+                  onClick={() => handleItemClick(data.id, "ATRCT")}
+                  onBookmarkChange={handleBookmarkSpots}
                 />
               );
             })}
@@ -262,7 +257,13 @@ const MyTripPage = () => {
                 <h3>{text.SAVED_ROUTE}</h3>
               </Container>
               {bookmarkedRoutes.map(normalizeData).map((data) => {
-                return <AttractionItem key={data.id} data={data} />;
+                return (
+                  <AttractionItem
+                    key={data.id}
+                    data={data}
+                    onClick={() => handleItemClick(data.id, "ROUTE", "SERVICE")}
+                  />
+                );
               })}
             </StyledRoutesSection>
             <StyledRoutesSection>
@@ -275,9 +276,7 @@ const MyTripPage = () => {
                     key={data.id}
                     data={data}
                     type="DELETE"
-                    onClick={() => {
-                      console.log("클릭");
-                    }}
+                    onClick={() => handleItemClick(data.id, "ROUTE", "CUSTOM")}
                     onDelete={handleDeleteClick}
                   />
                 );
