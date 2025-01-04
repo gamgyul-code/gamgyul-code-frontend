@@ -47,9 +47,12 @@ const StyledButton = styled.button`
     return color === "gray" ? theme.color.gray2 : theme.color.white;
   }};
   box-shadow: ${({ isShadow }) => (isShadow ? "0px 2px 2px 0px #00000033" : "none")};
-  ${({ isIcon }) =>
+  ${({ isIcon, disabled }) =>
     isIcon &&
     `
+    path {
+      fill: ${disabled ? theme.color.gray2 : theme.color.gray1};
+    }
       display: flex;
       justify-content: center;
       align-items: center;

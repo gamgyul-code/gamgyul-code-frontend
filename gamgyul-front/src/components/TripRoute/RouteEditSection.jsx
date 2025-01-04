@@ -69,7 +69,7 @@ const RouteEditSection = ({ setIsEditing, routeData, setRouteData }) => {
 
   /** 모달 확인 클릭 (삭제 확인) */
   const handleConfirmDelete = () => {
-    if (copyRouteData.length > 0) {
+    if (copyRouteData.length > 2) {
       const updateRoutes = copyRouteData.filter((_, index) => index !== activeRoute);
       setCopyRouteData(updateRoutes);
       setActiveRoute((prev) => (prev > 0 ? prev - 1 : 0));
@@ -91,7 +91,7 @@ const RouteEditSection = ({ setIsEditing, routeData, setRouteData }) => {
 
   return (
     <RouteEditContainer>
-      {isDeleteModal && <Modal type="DELETE" onClick={handleConfirmDelete} onClose={handleCloseDeleteModal} />}
+      {isDeleteModal && <Modal type="ATRCT_DELETE" onClick={handleConfirmDelete} onClose={handleCloseDeleteModal} />}
       <RouteEditHeader>
         <Container>
           <StyledBackBtn onClick={handleBackClick}>
@@ -109,7 +109,6 @@ const RouteEditSection = ({ setIsEditing, routeData, setRouteData }) => {
         </Container>
         <ol>
           {/* 장소 묶음 */}
-          {/* <TripRouteItem /> */}
           {copyRouteData.map((route, index) => (
             <TripRouteItem
               key={index}
@@ -126,16 +125,23 @@ const RouteEditSection = ({ setIsEditing, routeData, setRouteData }) => {
           <Container>
             <StyledLocationBtns>
               {/* 올리기 내리기 버튼 묶음 */}
-              <Button disabled={activeRoute === 0} onClick={handleMoveUp} isIcon={true}>
+              <Button disabled={activeRoute === 0} onClick={handleMoveUp} isIcon={true} color="sub4">
                 올리기
                 <IcUpArrow />
               </Button>
-              <Button disabled={activeRoute === copyRouteData.length - 1} onClick={handleMoveDown} isIcon={true}>
+              <Button
+                disabled={activeRoute === copyRouteData.length - 1}
+                onClick={handleMoveDown}
+                isIcon={true}
+                color="sub4"
+              >
                 내리기
                 <IcDownArrow />
               </Button>
             </StyledLocationBtns>
-            <Button onClick={handleDeleteClick}>삭제하기</Button>
+            <Button onClick={handleDeleteClick} disabled={copyRouteData.length < 3} color="sub2">
+              삭제하기
+            </Button>
             <Button onClick={handleCompleteClick}>완료</Button>
           </Container>
         </RouteEditFooter>
