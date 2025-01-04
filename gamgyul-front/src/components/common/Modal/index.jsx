@@ -28,7 +28,9 @@ const Modal = ({ onClose, onClick, type }) => {
             <p>{MODAL_TEXT[language][`${type}_SUB`]}</p>
           </ModalLimitSection>
         )}
-        {type === "DELETE" && <ModalDeleteH2>{MODAL_TEXT[language].ROUTE_DELETE_MESSAGE}</ModalDeleteH2>}
+        {["ATRCT_DELETE", "ROUTE_DELETE"].includes(type) && (
+          <ModalDeleteH2>{MODAL_TEXT[language][`${type}_MESSAGE`]}</ModalDeleteH2>
+        )}
         {type === "SAVE" && (
           <ModalRoutesSection>
             <h2>{MODAL_TEXT[language].ROUTE_NAME}</h2>
